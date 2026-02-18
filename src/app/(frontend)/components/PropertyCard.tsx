@@ -10,7 +10,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
   const firstImage = property.images?.[0] as Media | undefined
 
   return (
-    <Link href={`/properties/${property.id}`} key={property.id} className="property-card">
+    <Link href={`/properties/${property.slug}`} key={property.id} className="property-card">
       <div className="property-image-container">
         {firstImage && firstImage.url ? (
           <img src={firstImage.url} alt={property.title} className="property-image" />

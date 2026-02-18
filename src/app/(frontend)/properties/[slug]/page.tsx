@@ -4,15 +4,21 @@ import { ImageGallery } from './ImageGallery'
 import type { Media, Property } from '@/payload-types'
 import { payloadClient } from '@/app/lib/payloadClient'
 
-const PropertyDetailsPage = async ({ params }: { params: Promise<{ id: string }> }) => {
+const PropertyDetailsPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
   let property: Property | null = null
-  const { id } = await params
+  const { slug } = await params
+
   try {
-    property = await payloadClient.findByID({
+    const propertyFind = await payloadClient.find({
       collection: 'properties',
-      id,
       depth: 1,
+      where: {
+        slug: {
+          equals: slug,
+        },
+      },
     })
+    property = propertyFind.docs[0]
   } catch (error) {
     console.error('Error fetching property:', error)
     return notFound()
