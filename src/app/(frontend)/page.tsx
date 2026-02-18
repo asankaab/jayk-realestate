@@ -1,18 +1,11 @@
-import { headers as getHeaders } from 'next/headers.js'
-import { getPayload } from 'payload'
 import React from 'react'
-
-import config from '@/payload.config'
 import type { Property } from '@/payload-types'
 import { PropertyCard } from './components/PropertyCard'
 import './styles.css'
+import { payloadClient } from '../lib/payloadClient'
 
 export default async function HomePage() {
-  const headers = await getHeaders()
-  const payloadConfig = await config
-  const payload = await getPayload({ config: payloadConfig })
-
-  const { docs: properties }: { docs: Property[] } = await payload.find({
+  const { docs: properties }: { docs: Property[] } = await payloadClient.find({
     collection: 'properties',
     sort: '-createdAt',
     depth: 1, // Add depth to populate relationships

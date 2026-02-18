@@ -1,13 +1,14 @@
 import React from 'react'
-import payload from 'payload'
 import { notFound } from 'next/navigation'
 import { ImageGallery } from './ImageGallery'
 import type { Media, Property } from '@/payload-types'
+import { payloadClient } from '@/app/lib/payloadClient'
 
-const PropertyDetailsPage = async ({ params: { id } }: { params: { id: string } }) => {
+const PropertyDetailsPage = async ({ params }: { params: { id: string } }) => {
   let property: Property | null = null
+  const { id } = await params
   try {
-    property = await payload.findByID({
+    property = await payloadClient.findByID({
       collection: 'properties',
       id,
       depth: 1,
