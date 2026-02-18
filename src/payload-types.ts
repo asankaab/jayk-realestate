@@ -167,6 +167,7 @@ export interface Media {
 export interface Property {
   id: number;
   title: string;
+  slug?: string | null;
   status: 'For Sale' | 'For Rent' | 'Sold' | 'Leased';
   description?: {
     root: {
@@ -316,6 +317,7 @@ export interface MediaSelect<T extends boolean = true> {
  */
 export interface PropertiesSelect<T extends boolean = true> {
   title?: T;
+  slug?: T;
   status?: T;
   description?: T;
   price?: T;
