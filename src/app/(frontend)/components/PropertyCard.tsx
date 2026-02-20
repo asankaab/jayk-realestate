@@ -10,31 +10,38 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
   const firstImage = property.images?.[0] as Media | undefined
 
   return (
-    <Link href={`/properties/${property.slug}`} key={property.id} className="property-card">
-      <div className="property-image-container">
-        {firstImage && firstImage.url ? (
-          <img src={firstImage.url} alt={property.title} className="property-image" />
-        ) : (
-          <div className="no-image-placeholder">No Image</div>
-        )}
-        <div className="property-status-badge">{property.status}</div>
-      </div>
+    <div className="property-card">
+      <Link href={`/properties/${property.slug}`} key={property.id} >
+        <div className="property-image-container">
+          {firstImage && firstImage.url ? (
+            <img src={firstImage.url} alt={property.title} className="property-image" />
+          ) : (
+            <div className="no-image-placeholder">No Image</div>
+          )}
+          <div className="property-status-badge">{property.status}</div>
+        </div>
+      </Link>
       <div className="property-details">
-        <h2>{property.title}</h2>
+        <div className="property-price-and-title">
+          <p className="property-price">${property.price.toLocaleString()}</p>
+          <h2>{property.title}</h2>
+        </div>
         <p className="property-location">{property.location}</p>
-        <p className="property-price">${property.price.toLocaleString()}</p>
         <div className="property-specs">
           <span>
-            <strong>{property.bedrooms}</strong> bed
+            Beds: <strong>{property.bedrooms}</strong>
           </span>
           <span>
-            <strong>{property.bathrooms}</strong> bath
+            Baths: <strong>{property.bathrooms}</strong>
           </span>
           <span>
-            <strong>{property.area}</strong> sq. ft.
+            Sq.Ft: <strong>{property.area}</strong>
           </span>
         </div>
+        <Link href={`/properties/${property.slug}`} className="view-details-button">
+          View Details
+        </Link>
       </div>
-    </Link>
+    </div>
   )
 }

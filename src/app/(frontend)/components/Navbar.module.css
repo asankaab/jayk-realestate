@@ -3,30 +3,30 @@
     justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
-    background-color: #fff;
-    border-bottom: 1px solid #eaeaea;
-    color: black;
+    background-color: var(--black-color);
+    border-bottom: 1px solid var(--grey-dark);
+    color: var(--white-color);
   }
 
   .logo a {
     font-size: 1.5rem;
     font-weight: bold;
-    color: #333;
+    color: var(--primary-color);
     text-decoration: none;
   }
 
   .navLinks a {
     margin: 0 1rem;
-    color: #333;
+    color: var(--white-color);
     text-decoration: none;
     font-size: 1rem;
   }
 
   .loginButton {
     padding: 0.5rem 1rem;
-    border: 1px solid #333;
+    border: 1px solid var(--accent-color);
     border-radius: 5px;
-    color: #333;
+    color: var(--accent-color);
     text-decoration: none;
   }
 
@@ -38,7 +38,7 @@
   .hamburger div {
     width: 25px;
     height: 3px;
-    background-color: #333;
+    background-color: var(--white-color);
     margin: 5px 0;
   }
 
@@ -64,15 +64,15 @@
         top: 60px; /* Adjust based on navbar height */
         left: 0;
         width: 100%;
-        background-color: #fff;
-        border-top: 1px solid #eaeaea;
+        background-color: var(--black-color);
+        border-top: 1px solid var(--grey-dark);
         padding: 1rem 0;
         text-align: center;
     }
 
     .mobileNav a {
         padding: 1rem 0;
-        color: #333;
+        color: var(--white-color);
         text-decoration: none;
     }
 
