@@ -1,6 +1,8 @@
 import React from 'react'
 import Link from 'next/link'
 import type { Media, Property } from '@/payload-types'
+import styles from './PropertyCard.module.css'
+import { Heart, Share2 } from 'lucide-react'
 
 interface PropertyCardProps {
   property: Property
@@ -10,37 +12,51 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
   const firstImage = property.images?.[0] as Media | undefined
 
   return (
-    <div className="property-card">
-      <Link href={`/properties/${property.slug}`} key={property.id} >
-        <div className="property-image-container">
+    <div className={styles.propertyCard}>
+      <Link href={`/properties/${property.slug}`} key={property.id}>
+        <div className={styles.propertyImageContainer}>
           {firstImage && firstImage.url ? (
-            <img src={firstImage.url} alt={property.title} className="property-image" />
+            <img src={firstImage.url} alt={property.title} className={styles.propertyImage} />
           ) : (
-            <div className="no-image-placeholder">No Image</div>
+            <div className={styles.noImagePlaceholder}>No Image</div>
           )}
-          <div className="property-status-badge">{property.status}</div>
+          <div className={styles.propertyStatusBadge}>{property.status}</div>
         </div>
       </Link>
-      <div className="property-details">
-        <div className="property-price-and-title">
-          <p className="property-price">${property.price.toLocaleString()}</p>
-          <h2>{property.title}</h2>
+      <div className={styles.propertyDetails}>
+        <div className={styles.propertyPriceAndTitle}>
+          <h2 className={styles.propertyPrice}>${property.price.toLocaleString()}</h2>
+          <p>{property.title}</p>
         </div>
-        <p className="property-location">{property.location}</p>
-        <div className="property-specs">
-          <span>
-            Beds: <strong>{property.bedrooms}</strong>
-          </span>
-          <span>
-            Baths: <strong>{property.bathrooms}</strong>
-          </span>
-          <span>
-            Sq.Ft: <strong>{property.area}</strong>
-          </span>
+        <div>
+          <p className={styles.propertyLocation}>{property.location}</p>
+          <div className={styles.propertySpecs}>
+            <div className={styles.propertyFeatures}>
+              <span>
+                Beds: <strong>{property.bedrooms}</strong>
+              </span>
+              <span>
+                Baths: <strong>{property.bathrooms}</strong>
+              </span>
+            </div>
+            <span>
+              Sq.Ft: <strong>{property.area}</strong>
+            </span>
+          </div>
+          <div className={styles.buttonContainer}>
+            <Link href={`/properties/${property.slug}`} className={styles.button}>
+              View Details
+            </Link>
+            <div>
+              <button className={styles.miniButton}>
+                <Heart />
+              </button>
+              <button className={styles.miniButton}>
+                <Share2 />
+              </button>
+            </div>
+          </div>
         </div>
-        <Link href={`/properties/${property.slug}`} className="view-details-button">
-          View Details
-        </Link>
       </div>
     </div>
   )

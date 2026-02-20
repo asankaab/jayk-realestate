@@ -1,0 +1,147 @@
+.button {
+  padding: 12px 24px;
+  margin-top: 16px;
+  background-color: var(--white-color);
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+  text-align: center;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: background-color 0.2s ease-in-out;
+  cursor: pointer;
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+  align-items: center
+}
+
+.button:hover {
+  background-color: var(--primary-color);
+  color: var(--white-color);
+}
+
+.miniButton {
+  padding: 12px;
+  border-radius: 5px;
+  margin-top: 16px;
+  color: var(--grey);
+  text-align: center;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.miniButton:hover {
+  background-color: var(--primary-shade);
+  color: var(--primary-color);
+}
+
+.buttonContainer {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.propertyCard {
+  background: var(--white-color);
+  border: 1px solid var(--grey-lighter);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  color: var(--black-color);
+}
+
+.propertyCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.propertyImageContainer {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  background-color: var(--grey-lighter);
+}
+
+.propertyImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.noImagePlaceholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--grey);
+  font-weight: 500;
+}
+
+.propertyStatusBadge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: rgba(var(--accent-color-rgb), 0.8);
+  color: var(--white-color);
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  backdrop-filter: blur(2px);
+}
+
+.propertyDetails {
+  padding: 16px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.propertyPriceAndTitle {
+  margin-bottom: 8px;
+}
+
+.propertyTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--black-color);
+}
+
+.propertyLocation {
+  color: var(--grey);
+  margin-bottom: 12px;
+  font-size: 0.9rem;
+}
+
+.propertyPrice {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 8px;
+}
+
+.propertySpecs {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--grey-lighter);
+  padding-top: 12px;
+  font-size: 0.9rem;
+  color: var(--grey-dark);
+}
+
+.propertyFeatures {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}

@@ -1,5 +1,62 @@
 @import './styles/variables.css';
 
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer
+}
+
+/***********************/
+
 :root {
   --font-mono: 'Roboto Mono', monospace;
 }
@@ -46,124 +103,5 @@ h1 {
   gap: 24px;
 }
 
-.property-card {
-  background: var(--white-color);
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-  overflow: hidden;
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-  display: flex;
-  flex-direction: column;
-  color: var(--black-color);
-}
 
-.property-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-}
 
-.property-image-container {
-  position: relative;
-  width: 100%;
-  height: 200px;
-  background-color: var(--grey-lighter);
-}
-
-.property-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.no-image-placeholder {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--grey);
-  font-weight: 500;
-}
-
-.property-status-badge {
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  background: rgba(var(--accent-color-rgb), 0.8);
-  color: var(--white-color);
-  padding: 5px 10px;
-  border-radius: 5px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  backdrop-filter: blur(2px);
-}
-
-.property-details {
-  padding: 16px;
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.property-price-and-title {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 8px;
-}
-
-.property-details h2 {
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin: 0;
-  color: var(--black-color);
-  text-align: right;
-}
-
-.property-location {
-  color: var(--grey);
-  margin-bottom: 12px;
-  font-size: 0.9rem;
-}
-
-.property-price {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--primary-color);
-  margin: 0;
-}
-
-.property-specs {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-top: 1px solid var(--grey-lighter);
-  padding-top: 12px;
-  font-size: 0.9rem;
-  color: var(--grey-dark);
-}
-
-.property-specs span {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.view-details-button {
-  display: block;
-  width: 100%;
-  padding: 12px;
-  margin-top: 16px;
-  background-color: var(--primary-color);
-  color: var(--white-color);
-  text-align: center;
-  text-decoration: none;
-  border-radius: 5px;
-  font-weight: bold;
-  transition: background-color 0.2s ease-in-out;
-}
-
-.view-details-button:hover {
-  background-color: var(--accent-color);
-}
