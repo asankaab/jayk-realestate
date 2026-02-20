@@ -1,0 +1,13 @@
+:root {
+  --white-color: #ffffff;
+  --black-color: #000000;
+  --primary-color: #23346D;
+  --accent-color: #D71243;
+  --accent-color-rgb: 215, 18, 67;
+  --primary-shade: #F4F6FC;
+  --white-alpha: rgba(255, 255, 255, 0.4);
+  --grey-lighter: #DEDEDE;
+  --grey-light: #BDBDBD;
+  --grey: #808080;
+  --grey-dark: #545454;
+}
