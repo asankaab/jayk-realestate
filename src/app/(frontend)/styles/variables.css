@@ -1,6 +1,7 @@
 :root {
   --white-color: #ffffff;
   --black-color: #000000;
+  --black-color-rgb: 0, 0, 0;
   --primary-color: #23346D;
   --accent-color: #D71243;
   --accent-color-rgb: 215, 18, 67;
@@ -17,5 +18,9 @@
   --size-md: 1.5rem;
   --size-nl: 1rem;
   --size-sm: 0.75rem;
-  --size-xs: 0.875rem;
+  --size-xs: 0.5rem;
+  --size-xxs: 0.25rem;
+
+  --shadow-sm: 0 4px 8px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 8px 16px rgba(0, 0, 0, 0.1);
 }

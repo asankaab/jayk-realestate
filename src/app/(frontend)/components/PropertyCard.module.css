@@ -2,7 +2,7 @@
 
 .buttonContainer {
   display: flex;
-  gap: 10px;
+  gap: var(--size-sm);
   align-items: center;
   justify-content: space-between;
 }
@@ -10,8 +10,8 @@
 .propertyCard {
   background: var(--white-color);
   border: 1px solid var(--grey-lighter);
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  border-radius: var(--size-xs);
+  box-shadow: var(--shadow-sm);
   overflow: hidden;
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
   display: flex;
@@ -21,7 +21,7 @@
 
 .propertyCard:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-md);
 }
 
 .propertyImageContainer {
@@ -44,7 +44,6 @@
   align-items: center;
   justify-content: center;
   color: var(--grey);
-  font-weight: 500;
 }
 
 .propertyStatusBadge {
@@ -53,10 +52,9 @@
   left: var(--size-sm);
   background: rgba(var(--accent-color-rgb), 0.8);
   color: var(--white-color);
-  padding: 5px 10px;
-  border-radius: 5px;
+  padding: var(--size-xs);
+  border-radius: var(--size-xxs);
   font-size: var(--size-sm);
-  font-weight: 600;
   text-transform: uppercase;
   backdrop-filter: blur(2px);
 }
@@ -69,27 +67,22 @@
   justify-content: space-between;
 }
 
-.propertyPriceAndTitle {
-  margin-bottom: 8px;
-}
-
 .propertyTitle {
-  font-size: 1.25rem;
-  font-weight: 600;
+  font-size: var(--size-nl);
   color: var(--black-color);
+  padding-block: var(--size-sm);
 }
 
 .propertyLocation {
   color: var(--grey);
-  margin-bottom: var(--size-sm);
+  padding-block: var(--size-sm);
   font-size: var(--size-xs);
 }
 
 .propertyPrice {
   font-size: var(--size-md);
-  font-weight: 700;
+  font-weight: bold;
   color: var(--primary-color);
-  margin-bottom: 8px;
 }
 
 .propertySpecs {
@@ -97,7 +90,7 @@
   justify-content: space-between;
   align-items: center;
   border-top: 1px solid var(--grey-lighter);
-  padding-top: var(--size-sm);
+  padding-block: var(--size-sm);
   font-size: var(--size-xs);
   color: var(--grey-dark);
 }
@@ -105,5 +98,5 @@
 .propertyFeatures {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--size-xs);
 }

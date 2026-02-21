@@ -25,9 +25,9 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
         </div>
       </Link>
       <div className={styles.propertyDetails}>
-        <div className={styles.propertyPriceAndTitle}>
+        <div>
           <h2 className={styles.propertyPrice}>${property.price.toLocaleString()}</h2>
-          <p>{property.title}</p>
+          <p className={styles.propertyTitle}>{property.title}</p>
         </div>
         <div>
           <p className={styles.propertyLocation}>{property.location}</p>
