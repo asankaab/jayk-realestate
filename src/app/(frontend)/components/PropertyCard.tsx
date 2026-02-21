@@ -2,6 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import type { Media, Property } from '@/payload-types'
 import styles from './PropertyCard.module.css'
+import Button from './Button'
 import { Heart, Share2 } from 'lucide-react'
 
 interface PropertyCardProps {
@@ -44,16 +45,14 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
             </span>
           </div>
           <div className={styles.buttonContainer}>
-            <Link href={`/properties/${property.slug}`} className={styles.button}>
-              View Details
-            </Link>
+            <Button href={`/properties/${property.slug}`}>View Details</Button>
             <div>
-              <button className={styles.miniButton}>
+              <Button size="mini">
                 <Heart />
-              </button>
-              <button className={styles.miniButton}>
+              </Button>
+              <Button size="mini">
                 <Share2 />
-              </button>
+              </Button>
             </div>
           </div>
         </div>
