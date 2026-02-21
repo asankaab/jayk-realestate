@@ -1,7 +1,6 @@
 import React from 'react'
 import type { Property } from '@/payload-types'
 import { PropertyCard } from './components/PropertyCard'
-import './styles.css'
 import { payloadClient } from '../lib/payloadClient'
 
 export default async function HomePage() {
