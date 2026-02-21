@@ -6,8 +6,8 @@ import { Albert_Sans } from 'next/font/google'
 const albertSans = Albert_Sans({ subsets: ['latin'], weight: '400' })
 
 export const metadata = {
-  description: 'A blank template using Payload in a Next.js app.',
-  title: 'Payload Blank Template',
+  description: 'Buy, sell, rent properties',
+  title: 'Jayk Real Estate',
 }
 
 export default async function RootLayout(props: { children: React.ReactNode }) {
@@ -17,7 +17,9 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
     <html lang="en">
       <body className={albertSans.className}>
         <Navbar />
-        <main>{children}</main>
+        <main>
+          <div className="wrapper">{children}</div>
+        </main>
       </body>
     </html>
   )

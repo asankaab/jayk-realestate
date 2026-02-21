@@ -86,10 +86,10 @@ h1 {
   margin: 40px 0;
 }
 
-.home {
-  max-width: 1200px;
+.wrapper {
+  max-width: 1600px;
   margin: 0 auto;
-  padding: 24px;
+  padding-inline: 24px;
 }
 
 .content {

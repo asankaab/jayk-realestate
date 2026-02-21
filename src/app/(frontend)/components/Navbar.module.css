@@ -1,11 +1,14 @@
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 2rem;
+    padding: 1rem 0;
     background-color: var(--white-color);
     border-bottom: 1px solid var(--grey-lighter);
     color: var(--black-color);
+  }
+
+  .navContent {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
   .logo a {
@@ -19,7 +22,8 @@
     margin: 0 1rem;
     color: var(--black-color);
     text-decoration: none;
-    font-size: 1rem;
+    font-size: var(--nav-link-size);
+    font-weight: bold;
   }
 
   .loginButton {
@@ -74,6 +78,7 @@
         padding: 1rem 0;
         color: var(--white-color);
         text-decoration: none;
+        font-size: var(--nav-link-size);
     }
 
     .mobileNav .loginButton {
