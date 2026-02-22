@@ -1,0 +1,17 @@
+.hero {
+  position: relative;
+  height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  background-image: url('/hero-background.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+.content {
+  padding: var(--padding-block-size-nl);
+}
+

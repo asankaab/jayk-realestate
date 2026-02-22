@@ -2,7 +2,7 @@ import React from 'react'
 import type { Property } from '@/payload-types'
 import { PropertyCard } from './components/PropertyCard'
 import { payloadClient } from '../lib/payloadClient'
-import { Heading1, Heading3, SectionTitle } from './components/Text/Text'
+import { Hero } from './components/Hero'
 
 export default async function HomePage() {
   const { docs: properties }: { docs: Property[] } = await payloadClient.find({
@@ -13,9 +13,8 @@ export default async function HomePage() {
 
   return (
     <div className="home">
+      <Hero />
       <div className="content">
-        <SectionTitle>Featured Properties</SectionTitle>
-        <Heading3>Properties For Sale</Heading3>
         <div className="properties-grid">
           {properties.map((property) => (
             <PropertyCard key={property.id} property={property} />
