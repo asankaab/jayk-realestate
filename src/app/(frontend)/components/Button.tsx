@@ -6,8 +6,9 @@ type ButtonProps = {
   children: React.ReactNode;
   href?: string;
   onClick?: () => void;
-  size?: 'mini';
-  variant?: 'default' | 'accent';
+  size?: 'small' | 'default';
+  fill?: 'filled' | 'outlined';
+  color?: 'primary' | 'accent';
   className?: string;
 };
 
@@ -15,14 +16,16 @@ const Button: React.FC<ButtonProps> = ({
   children,
   href,
   onClick,
-  size,
-  variant = 'default',
+  size = 'default',
+  fill = 'filled',
+  color = 'primary',
   className,
 }) => {
   const buttonClasses = [
-    size === 'mini' ? styles.mini : styles.button,
-    variant === 'accent' && styles.accent,
-    className || '',
+    styles.button,
+    styles[`button--${size}`],
+    styles[`button--${color}--${fill}`],
+    className,
   ]
     .filter(Boolean)
     .join(' ');

@@ -55,6 +55,15 @@ button {
   cursor: pointer
 }
 
+a {
+  text-decoration: none;
+  color: var(--black-color);
+}
+
+a:visited {
+  color: var(--grey-dark);
+}
+
 /***********************/
 
 :root {

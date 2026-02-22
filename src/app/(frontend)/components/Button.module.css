@@ -1,45 +1,67 @@
+/* Base button style */
 .button {
-  padding: var(--size-nl) var(--size-md);
-  border: 1px solid var(--primary-color);
-  text-align: center;
-  text-decoration: none;
-  border-radius: 5px;
-  font-weight: bold;
-  font-size: var(--size-nl);
-  transition: background-color 0.2s ease-in-out;
-  cursor: pointer;
-  display: flex;
-  flex-grow: 1;
-  justify-content: center;
-  align-items: center
+    padding: var(--size-sm) var(--size-lg);
+    border: 1px solid transparent;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: var(--size-nl);
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+    cursor: pointer;
+    display: inline-block;
 }
 
-.button:hover {
-  background-color: var(--primary-color);
-  color: var(--white-color);
+/* Sizes */
+.button--small {
+    padding: var(--size-xs) var(--size-sm);
 }
 
-.mini {
-  padding: var(--size-sm) var(--size-nl);
-  border-radius: 5px;
-  text-decoration: none;
-  font-size: var(--size-nl);
-  transition: background-color 0.2s ease-in-out;
-  cursor: pointer;
+/* Color and fill variations */
+
+/* Primary */
+.button--primary--filled {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    border-color: var(--primary-color);
 }
 
-.mini:hover {
-  background-color: var(--primary-shade);
-  color: var(--primary-color);
+.button--primary--filled:hover {
+    background-color: var(--primary-shade);
+    border-color: var(--primary-shade);
+    color: var(--primary-color);
 }
 
-.accent {
-  background-color: var(--accent-color);
-  color: var(--white-color);
-  border: 1px solid var(--accent-color);
+.button--primary--outlined {
+    background-color: transparent;
+    color: var(--primary-color);
+    border-color: var(--primary-color);
 }
 
-.accent:hover {
-  background-color: var(--primary-color);
-  border: 1px solid var(--primary-color);
+.button--primary--outlined:hover {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+}
+
+/* Accent */
+.button--accent--filled {
+    background-color: var(--accent-color);
+    color: var(--white-color);
+    border-color: var(--accent-color);
+}
+
+.button--accent--filled:hover {
+    background-color: var(--accent-shade);
+    border-color: var(--accent-shade);
+}
+
+.button--accent--outlined {
+    background-color: transparent;
+    color: var(--accent-color);
+    border-color: var(--accent-color);
+}
+
+.button--accent--outlined:hover {
+    background-color: var(--accent-color);
+    color: var(--white-color);
 }

@@ -45,7 +45,9 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
             </span>
           </div>
           <div className={styles.buttonContainer}>
-            <Button href={`/properties/${property.slug}`}>View Details</Button>
+            <Button color="primary" fill="outlined" href={`/properties/${property.slug}`}>
+              View Details
+            </Button>
             <div className={styles.actionContainer}>
               <button className={styles.actionButton}>
                 <Heart /> 21

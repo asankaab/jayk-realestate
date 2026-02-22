@@ -39,11 +39,17 @@ const Navbar = () => {
 
           <div className={styles.rightSide}>
             <div className={styles.buttonContainer}>
-              <Button variant="accent" href="/signup" onClick={toggleMenu}>
+              <Button size="small" color="accent" href="/signup" onClick={toggleMenu}>
                 Sign up
               </Button>
-              <Button variant="accent" href="/login" onClick={toggleMenu}>
-                login
+              <Button
+                size="small"
+                fill="outlined"
+                color="primary"
+                href="/login"
+                onClick={toggleMenu}
+              >
+                Login
               </Button>
             </div>
           </div>
@@ -63,11 +69,11 @@ const Navbar = () => {
             </Link>
           ))}
           <div className={styles.buttonContainer}>
-            <Button variant="accent" href="/signup" onClick={toggleMenu}>
+            <Button color="accent" href="/signup" onClick={toggleMenu}>
               Sign up
             </Button>
-            <Button variant="accent" href="/login" onClick={toggleMenu}>
-              login
+            <Button fill="outlined" color="primary" href="/login" onClick={toggleMenu}>
+              Login
             </Button>
           </div>
         </div>

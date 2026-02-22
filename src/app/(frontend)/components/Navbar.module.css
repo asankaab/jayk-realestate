@@ -28,6 +28,7 @@
 
 .buttonContainer {
   display: flex;
+  flex-direction: column;
   gap: var(--size-nl);
 }
 
@@ -55,15 +56,20 @@
   z-index: 9;
 }
 
-.mobileNav a {
+.mobileNav > a {
   display: block;
   padding: var(--size-md) 0;
-  color: var(--black-color);
   font-weight: bold;
   text-decoration: none;
   font-size: var(--size-nl);
   border-bottom: 1px solid var(--grey-lighter);
 }
+
+.mobileNav > a:last-of-type {
+  border-bottom: none;
+  margin-bottom: var(--size-nl);
+}
+
 
 .button {
   padding: 0.5rem 1rem;
@@ -78,19 +84,33 @@
   .leftSide, .rightSide {
     display: flex;
     align-items: center;
+    gap: var(--size-xl);
   }
   .navLinks,
   .buttonContainer {
     display: flex;
+    flex-direction: row;
     align-items: center;
   }
 
+  .navLinks {
+    gap: var(--size-lg);
+  }
+
   .navLinks a {
-    margin: 0 1rem;
     color: var(--black-color);
     text-decoration: none;
     font-size: var(--size-nl);
     font-weight: bold;
+    padding: var(--size-xs) var(--size-sm);
+    border-radius: 5px;
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+    cursor: pointer;
+  }
+
+  .navLinks a:hover {
+    background-color: var(--accent-color);
+    color: var(--white-color);
   }
 
   .hamburger,
