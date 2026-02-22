@@ -4,6 +4,14 @@ import Link from 'next/link'
 import { useState } from 'react'
 import styles from './Navbar.module.css'
 
+const navLinks = [
+  { href: '/properties/buy', label: 'Buy' },
+  { href: '/properties/sell', label: 'Sell' },
+  { href: '/our-agents', label: 'Our Agents' },
+  { href: '/about-us', label: 'Company' },
+  { href: '/contact', label: 'Contact' },
+]
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
 
@@ -15,18 +23,19 @@ const Navbar = () => {
     <nav className={styles.navbar}>
       <div className="wrapper">
         <div className={styles.navContent}>
-          <div className={styles.logo}>
-            <Link href="/">
+          <div className={styles.nav}>
+            <Link href="/" className={styles.logo}>
               <img src="jayk-logo.svg" alt="jayk logo" />
             </Link>
+            <div className={styles.navLinks}>
+              {navLinks.map((link) => (
+                <Link key={link.href} href={link.href}>
+                  {link.label}
+                </Link>
+              ))}
+            </div>
           </div>
-          <div className={styles.navLinks}>
-            <Link href="/">Home</Link>
-            <Link href="/properties">Properties</Link>
-            <Link href="/our-agents">Our Agents</Link>
-            <Link href="/about-us">About Us</Link>
-            <Link href="/contact">Contact</Link>
-          </div>
+
           <div className={styles.login}>
             <Link href="/login" className={styles.loginButton}>
               Login
@@ -43,24 +52,16 @@ const Navbar = () => {
       {isOpen && (
         <div className={styles.mobileNav}>
           <div className="wrapper">
-            <Link href="/" onClick={toggleMenu}>
-              Home
-            </Link>
-            <Link href="/properties" onClick={toggleMenu}>
-              Properties
-            </Link>
-            <Link href="/our-agents" onClick={toggleMenu}>
-              Our Agents
-            </Link>
-            <Link href="/about-us" onClick={toggleMenu}>
-              About Us
-            </Link>
-            <Link href="/contact" onClick={toggleMenu}>
-              Contact
-            </Link>
-            <Link href="/login" onClick={toggleMenu} className={styles.loginButton}>
-              Login
-            </Link>
+            <div className={styles.mobileNavContent}>
+              {navLinks.map((link) => (
+                <Link key={link.href} href={link.href} onClick={toggleMenu}>
+                  {link.label}
+                </Link>
+              ))}
+              <Link href="/login" onClick={toggleMenu} className={styles.loginButton}>
+                Login
+              </Link>
+            </div>
           </div>
         </div>
       )}

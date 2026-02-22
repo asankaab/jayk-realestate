@@ -89,7 +89,13 @@ h1 {
 .wrapper {
   max-width: 1600px;
   margin: 0 auto;
-  padding-inline: 24px;
+  padding-inline: var(--size-xl);
+}
+
+@media (min-width: 768px) {
+  .wrapper {
+    padding-inline: var(--size-xl);
+  }
 }
 
 .content {
