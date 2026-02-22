@@ -23,7 +23,7 @@ const Navbar = () => {
     <nav className={styles.navbar}>
       <div className="wrapper">
         <div className={styles.navContent}>
-          <div className={styles.nav}>
+          <div className={styles.leftSide}>
             <Link href="/" className={styles.logo}>
               <img src="jayk-logo.svg" alt="jayk logo" />
             </Link>
@@ -51,18 +51,14 @@ const Navbar = () => {
       </div>
       {isOpen && (
         <div className={styles.mobileNav}>
-          <div className="wrapper">
-            <div className={styles.mobileNavContent}>
-              {navLinks.map((link) => (
-                <Link key={link.href} href={link.href} onClick={toggleMenu}>
-                  {link.label}
-                </Link>
-              ))}
-              <Link href="/login" onClick={toggleMenu} className={styles.loginButton}>
-                Login
-              </Link>
-            </div>
-          </div>
+          {navLinks.map((link) => (
+            <Link key={link.href} href={link.href} onClick={toggleMenu}>
+              {link.label}
+            </Link>
+          ))}
+          <Link href="/login" onClick={toggleMenu} className={styles.loginButton}>
+            Login
+          </Link>
         </div>
       )}
     </nav>

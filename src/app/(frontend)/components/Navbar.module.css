@@ -1,30 +1,90 @@
 .navbar {
-    padding-block: var(--size-lg);
-    background-color: var(--white-color);
-    border-bottom: 1px solid var(--grey-lighter);
-    color: var(--black-color);
-    position: sticky;
-    z-index: 10;
-  }
+  padding-block: var(--size-lg);
+  background-color: var(--white-color);
+  border-bottom: 1px solid var(--grey-lighter);
+  color: var(--black-color);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
 
-  .navContent {
+.navContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: var(--size-lg);
+  font-weight: bold;
+  color: var(--primary-color);
+  text-decoration: none;
+  display: block;
+}
+
+.navLinks,
+.login {
+  display: none;
+}
+
+.hamburger {
+  display: block;
+  cursor: pointer;
+}
+
+.hamburger div {
+  width: 25px;
+  height: 3px;
+  background-color: var(--black-color);
+  margin: 5px 0;
+}
+
+.mobileNav {
+  display: block;
+  position: absolute;
+  top: 6rem; /* Adjust based on navbar height */
+  left: 0;
+  width: 100%;
+  height: 100dvh;
+  background-color: var(--white-color);
+  padding: 0 var(--size-xl);
+}
+
+.mobileNav a {
+  display: block;
+  padding: var(--size-md) 0;
+  color: var(--black-color);
+  font-weight: bold;
+  text-decoration: none;
+  font-size: var(--size-nl);
+  border-bottom: 1px solid var(--grey-lighter);
+}
+
+.mobileNav .loginButton {
+  display: inline-block;
+  margin: 1rem auto 0;
+  width: fit-content;
+}
+
+.loginButton {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--accent-color);
+  border-radius: 5px;
+  color: var(--accent-color);
+  text-decoration: none;
+}
+
+/* Desktop Styles */
+@media (min-width: 769px) {
+  .leftSide {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    gap: var(--size-xl);
   }
-
-  .nav {
+  .navLinks,
+  .login {
     display: flex;
     align-items: center;
-    gap: var(--size-md);
-  }
-
-  .logo {
-    font-size: var(--size-lg);
-    font-weight: bold;
-    color: var(--primary-color);
-    text-decoration: none;
-    display: block;
   }
 
   .navLinks a {
@@ -35,69 +95,8 @@
     font-weight: bold;
   }
 
-  .loginButton {
-    padding: 0.5rem 1rem;
-    border: 1px solid var(--accent-color);
-    border-radius: 5px;
-    color: var(--accent-color);
-    text-decoration: none;
-  }
-
-  .hamburger {
-    display: none;
-    cursor: pointer;
-  }
-
-  .hamburger div {
-    width: 25px;
-    height: 3px;
-    background-color: var(--black-color);
-    margin: 5px 0;
-  }
-
+  .hamburger,
   .mobileNav {
     display: none;
-    z-index: 10;
   }
-
-
-  /* Mobile Styles */
-  @media (max-width: 768px) {
-    .navLinks, .login {
-      display: none;
-    }
-
-    .hamburger {
-      display: block;
-    }
-
-    .mobileNav {
-        display: block;
-        position: absolute;
-        top: 6rem; /* Adjust based on navbar height */
-        left: 0;
-        width: 100%;
-        height: 100dvh;
-        background-color: var(--white-color);
-    }
-
-    .mobileNavContent {
-        display: flex;
-        flex-direction: column;
-      }
-
-    .mobileNav a {
-        padding: var(--size-md) 0;
-        color: var(--black-color);
-        font-weight: bold;
-        text-decoration: none;
-        font-size: var(--size-nl);
-        border-bottom: 1px solid var(--grey-lighter);
-    }
-
-    .mobileNav .loginButton {
-        display: inline-block;
-        margin: 1rem auto 0;
-        width: fit-content;
-    }
-  }
+}
