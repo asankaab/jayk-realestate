@@ -1,5 +1,5 @@
 .navbar {
-  padding-block: var(--size-lg);
+  padding-block: var(--size-nl);
   background-color: var(--white-color);
   border-bottom: 1px solid var(--grey-lighter);
   color: var(--black-color);
@@ -22,9 +22,13 @@
   display: block;
 }
 
-.navLinks,
-.login {
+.navLinks, .rightSide {
   display: none;
+}
+
+.buttonContainer {
+  display: flex;
+  gap: var(--size-nl);
 }
 
 .hamburger {
@@ -42,12 +46,13 @@
 .mobileNav {
   display: block;
   position: absolute;
-  top: 6rem; /* Adjust based on navbar height */
+  top: 3.5rem; /* Adjust based on navbar height */
   left: 0;
   width: 100%;
   height: 100dvh;
   background-color: var(--white-color);
-  padding: 0 var(--size-xl);
+  padding: 0 var(--size-lg);
+  z-index: 9;
 }
 
 .mobileNav a {
@@ -60,13 +65,7 @@
   border-bottom: 1px solid var(--grey-lighter);
 }
 
-.mobileNav .loginButton {
-  display: inline-block;
-  margin: 1rem auto 0;
-  width: fit-content;
-}
-
-.loginButton {
+.button {
   padding: 0.5rem 1rem;
   border: 1px solid var(--accent-color);
   border-radius: 5px;
@@ -76,13 +75,12 @@
 
 /* Desktop Styles */
 @media (min-width: 769px) {
-  .leftSide {
+  .leftSide, .rightSide {
     display: flex;
     align-items: center;
-    gap: var(--size-xl);
   }
   .navLinks,
-  .login {
+  .buttonContainer {
     display: flex;
     align-items: center;
   }

@@ -2,7 +2,7 @@
 
 .buttonContainer {
   display: flex;
-  gap: var(--size-sm);
+  gap: var(--size-xl);
   align-items: center;
   justify-content: space-between;
 }
@@ -10,7 +10,7 @@
 .propertyCard {
   background: var(--white-color);
   border: 1px solid var(--grey-lighter);
-  border-radius: var(--size-xs);
+  border-radius: var(--size-nl);
   box-shadow: var(--shadow-sm);
   overflow: hidden;
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
@@ -27,7 +27,7 @@
 .propertyImageContainer {
   position: relative;
   width: 100%;
-  height: 200px;
+  height: 16rem;
   background-color: var(--grey-lighter);
 }
 
@@ -99,4 +99,31 @@
   display: flex;
   align-items: center;
   gap: var(--size-xs);
+}
+
+.actionContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center
+}
+
+.actionButton {
+  padding: var(--size-sm) var(--size-nl);
+  border-radius: 5px;
+  color: var(--grey);
+  text-align: center;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: var(--size-nl);
+  transition: background-color 0.2s ease-in-out;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--size-xs);
+}
+
+.actionButton:hover {
+  background-color: var(--primary-shade);
+  color: var(--primary-color);
 }

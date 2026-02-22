@@ -7,14 +7,25 @@ type ButtonProps = {
   href?: string;
   onClick?: () => void;
   size?: 'mini';
+  variant?: 'default' | 'accent';
   className?: string;
 };
 
-const Button: React.FC<ButtonProps> = ({ children, href, onClick, size, className }) => {
+const Button: React.FC<ButtonProps> = ({
+  children,
+  href,
+  onClick,
+  size,
+  variant = 'default',
+  className,
+}) => {
   const buttonClasses = [
     size === 'mini' ? styles.mini : styles.button,
-    className || ''
-  ].join(' ');
+    variant === 'accent' && styles.accent,
+    className || '',
+  ]
+    .filter(Boolean)
+    .join(' ');
 
   if (href) {
     return (

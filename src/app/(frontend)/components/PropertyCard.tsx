@@ -46,13 +46,13 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
           </div>
           <div className={styles.buttonContainer}>
             <Button href={`/properties/${property.slug}`}>View Details</Button>
-            <div>
-              <Button size="mini">
-                <Heart />
-              </Button>
-              <Button size="mini">
+            <div className={styles.actionContainer}>
+              <button className={styles.actionButton}>
+                <Heart /> 21
+              </button>
+              <button className={styles.actionButton}>
                 <Share2 />
-              </Button>
+              </button>
             </div>
           </div>
         </div>

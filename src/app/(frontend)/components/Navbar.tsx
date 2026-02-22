@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import styles from './Navbar.module.css'
+import Button from './Button'
 
 const navLinks = [
   { href: '/properties/buy', label: 'Buy' },
@@ -36,10 +37,15 @@ const Navbar = () => {
             </div>
           </div>
 
-          <div className={styles.login}>
-            <Link href="/login" className={styles.loginButton}>
-              Login
-            </Link>
+          <div className={styles.rightSide}>
+            <div className={styles.buttonContainer}>
+              <Button variant="accent" href="/signup" onClick={toggleMenu}>
+                Sign up
+              </Button>
+              <Button variant="accent" href="/login" onClick={toggleMenu}>
+                login
+              </Button>
+            </div>
           </div>
           <div className={styles.hamburger} onClick={toggleMenu}>
             {/* Hamburger Icon */}
@@ -56,9 +62,14 @@ const Navbar = () => {
               {link.label}
             </Link>
           ))}
-          <Link href="/login" onClick={toggleMenu} className={styles.loginButton}>
-            Login
-          </Link>
+          <div className={styles.buttonContainer}>
+            <Button variant="accent" href="/signup" onClick={toggleMenu}>
+              Sign up
+            </Button>
+            <Button variant="accent" href="/login" onClick={toggleMenu}>
+              login
+            </Button>
+          </div>
         </div>
       )}
     </nav>
