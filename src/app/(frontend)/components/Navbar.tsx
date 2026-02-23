@@ -62,7 +62,7 @@ const Navbar = () => {
         </div>
       </div>
       {isOpen && (
-        <div className={styles.mobileNav}>
+        <div className={styles.mobileNav + ' wrapper'}>
           {navLinks.map((link) => (
             <Link key={link.href} href={link.href} onClick={toggleMenu}>
               {link.label}
