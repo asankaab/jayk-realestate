@@ -8,6 +8,9 @@ const albertSans = Albert_Sans({ subsets: ['latin'], weight: '400' })
 export const metadata = {
   description: 'Buy, sell, rent properties',
   title: 'Jayk Real Estate',
+  icons: {
+    icon: '/favicon.ico',
+  },
 }
 
 export default async function RootLayout(props: { children: React.ReactNode }) {
