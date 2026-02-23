@@ -4,6 +4,7 @@ import type { Media, Property } from '@/payload-types'
 import styles from './PropertyCard.module.css'
 import Button from './Button'
 import { Heart, Share2 } from 'lucide-react'
+import { Body, Heading3, Small } from './Text/Text'
 
 interface PropertyCardProps {
   property: Property
@@ -26,23 +27,23 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
       </Link>
       <div className={styles.propertyDetails}>
         <div>
-          <h2 className={styles.propertyPrice}>${property.price.toLocaleString()}</h2>
-          <p className={styles.propertyTitle}>{property.title}</p>
+          <Heading3 color="primary">${property.price.toLocaleString()}</Heading3>
+          <Body>{property.title}</Body>
         </div>
         <div>
-          <p className={styles.propertyLocation}>{property.location}</p>
+          <Small color="primary">{property.location}</Small>
           <div className={styles.propertySpecs}>
             <div className={styles.propertyFeatures}>
-              <span>
+              <Small>
                 Beds: <strong>{property.bedrooms}</strong>
-              </span>
-              <span>
+              </Small>
+              <Small>
                 Baths: <strong>{property.bathrooms}</strong>
-              </span>
+              </Small>
             </div>
-            <span>
+            <Small>
               Sq.Ft: <strong>{property.area}</strong>
-            </span>
+            </Small>
           </div>
           <div className={styles.buttonContainer}>
             <Button color="primary" fill="outlined" href={`/properties/${property.slug}`}>

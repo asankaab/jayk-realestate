@@ -1,17 +1,46 @@
 .hero {
-  position: relative;
-  height: 500px;
   display: flex;
+  min-height: 90vh;
+  padding: 5rem;
+  border-radius: var(--size-md);
+  gap: 5rem;
   align-items: center;
-  justify-content: center;
-  text-align: center;
-  color: white;
   background-image: url('/hero-background.jpg');
   background-size: cover;
   background-position: center;
 }
 
-.content {
-  padding: var(--padding-block-size-nl);
+.leftColumn {
+  width: 60%;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  color: black;
+}
+
+.rightColumn {
+  width: 40%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  background-color: white;
+  color: black;
+}
+.buttons {
+  display: flex;
+  gap: 1rem;
+  padding-block: var(--size-nl);
+}
+
+@media (max-width: 768px) {
+  .hero {
+    flex-direction: column;
+    padding: 2rem;
+  }
+
+  .leftColumn,
+  .rightColumn {
+    width: 100%;
+  }
 }
 

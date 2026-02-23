@@ -7,37 +7,37 @@
 }
 
 .heading1 {
-  font-size: var(--size-2xl);
+  font-size: var(--font-size-1);
   font-weight: 700;
   padding-block: var(--size-nl);
 }
 
 .heading2 {
-  font-size: var(--size-xl);
+  font-size: var(--font-size-2);
   font-weight: 700;
   padding-block: var(--size-nl);
 }
 
 .heading3 {
-  font-size: var(--size-lg);
+  font-size: var(--font-size-3);
   font-weight: 700;
   padding-block: var(--size-nl);
 }
 
 .heading4 {
-  font-size: var(--size-md);
+  font-size: var(--font-size-4);
   font-weight: 700;
   padding-block: var(--size-nl);
 }
 
 .body {
-  font-size: var(--size-nl);
+  font-size: var(--font-size-body);
   font-weight: 400;
   padding-block: var(--size-nl);
 }
 
 .small {
-  font-size: var(--size-sm);
+  font-size: var(--font-size-small);
   font-weight: 400;
   padding-block: var(--size-nl);
 }

@@ -67,24 +67,6 @@
   justify-content: space-between;
 }
 
-.propertyTitle {
-  font-size: var(--size-nl);
-  color: var(--black-color);
-  padding-block: var(--size-sm);
-}
-
-.propertyLocation {
-  color: var(--grey);
-  padding-block: var(--size-sm);
-  font-size: var(--size-xs);
-}
-
-.propertyPrice {
-  font-size: var(--size-md);
-  font-weight: bold;
-  color: var(--primary-color);
-}
-
 .propertySpecs {
   display: flex;
   justify-content: space-between;

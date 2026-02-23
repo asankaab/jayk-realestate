@@ -22,6 +22,13 @@
   --size-xs: 0.5rem;
   --size-xxs: 0.25rem;
 
+  --font-size-1: 3rem;
+  --font-size-2: 2rem;
+  --font-size-3: 1.5rem;
+  --font-size-4: 1rem;
+  --font-size-body: 0.9rem;
+  --font-size-small: 0.8rem;
+
   --shadow-sm: 0 4px 8px rgba(0, 0, 0, 0.05);
   --shadow-md: 0 8px 16px rgba(0, 0, 0, 0.1);
 }
