@@ -5,23 +5,29 @@ import Button from './Button'
 
 export const Hero = () => {
   return (
-    <div className={styles.hero}>
-      <div className={styles.leftColumn}>
-        <Heading1>
-          Unlock the door to <br />
-          your future.
-        </Heading1>
-        <Heading4>
-          We are a full-service real estate company, and we can help <br />
-          you find the perfect place to live.
-        </Heading4>
-        <div className={styles.buttons}>
-          <Button fill="outlined">Explore</Button>
-          <Button color="accent">Sign Up</Button>
+    <div className={styles.heroContainer}>
+      <div className={styles.hero + ' wrapper'}>
+        <div className={styles.leftColumn}>
+          <Heading1>
+            Unlock the door to <br />
+            your future.
+          </Heading1>
+          <Heading4>
+            We are a full-service real estate company, and we can help <br />
+            you find the perfect place to live.
+          </Heading4>
+          <div className={styles.buttons}>
+            <Button href="properties" fill="outlined">
+              Explore
+            </Button>
+            <Button href="signup" color="accent">
+              Sign Up
+            </Button>
+          </div>
         </div>
-      </div>
-      <div className={styles.rightColumn}>
-        <SearchBar />
+        <div className={styles.rightColumn}>
+          <SearchBar />
+        </div>
       </div>
     </div>
   )

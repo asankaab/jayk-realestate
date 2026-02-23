@@ -1,14 +1,17 @@
-.hero {
-  display: flex;
-  justify-content: center;
-  min-height: 90vh;
-  padding: 5rem;
+.heroContainer {
   border-radius: var(--size-md);
-  gap: 5rem;
-  align-items: center;
   background-image: url('/hero-background.jpg');
   background-size: cover;
   background-position: center;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.hero {
+  display: flex;
+  justify-content: space-between;
+  min-height: 90vh;
+  align-items: center;
 }
 
 .leftColumn {
@@ -36,7 +39,7 @@
 @media (max-width: 768px) {
   .hero {
     flex-direction: column;
-    padding: 2rem;
+    justify-content: center;
   }
 
   .leftColumn,
@@ -49,7 +52,7 @@
     width: 100%;
   }
 
-  .buttons button {
+  .buttons a {
     width: 100%;
   }
 }
