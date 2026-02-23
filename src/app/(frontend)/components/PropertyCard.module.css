@@ -2,7 +2,6 @@
 
 .buttonContainer {
   display: flex;
-  gap: var(--size-xl);
   align-items: center;
   justify-content: space-between;
 }

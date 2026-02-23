@@ -11,7 +11,7 @@
 }
 
 .leftColumn {
-  width: 60%;
+  width: 50%;
   text-align: left;
   display: flex;
   flex-direction: column;
@@ -20,7 +20,7 @@
 }
 
 .rightColumn {
-  width: 40%;
+  width: 50%;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
   background-color: white;
@@ -40,6 +40,15 @@
 
   .leftColumn,
   .rightColumn {
+    width: 100%;
+  }
+
+  .buttons {
+    text-align: center;
+    width: 100%;
+  }
+
+  .buttons button {
     width: 100%;
   }
 }

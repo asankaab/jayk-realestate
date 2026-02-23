@@ -7,10 +7,13 @@ export const Hero = () => {
   return (
     <div className={styles.hero}>
       <div className={styles.leftColumn}>
-        <Heading1>Unlock the door to your future.</Heading1>
+        <Heading1>
+          Unlock the door to <br />
+          your future.
+        </Heading1>
         <Heading4>
-          We are a full-service real estate company, and we can help you find the perfect place to
-          live.
+          We are a full-service real estate company, and we can help <br />
+          you find the perfect place to live.
         </Heading4>
         <div className={styles.buttons}>
           <Button fill="outlined">Explore</Button>

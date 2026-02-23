@@ -89,9 +89,15 @@ img {
 }
 
 .wrapper {
-  max-width: 1600px;
-  margin: 0 auto;
-  padding-inline: var(--size-lg);
+  padding-inline: var(--size-nl);
+}
+
+@media (min-width: 769px) {
+  .wrapper {
+    padding-inline: var(--size-md);
+    max-width: 1599px;
+    margin: 0 auto;
+  }
 }
 
 .content {
