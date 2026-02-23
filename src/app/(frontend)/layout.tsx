@@ -20,9 +20,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
     <html lang="en">
       <body className={albertSans.className}>
         <Navbar />
-        <main>
-          <div className="wrapper">{children}</div>
-        </main>
+        <main>{children}</main>
       </body>
     </html>
   )

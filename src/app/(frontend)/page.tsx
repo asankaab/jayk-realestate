@@ -15,7 +15,7 @@ export default async function HomePage() {
   return (
     <div className="home">
       <Hero />
-      <div className="content" style={{ paddingBlock: '2rem' }}>
+      <div className="wrapper" style={{ paddingBlock: '2rem' }}>
         <SectionTitle>Featured Properties</SectionTitle>
         <div className="properties-grid">
           {properties.map((property) => (
