@@ -1,5 +1,6 @@
 .hero {
   display: flex;
+  justify-content: center;
   min-height: 90vh;
   padding: 5rem;
   border-radius: var(--size-md);
@@ -16,15 +17,15 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  color: black;
+  color: white;
 }
 
 .rightColumn {
   width: 50%;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  border-radius: 5px;
-  background-color: white;
-  color: black;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  padding: 2rem;
 }
 .buttons {
   display: flex;

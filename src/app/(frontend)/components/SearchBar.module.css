@@ -1,21 +1,22 @@
 .searchBar {
   display: flex;
-  gap: 10px;
-  margin-top: 20px;
+  width: 100%;
 }
 
 .searchBar input {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  width: 300px;
+  background: transparent;
+  border: none;
+  width: 100%;
+  padding: 1rem;
+  color: white;
+  font-size: 1.2rem;
+  border-bottom: 1px solid white;
 }
 
-.searchBar button {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  background-color: var(--color-primary);
-  color: white;
-  cursor: pointer;
+.searchBar input::placeholder {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.searchBar input:focus {
+  outline: none;
 }

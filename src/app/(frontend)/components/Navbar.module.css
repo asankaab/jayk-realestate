@@ -52,7 +52,7 @@
   width: 100%;
   height: 100dvh;
   background-color: var(--white-color);
-  padding: 0 var(--size-lg);
+  padding: 0 var(--size-nl);
   z-index: 9;
 }
 
