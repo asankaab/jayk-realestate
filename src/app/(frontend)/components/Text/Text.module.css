@@ -21,7 +21,7 @@
 .heading3 {
   font-size: var(--font-size-3);
   font-weight: 700;
-  padding-block: var(--size-nl);
+  padding-block: var(--size-sm);
 }
 
 .heading4 {
@@ -33,19 +33,19 @@
 .body {
   font-size: var(--font-size-body);
   font-weight: 400;
-  padding-block: var(--size-nl);
+  padding-block: var(--size-xs);
 }
 
 .small {
   font-size: var(--font-size-small);
   font-weight: 400;
-  padding-block: var(--size-nl);
+  padding-block: var(--size-xxs);
 }
 
 .sectionTitle {
-  font-size: var(--size-nl);
+  font-size: var(--size-md);
   font-weight: 700;
   color: var(--grey-dark);
   text-align: center;
-  padding-block: var(--size-nl);
+  padding-block: var(--size-xl);
 }

@@ -36,8 +36,8 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
           <Heading3 color="primary">${property.price.toLocaleString()}</Heading3>
           <Body>{property.title}</Body>
         </div>
+        <Small color="primary">{property.location}</Small>
         <div>
-          <Small color="primary">{property.location}</Small>
           <div className={styles.propertySpecs}>
             <div className={styles.propertyFeatures}>
               <Small>
