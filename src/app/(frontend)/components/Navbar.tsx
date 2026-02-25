@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
 import styles from './Navbar.module.css'
@@ -26,7 +27,7 @@ const Navbar = () => {
         <div className={styles.navContent}>
           <div className={styles.leftSide}>
             <Link href="/" className={styles.logo}>
-              <img src="jayk-logo.svg" alt="jayk logo" />
+              <Image src="/jayk-logo.svg" alt="jayk logo" width={80} height={40} />
             </Link>
             <div className={styles.navLinks}>
               {navLinks.map((link) => (

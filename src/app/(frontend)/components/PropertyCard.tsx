@@ -5,6 +5,7 @@ import styles from './PropertyCard.module.css'
 import Button from './Button'
 import { Heart, Share2 } from 'lucide-react'
 import { Body, Heading3, Small } from './Text/Text'
+import Image from 'next/image'
 
 interface PropertyCardProps {
   property: Property
@@ -18,7 +19,12 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
       <Link href={`/properties/${property.slug}`} key={property.id}>
         <div className={styles.propertyImageContainer}>
           {firstImage && firstImage.url ? (
-            <img src={firstImage.url} alt={property.title} className={styles.propertyImage} />
+            <Image
+              src={firstImage.url}
+              alt={property.title}
+              className={styles.propertyImage}
+              fill
+            />
           ) : (
             <div className={styles.noImagePlaceholder}>No Image</div>
           )}
