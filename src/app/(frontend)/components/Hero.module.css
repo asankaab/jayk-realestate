@@ -20,16 +20,42 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  color: white;
 }
 
 .rightColumn {
   width: 50%;
-  background: rgba(255, 255, 255, 0.2);
   border-radius: 10px;
-  backdrop-filter: blur(10px);
-  padding: 2rem;
 }
+
+.propertyTypes {
+  margin-bottom: 2rem;
+}
+
+.propertyTypeBoxes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--size-nl);
+}
+
+.propertyTypeBox {
+  aspect-ratio: 1 / 1;
+  background: var(--white-alpha);
+  backdrop-filter: blur(10px);
+  border: 1px solid white;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.propertyTypeBox:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
 .buttons {
   display: flex;
   gap: 1rem;

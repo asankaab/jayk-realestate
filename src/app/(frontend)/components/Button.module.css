@@ -1,6 +1,6 @@
 /* Base button style */
 .button {
-    padding: var(--size-sm) var(--size-lg);
+    padding: 0.6rem var(--size-lg);
     border: 1px solid transparent;
     text-align: center;
     text-decoration: none;
