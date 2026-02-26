@@ -24,27 +24,29 @@
   border-radius: 10px;
 }
 
-.propertyTypes {
-  margin-bottom: 2rem;
-}
-
 .propertyTypeBoxes {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
   gap: var(--size-sm);
 }
 
 .propertyTypeBox {
+  flex-grow: 1;
+  min-width: var(--size-xl);
+  max-width: var(--size-2xl);
   aspect-ratio: 1 / 1;
+  padding: var(--size-sm);
   background: var(--white-alpha);
   backdrop-filter: blur(10px);
   border: 1px solid white;
   border-radius: 5px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  justify-items: center;
+  align-content: center;
+  gap: var(--size-xs);
   cursor: pointer;
   transition: background 0.3s;
 }
@@ -68,7 +70,7 @@
   }
 
   .leftColumn {
-    width: 50%;
+    width: 40%;
     text-align: left;
     display: flex;
     flex-direction: column;
@@ -77,11 +79,7 @@
 
   .rightColumn {
     width: 50%;
-  }
-
-  .propertyTypeBoxes {
-    grid-template-columns: repeat(4, 1fr);
-    gap: var(--size-nl);
+    padding-inline: 8%;
   }
 
   .buttons {
