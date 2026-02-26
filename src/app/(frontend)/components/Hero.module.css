@@ -9,21 +9,18 @@
 
 .hero {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: center;
   min-height: 90vh;
   align-items: center;
 }
 
-.leftColumn {
-  width: 50%;
-  text-align: left;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+.leftColumn,
+.rightColumn {
+  width: 100%;
 }
 
 .rightColumn {
-  width: 50%;
   border-radius: 10px;
 }
 
@@ -34,7 +31,7 @@
 .propertyTypeBoxes {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: var(--size-nl);
+  gap: var(--size-sm);
 }
 
 .propertyTypeBox {
@@ -58,28 +55,37 @@
 
 .buttons {
   display: flex;
+  flex-direction: column;
   gap: 1rem;
   padding-block: var(--size-nl);
+  width: 100%;
 }
 
-@media (max-width: 768px) {
+@media (min-width: 769px) {
   .hero {
-    flex-direction: column;
-    justify-content: center;
+    flex-direction: row;
+    justify-content: space-between;
   }
 
-  .leftColumn,
+  .leftColumn {
+    width: 50%;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
   .rightColumn {
-    width: 100%;
+    width: 50%;
+  }
+
+  .propertyTypeBoxes {
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--size-nl);
   }
 
   .buttons {
-    text-align: center;
-    width: 100%;
-  }
-
-  .buttons a {
-    width: 100%;
+    flex-direction: row;
+    width: auto;
   }
 }
-

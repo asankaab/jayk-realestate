@@ -90,8 +90,13 @@ img {
 
 .wrapper {
   padding-inline: var(--size-md);
-  max-width: 1366px;
   margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .wrapper {
+    max-width: 1366px;
+  }
 }
 
 .content {
@@ -101,8 +106,15 @@ img {
 /* Properties Grid */
 .properties-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 24px;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 16px;
+}
+
+@media (min-width: 768px) {
+  .properties-grid {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+  }
 }
 
 
