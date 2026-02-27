@@ -1,24 +1,85 @@
-.searchBar {
-  display: flex;
-  width: 100%;
-  padding-block: var(--size-md);
-}
-
-.searchBar input {
-  background: transparent;
-  border: none;
-  width: 100%;
-  padding: var(--size-nl);
-  border: 1px solid  var(--white-color);
-  border-radius: 5px;
-  background-color: var(--white-alpha);
-  backdrop-filter: blur(5px);
-}
-
-.searchBar input::placeholder {
-  color: var(--grey);
-}
-
-.searchBar input:focus {
-  outline: none;
-}
+.searchContainer {
+    width: 100%;
+  }
+  
+  .tabs {
+    display: flex;
+    margin-bottom: -1px;
+    z-index: 1;
+    position: relative;
+  }
+  
+  .tab {
+    background: var(--primary-shade);
+    border: 1px solid var(--white-color);
+    border-bottom: none;
+    padding: var(--size-sm) var(--size-md);
+    cursor: pointer;
+    border-radius: 5px 5px 0 0;
+    color: var(--grey);
+    margin-right: 5px;
+  }
+  
+  .tab.active {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    border-bottom: 1px solid transparent;
+  }
+  
+  .content {
+    padding: var(--size-md);
+    border: 1px solid var(--white-color);
+    border-radius: 0 5px 5px 5px;
+    background-color: var(--white-alpha);
+    backdrop-filter: blur(5px);
+  }
+  
+  .searchBar {
+    display: flex;
+    width: 100%;
+  }
+  
+  .searchBar input {
+    background: transparent;
+    border: none;
+    width: 100%;
+    padding: var(--size-nl);
+    border: 1px solid var(--white-color);
+    border-radius: 5px;
+  }
+  
+  .searchBar input::placeholder {
+    color: var(--grey);
+  }
+  
+  .searchBar input:focus {
+    outline: none;
+    background-color: var(--white-color);
+  }
+  
+  .valueForm {
+    display: flex;
+    gap: var(--size-sm);
+    align-items: center;
+  }
+  
+  .valueForm input {
+    background: transparent;
+    border: 1px solid var(--white-color);
+    border-radius: 5px;
+    padding: var(--size-nl);
+    width: 100%;
+  }
+  
+  .valueForm input::placeholder {
+    color: var(--grey);
+  }
+  
+  .valueForm input:focus {
+    outline: none;
+    background-color: var(--white-color);
+  }
+  
+  .valueForm button {
+    height: 100%;
+  }

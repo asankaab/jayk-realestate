@@ -29,6 +29,7 @@
   flex-wrap: wrap;
   justify-content: space-between;
   gap: var(--size-sm);
+  margin-bottom: var(--size-md);
 }
 
 .propertyTypeBox {
@@ -37,6 +38,7 @@
   max-width: var(--size-2xl);
   aspect-ratio: 1 / 1;
   padding: var(--size-sm);
+  color: var(--accent-color);
   background: var(--white-alpha);
   backdrop-filter: blur(10px);
   border: 1px solid white;
@@ -53,6 +55,10 @@
 
 .propertyTypeBox:hover {
   background: rgba(255, 255, 255, 0.5);
+}
+
+.propertyTypeBox small {
+  color: var(--black-color);
 }
 
 .buttons {
