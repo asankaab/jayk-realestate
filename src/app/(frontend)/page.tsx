@@ -1,16 +1,29 @@
 import React from 'react'
 import type { Property } from '@/payload-types'
 import { PropertyCard } from './components/PropertyCard'
-import { payloadClient } from '../lib/payloadClient'
 import { Hero } from './components/Hero'
 import { SectionTitle } from './components/Text/Text'
 
+async function getProperties() {
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/api/properties?sort=-createdAt&depth=1`,
+    {
+      next: {
+        tags: ['properties'],
+      },
+    },
+  )
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch properties')
+  }
+
+  const data = await response.json()
+  return data.docs
+}
+
 export default async function HomePage() {
-  const { docs: properties }: { docs: Property[] } = await payloadClient.find({
-    collection: 'properties',
-    sort: '-createdAt',
-    depth: 1, // Add depth to populate relationships
-  })
+  const properties: Property[] = await getProperties()
 
   return (
     <div className="home">

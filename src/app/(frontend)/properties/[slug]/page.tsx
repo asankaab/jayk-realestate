@@ -2,27 +2,27 @@ import React from 'react'
 import { notFound } from 'next/navigation'
 import { ImageGallery } from './ImageGallery'
 import type { Media, Property } from '@/payload-types'
-import { payloadClient } from '@/app/lib/payloadClient'
 
-const PropertyDetailsPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
-  let property: Property | null = null
-  const { slug } = await params
-
-  try {
-    const propertyFind = await payloadClient.find({
-      collection: 'properties',
-      depth: 1,
-      where: {
-        slug: {
-          equals: slug,
-        },
+async function getProperty(slug: string) {
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/api/properties?where[slug][equals]=${slug}&depth=1`,
+    {
+      next: {
+        tags: ['properties'],
       },
-    })
-    property = propertyFind.docs[0]
-  } catch (error) {
-    console.error('Error fetching property:', error)
-    return notFound()
+    },
+  )
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch property')
   }
+
+  const data = await response.json()
+  return data.docs[0]
+}
+
+const PropertyDetailsPage = async ({ params }: { params: { slug: string } }) => {
+  const property: Property | null = await getProperty(params.slug)
 
   if (!property) {
     return notFound()
