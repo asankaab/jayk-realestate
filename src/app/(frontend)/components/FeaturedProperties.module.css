@@ -1,0 +1,65 @@
+.featuredPropertiesContainer {
+  position: relative;
+}
+
+.propertiesGrid {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+}
+
+.propertiesGrid::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+
+.propertyCardWrapper {
+  flex: 0 0 auto;
+  width: 90%;
+  margin-right: 1rem;
+  scroll-snap-align: start;
+}
+
+@media (min-width: 768px) {
+  .propertyCardWrapper {
+    width: 45%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .propertyCardWrapper {
+    width: 24%;
+  }
+}
+
+.scrollButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid var(--grey-lighter);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.2s ease-in-out;
+  z-index: 1;
+}
+
+.scrollButton:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.scrollButton.left {
+  left: -20px;
+}
+
+.scrollButton.right {
+  right: -20px;
+}
