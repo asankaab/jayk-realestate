@@ -5,6 +5,7 @@ import { Hero } from './components/Hero'
 import { SectionTitle } from './components/Text/Text'
 import { FeaturedProperties } from './components/FeaturedProperties'
 import { ExploreNeighborhoods } from './components/ExploreNeighborhoods'
+import { Blog } from './components/Blog'
 
 export default async function HomePage() {
   const { docs: properties }: { docs: Property[] } = await payloadClient.find({
@@ -23,6 +24,7 @@ export default async function HomePage() {
         {properties.length === 0 && <p>No properties found.</p>}
       </div>
       <ExploreNeighborhoods />
+      <Blog />
     </div>
   )
 }
