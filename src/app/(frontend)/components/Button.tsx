@@ -1,16 +1,16 @@
-import React from 'react';
-import Link from 'next/link';
-import styles from './Button.module.css';
+import React from 'react'
+import Link from 'next/link'
+import styles from './Button.module.css'
 
 type ButtonProps = {
-  children: React.ReactNode;
-  href?: string;
-  onClick?: () => void;
-  size?: 'small' | 'default';
-  fill?: 'filled' | 'outlined';
-  color?: 'primary' | 'accent';
-  className?: string;
-};
+  children: React.ReactNode
+  href?: string
+  onClick?: () => void
+  size?: 'small' | 'default'
+  fill?: 'filled' | 'outlined'
+  color?: 'primary' | 'accent'
+  className?: string
+}
 
 const Button: React.FC<ButtonProps> = ({
   children,
@@ -28,21 +28,21 @@ const Button: React.FC<ButtonProps> = ({
     className,
   ]
     .filter(Boolean)
-    .join(' ');
+    .join(' ')
 
   if (href) {
     return (
       <Link href={href} className={buttonClasses}>
         {children}
       </Link>
-    );
+    )
   }
 
   return (
     <button onClick={onClick} className={buttonClasses}>
       {children}
     </button>
-  );
-};
+  )
+}
 
-export default Button;
+export default Button

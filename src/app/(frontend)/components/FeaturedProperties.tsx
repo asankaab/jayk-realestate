@@ -1,4 +1,4 @@
-"use client"
+'use client'
 import React, { useRef, useState, useEffect } from 'react'
 import type { Property } from '@/payload-types'
 import { PropertyCard } from './PropertyCard'
@@ -60,10 +60,7 @@ export const FeaturedProperties: React.FC<FeaturedPropertiesProps> = ({ properti
         ))}
       </div>
       {canScrollLeft && (
-        <button
-          className={`${styles.scrollButton} ${styles.left}`}
-          onClick={() => scroll('left')}
-        >
+        <button className={`${styles.scrollButton} ${styles.left}`} onClick={() => scroll('left')}>
           <ChevronLeft />
         </button>
       )}

@@ -1,7 +1,9 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useState, useRef, TouchEvent } from 'react'
 import type { Media } from '@/payload-types'
 import Image from 'next/image'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
+import styles from './ImageGallery.module.css'
 
 interface ImageGalleryProps {
   images: Media[]
@@ -9,35 +11,117 @@ interface ImageGalleryProps {
 }
 
 export const ImageGallery: React.FC<ImageGalleryProps> = ({ images, title }) => {
-  const [selectedImage, setSelectedImage] = useState<string | null>(
-    images?.[0]?.url || null,
-  )
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0)
+  const touchStartX = useRef<number>(0)
+  const touchEndX = useRef<number>(0)
+
+  if (!images || images.length === 0) {
+    return (
+      <div className={styles.noImagePlaceholder}>
+        <div>No images available</div>
+      </div>
+    )
+  }
+
+  const selectedImage = images[selectedImageIndex]
+  const imageUrl = selectedImage?.url || '/placeholder.jpg'
+
+  const handleTouchStart = (e: TouchEvent<HTMLDivElement>) => {
+    touchStartX.current = e.changedTouches[0].clientX
+  }
+
+  const handleTouchEnd = (e: TouchEvent<HTMLDivElement>) => {
+    touchEndX.current = e.changedTouches[0].clientX
+    handleSwipe()
+  }
+
+  const handleSwipe = () => {
+    const distance = touchStartX.current - touchEndX.current
+    const isLeftSwipe = distance > 50
+    const isRightSwipe = distance < -50
+
+    if (isLeftSwipe && selectedImageIndex < images.length - 1) {
+      setSelectedImageIndex(selectedImageIndex + 1)
+    }
+
+    if (isRightSwipe && selectedImageIndex > 0) {
+      setSelectedImageIndex(selectedImageIndex - 1)
+    }
+  }
+
+  const handlePrevious = () => {
+    if (selectedImageIndex > 0) {
+      setSelectedImageIndex(selectedImageIndex - 1)
+    }
+  }
+
+  const handleNext = () => {
+    if (selectedImageIndex < images.length - 1) {
+      setSelectedImageIndex(selectedImageIndex + 1)
+    }
+  }
 
   return (
-    <div>
-      <div className="mb-4 relative h-96">
-        <Image
-          src={selectedImage || '/placeholder.jpg'}
-          alt={title}
-          className="object-cover rounded-lg"
-          fill
-        />
+    <div className={styles.gallery}>
+      <div
+        className={styles.imageContainer}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+      >
+        <Image src={imageUrl} alt={title} className={styles.mainImage} fill priority />
+
+        {/* Navigation arrows */}
+        {images.length > 1 && (
+          <>
+            <button
+              onClick={handlePrevious}
+              disabled={selectedImageIndex === 0}
+              className={`${styles.navigationButton} ${styles.navigationButtonPrev}`}
+              aria-label="Previous image"
+            >
+              <ChevronLeft size={24} />
+            </button>
+            <button
+              onClick={handleNext}
+              disabled={selectedImageIndex === images.length - 1}
+              className={`${styles.navigationButton} ${styles.navigationButtonNext}`}
+              aria-label="Next image"
+            >
+              <ChevronRight size={24} />
+            </button>
+          </>
+        )}
+
+        {/* Image counter */}
+        {images.length > 1 && (
+          <div className={styles.imageCounter}>
+            {selectedImageIndex + 1} / {images.length}
+          </div>
+        )}
       </div>
-      <div className="flex space-x-2 overflow-x-auto">
-        {images?.map((image) => (
-          <Image
-            key={image.id}
-            src={image.url || '/placeholder.jpg'}
-            alt={image.alt}
-            width={96}
-            height={96}
-            className={`object-cover rounded-lg cursor-pointer ${
-              selectedImage === image.url ? 'border-2 border-blue-500' : ''
-            }`}
-            onClick={() => setSelectedImage(image.url || null)}
-          />
-        ))}
-      </div>
+
+      {/* Thumbnails */}
+      {images.length > 1 && (
+        <div className={styles.thumbnailsContainer}>
+          {images.map((image, index) => (
+            <button
+              key={image.id}
+              onClick={() => setSelectedImageIndex(index)}
+              className={`${styles.thumbnail} ${
+                selectedImageIndex === index ? styles.thumbnailActive : styles.thumbnailInactive
+              }`}
+              aria-label={`View image ${index + 1}`}
+            >
+              <Image
+                src={image.url || '/placeholder.jpg'}
+                alt={image.alt || `${title} thumbnail ${index + 1}`}
+                className={styles.thumbnailImage}
+                fill
+              />
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   )
 }

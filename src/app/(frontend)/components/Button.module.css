@@ -28,7 +28,7 @@
 
 .button--primary--filled:hover {
     background-color: var(--primary-shade);
-    border-color: var(--primary-shade);
+    border-color: var(--grey-lighter);
     color: var(--primary-color);
 }
 

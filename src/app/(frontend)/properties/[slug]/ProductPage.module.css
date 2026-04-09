@@ -1,0 +1,186 @@
+.heroSection {
+  background-color: #fff;
+  padding: 2rem 0;
+}
+
+.mainContent {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  align-items: start;
+  width: 75%;
+}
+
+.imageSection {
+  width: 100%;
+}
+
+.detailsSection {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.priceAndTags {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 1px solid #f0f0f0;
+  padding-bottom: 1.5rem;
+  gap: 2rem;
+}
+
+.priceLocation {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.tagsAndActions {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: flex-end;
+}
+
+.price {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #d81b60;
+  margin: 0;
+  line-height: 1;
+}
+
+.location {
+  font-size: 0.95rem;
+  color: #666;
+  margin: 0.5rem 0 0;
+  font-weight: 500;
+}
+
+.tags {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+.tag {
+  background-color: #d81b60;
+  color: white;
+  padding: 0.35rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.actionsBar {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.actionButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid #e0e0e0;
+  border-radius: 50%;
+  background-color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #666;
+
+  &:hover {
+    border-color: #d81b60;
+    color: #d81b60;
+    background-color: #fce4ec;
+  }
+}
+
+.description {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.descriptionText {
+  color: #666;
+  line-height: 1.6;
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.featuresGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  background-color: #f9f9f9;
+  padding: 2rem;
+  border-radius: 8px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.feature {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.featureLabel {
+  font-size: 0.85rem;
+  color: #999;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.featureValue {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #333;
+}
+
+.featuredSection {
+  padding: 4rem 0;
+  background-color: #fff;
+}
+
+.sectionTitle {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .mainContent {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    width: 100%;
+  }
+
+  .priceAndTags {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .priceLocation {
+    gap: 0.5rem;
+  }
+
+  .price {
+    font-size: 2rem;
+  }
+
+  .featuresGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
