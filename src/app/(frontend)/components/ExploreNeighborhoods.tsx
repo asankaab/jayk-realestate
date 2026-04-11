@@ -20,7 +20,7 @@ export const ExploreNeighborhoods: React.FC<ExploreNeighborhoodsProps> = ({
   },
 }) => {
   return (
-    <section className={styles.exploreSection}>
+    <section className={styles.exploreSectionContainer}>
       <div className={`wrapper ${styles.sectionContent}`}>
         <div className={styles.contentWrapper}>
           <div className={styles.textContent}>

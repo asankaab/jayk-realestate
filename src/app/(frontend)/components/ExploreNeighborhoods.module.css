@@ -1,6 +1,13 @@
-.exploreSection {
-  background-color: var(--white-color-color);
-  padding: var(--size-xl) 0;
+.exploreSectionContainer {
+  background-color: var(--white-color);
+  border-radius: var(--size-md);
+  background-size: cover;
+  background-position: center;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding-bottom: var(--size-2xl);
+  position: relative;
+  top: var(--size-xl);
 }
 
 .sectionContent {

@@ -1,6 +1,6 @@
 .blogSection {
   background-color: var(--primary-shade);
-  padding: var(--size-xl) 0;
+  padding:var(--size-2xl) 0 var(--size-xl);
 }
 
 .blogContent {
