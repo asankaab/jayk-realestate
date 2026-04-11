@@ -18,11 +18,13 @@ export default async function HomePage() {
   return (
     <div className="home">
       <Hero />
-      <div className="wrapper">
-        <SectionTitle>Featured Properties</SectionTitle>
-        <FeaturedProperties properties={properties} />
-        {properties.length === 0 && <p>No properties found.</p>}
-      </div>
+      <section className="featuredPropertiesSection">
+        <div className="wrapper">
+          <SectionTitle>Featured Properties</SectionTitle>
+          <FeaturedProperties properties={properties} />
+          {properties.length === 0 && <p>No properties found.</p>}
+        </div>
+      </section>
       <ExploreNeighborhoods />
       <Blog />
     </div>

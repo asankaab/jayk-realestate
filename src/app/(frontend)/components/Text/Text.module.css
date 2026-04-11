@@ -47,5 +47,5 @@
   font-weight: 700;
   color: var(--grey-dark);
   text-align: center;
-  padding-block: var(--size-xl);
+  padding-bottom: var(--size-xl);
 }
