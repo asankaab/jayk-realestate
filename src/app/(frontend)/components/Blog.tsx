@@ -2,7 +2,7 @@
 import React from 'react'
 import Button from './Button'
 import styles from './Blog.module.css'
-import { ChevronRight } from 'lucide-react'
+import { ArrowRightIcon, ChevronRight } from 'lucide-react'
 
 interface BlogPost {
   id: string
@@ -84,14 +84,6 @@ export const Blog: React.FC<BlogProps> = ({
     },
   ],
 }) => {
-  const getAuthorInitials = (name: string) => {
-    return name
-      .split(' ')
-      .map((n) => n[0])
-      .join('')
-      .toUpperCase()
-  }
-
   return (
     <section className={styles.blogSection}>
       <div className={`wrapper ${styles.blogContent}`}>
@@ -102,35 +94,21 @@ export const Blog: React.FC<BlogProps> = ({
             <article key={post.id} className={styles.blogCard}>
               <h3 className={styles.blogTitle}>{post.title}</h3>
 
-              <div className={styles.authorInfo}>
-                <div className={styles.authorAvatar}>
-                  {post.author?.avatar ? (
-                    <img src={post.author.avatar} alt={post.author.name} />
-                  ) : (
-                    <span className={styles.initials}>
-                      {post.author?.name ? getAuthorInitials(post.author.name) : 'JK'}
-                    </span>
-                  )}
-                </div>
-                <div className={styles.authorDetails}>
-                  <p className={styles.authorName}>{post.author?.name || 'Author'}</p>
-                  {post.publishedAt && (
-                    <p className={styles.publishDate}>
-                      {new Date(post.publishedAt).toLocaleDateString('en-US', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric',
-                      })}
-                    </p>
-                  )}
-                </div>
-              </div>
+              {post.publishedAt && (
+                <p className={styles.publishDate}>
+                  {new Date(post.publishedAt).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                  })}
+                </p>
+              )}
 
               <p className={styles.excerpt}>{post.excerpt}</p>
 
               <a href={`/blog/${post.slug || post.id}`} className={styles.readMore}>
                 <span>Read More</span>
-                <ChevronRight size={16} />
+                <ArrowRightIcon size={16} />
               </a>
             </article>
           ))}
