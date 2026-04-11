@@ -22,7 +22,11 @@
 
 .propertyCard:hover {
   transform: translateY(-5px);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.propertyCard:hover .propertyStatusBadge {
+  top: calc(var(--size-sm)*2);
 }
 
 .propertyImageContainer {
@@ -58,6 +62,7 @@
   font-size: var(--size-nl);
   text-transform: uppercase;
   backdrop-filter: blur(2px);
+  transition: top 0.2s ease-in-out;
 }
 
 .propertyDetails {
