@@ -44,7 +44,7 @@
 }
 
 .blogCard:hover {
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-sm);
   transform: translateY(-4px);
 }
 
