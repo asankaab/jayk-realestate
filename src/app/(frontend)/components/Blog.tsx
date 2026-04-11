@@ -3,6 +3,7 @@ import React from 'react'
 import Button from './Button'
 import styles from './Blog.module.css'
 import { ArrowRightIcon, ChevronRight } from 'lucide-react'
+import { SectionTitle } from './Text/Text'
 
 interface BlogPost {
   id: string
@@ -87,7 +88,7 @@ export const Blog: React.FC<BlogProps> = ({
   return (
     <section className={styles.blogSection}>
       <div className={`wrapper ${styles.blogContent}`}>
-        <h2 className={styles.sectionTitle}>Blog</h2>
+        <SectionTitle className={styles.sectionTitle}>Blog</SectionTitle>
 
         <div className={styles.blogGrid}>
           {posts.map((post) => (

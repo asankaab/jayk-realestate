@@ -4,9 +4,7 @@
 }
 
 .blogContent {
-  display: flex;
-  flex-direction: column;
-  gap: var(--size-xl);
+  display: block;
 }
 
 .sectionTitle {
