@@ -8,6 +8,17 @@ export const Users: CollectionConfig = {
   auth: true,
   fields: [
     // Email added by default
-    // Add more fields as needed
+    {
+      name: 'roles',
+      type: 'select',
+      hasMany: true,
+      options: ['admin', 'author'],
+      defaultValue: ['author'],
+      required: true,
+      saveToJWT: true,
+      access: {
+        update: ({ req: { user } }) => user?.roles?.includes('admin'),
+      },
+    },
   ],
 }

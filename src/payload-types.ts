@@ -70,6 +70,7 @@ export interface Config {
     users: User;
     media: Media;
     properties: Property;
+    blog: Blog;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -80,6 +81,7 @@ export interface Config {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     properties: PropertiesSelect<false> | PropertiesSelect<true>;
+    blog: BlogSelect<false> | BlogSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -122,6 +124,7 @@ export interface UserAuthOperations {
  */
 export interface User {
   id: number;
+  roles: ('admin' | 'author')[];
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -195,6 +198,41 @@ export interface Property {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "blog".
+ */
+export interface Blog {
+  id: number;
+  title: string;
+  slug?: string | null;
+  status: 'draft' | 'published';
+  featured?: boolean | null;
+  featuredImage?: (number | null) | Media;
+  author: number | User;
+  category?: ('Real Estate Tips' | 'Market Insights' | 'Property Guides' | 'Investment' | 'News') | null;
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  /**
+   * Brief summary of the blog post
+   */
+  excerpt: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -228,6 +266,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'properties';
         value: number | Property;
+      } | null)
+    | ({
+        relationTo: 'blog';
+        value: number | Blog;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -276,6 +318,7 @@ export interface PayloadMigration {
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
+  roles?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
@@ -326,6 +369,23 @@ export interface PropertiesSelect<T extends boolean = true> {
   area?: T;
   location?: T;
   images?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "blog_select".
+ */
+export interface BlogSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  status?: T;
+  featured?: T;
+  featuredImage?: T;
+  author?: T;
+  category?: T;
+  content?: T;
+  excerpt?: T;
   updatedAt?: T;
   createdAt?: T;
 }
