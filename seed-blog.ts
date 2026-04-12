@@ -2,6 +2,23 @@ import 'dotenv/config'
 import { getPayload } from 'payload'
 import config from './src/payload.config'
 
+type BlogPostCategory =
+  | 'Real Estate Tips'
+  | 'Market Insights'
+  | 'Property Guides'
+  | 'Investment'
+  | 'News'
+
+interface BlogPostData {
+  title: string
+  category: BlogPostCategory
+  status: 'draft' | 'published'
+  featured: boolean
+  excerpt: string
+  content: any
+  slug?: string
+}
+
 /**
  * Seed blog data into the database
  * Run with: npx tsx seed-blog.ts
@@ -21,7 +38,7 @@ async function seedBlog() {
       limit: 1,
     })
 
-    let authorId: string
+    let authorId: number
 
     if (author.docs.length === 0) {
       console.log('Creating author user...')
@@ -41,7 +58,7 @@ async function seedBlog() {
     }
 
     // Sample blog posts data
-    const blogPosts = [
+    const blogPosts: BlogPostData[] = [
       {
         title: 'Top 5 Real Estate Investment Strategies in 2025',
         category: 'Investment',
@@ -605,17 +622,25 @@ async function seedBlog() {
     // Get the author user for context so beforeValidate hook runs
     const authorUser = await payload.findByID({
       collection: 'users',
-      id: authorId as string,
+      id: authorId,
       depth: 0,
     })
 
     console.log('\nSeeding blog posts...')
     for (const post of blogPosts) {
       try {
+        const slug =
+          post.slug ||
+          post.title
+            .toLowerCase()
+            .replace(/ /g, '-')
+            .replace(/[^\w-]+/g, '')
+
         const created = await payload.create({
           collection: 'blog',
           data: {
             title: post.title,
+            slug,
             category: post.category,
             status: post.status,
             featured: post.featured,
@@ -623,6 +648,7 @@ async function seedBlog() {
             content: post.content,
             author: authorId,
           },
+          draft: false,
           user: authorUser, // Pass user context for proper hook execution
           overrideAccess: false, // Respect access control with user context
         })
