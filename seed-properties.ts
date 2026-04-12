@@ -17,7 +17,7 @@ interface PropertyData {
 
 /**
  * Seed property data into the database
- * Images must already be uploaded and have IDs from 37 to 67
+ * Images must already be uploaded and have IDs from 89 to 119
  * Run with: npx tsx seed-properties.ts
  */
 async function seedProperties() {
@@ -87,7 +87,7 @@ async function seedProperties() {
             ],
           },
         },
-        imageIds: [37, 38, 39],
+        imageIds: [89, 90, 91],
       },
       {
         title: 'Contemporary Suburban Family Home',
@@ -132,7 +132,7 @@ async function seedProperties() {
             ],
           },
         },
-        imageIds: [40, 41, 42],
+        imageIds: [92, 93, 94],
       },
       {
         title: 'Cozy Village Cottage with Charm',
@@ -177,7 +177,7 @@ async function seedProperties() {
             ],
           },
         },
-        imageIds: [43, 44],
+        imageIds: [95, 96],
       },
       {
         title: 'Historic Estate with Grounds',
@@ -222,7 +222,7 @@ async function seedProperties() {
             ],
           },
         },
-        imageIds: [45, 46, 47, 48],
+        imageIds: [97, 98, 99, 100],
       },
       {
         title: 'Urban Loft in Historic Building',
@@ -267,7 +267,7 @@ async function seedProperties() {
             ],
           },
         },
-        imageIds: [49, 50, 51],
+        imageIds: [101, 102, 103],
       },
       {
         title: 'Beachfront Villa with Ocean Views',
@@ -312,7 +312,7 @@ async function seedProperties() {
             ],
           },
         },
-        imageIds: [52, 53, 54, 55],
+        imageIds: [104, 105, 106, 107],
       },
       {
         title: 'Spacious Ranch-Style Home',
@@ -357,7 +357,7 @@ async function seedProperties() {
             ],
           },
         },
-        imageIds: [56, 57],
+        imageIds: [108, 109],
       },
       {
         title: 'Downtown Luxury Apartment',
@@ -402,7 +402,7 @@ async function seedProperties() {
             ],
           },
         },
-        imageIds: [58, 59],
+        imageIds: [110, 111],
       },
       {
         title: 'Investment Duplex in Revitalizing Neighborhood',
@@ -447,7 +447,7 @@ async function seedProperties() {
             ],
           },
         },
-        imageIds: [60, 61],
+        imageIds: [112, 113],
       },
       {
         title: 'Garden Apartment in Quiet Complex',
@@ -492,7 +492,7 @@ async function seedProperties() {
             ],
           },
         },
-        imageIds: [62, 63],
+        imageIds: [114, 115],
       },
       {
         title: 'Classic Victorian Mansion',
@@ -537,7 +537,7 @@ async function seedProperties() {
             ],
           },
         },
-        imageIds: [64, 65],
+        imageIds: [116, 117],
       },
       {
         title: 'Contemporary Studio Apartment',
@@ -582,7 +582,7 @@ async function seedProperties() {
             ],
           },
         },
-        imageIds: [66],
+        imageIds: [118],
       },
       {
         title: 'Mountain Retreat with Forest Views',
@@ -627,7 +627,7 @@ async function seedProperties() {
             ],
           },
         },
-        imageIds: [67],
+        imageIds: [119],
       },
     ]
 
