@@ -1,6 +1,6 @@
 'use client'
 import React, { useState, FormEvent } from 'react'
-import { Heading3 } from '../../components/Text/Text'
+import { Heading3, Body } from '../../components/Text/Text'
 import styles from './ContactForm.module.css'
 
 interface ContactFormProps {
@@ -123,7 +123,7 @@ export const ContactForm: React.FC<ContactFormProps> = () => {
             </button>
           </div>
 
-          {submitMessage && <p className={styles.submitMessage}>{submitMessage}</p>}
+          {submitMessage && <Body className={styles.submitMessage}>{submitMessage}</Body>}
         </form>
       </div>
     </div>

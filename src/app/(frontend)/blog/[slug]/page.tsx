@@ -6,6 +6,7 @@ import { RichText } from '../../components/RichText/RichText'
 import { Blog as BlogComponent } from '../../components/Blog'
 import { ArrowLeft, Calendar, User as UserIcon } from 'lucide-react'
 import Link from 'next/link'
+import { Heading1, Heading2, Heading3, Body } from '../../components/Text/Text'
 import styles from './BlogPostPage.module.css'
 
 const BlogPostPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
@@ -78,7 +79,7 @@ const BlogPostPage = async ({ params }: { params: Promise<{ slug: string }> }) =
         </Link>
 
         <header className={styles.postHeader}>
-          <h1 className={styles.postTitle}>{post.title}</h1>
+          <Heading1 className={styles.postTitle}>{post.title}</Heading1>
 
           <div className={styles.postMeta}>
             {post.createdAt && (
@@ -101,16 +102,12 @@ const BlogPostPage = async ({ params }: { params: Promise<{ slug: string }> }) =
               </div>
             )}
 
-            {post.category && (
-              <span className={styles.category}>{post.category}</span>
-            )}
+            {post.category && <span className={styles.category}>{post.category}</span>}
           </div>
         </header>
 
         <div className={styles.postContent}>
-          {post.excerpt && (
-            <p className={styles.excerpt}>{post.excerpt}</p>
-          )}
+          {post.excerpt && <Body className={styles.excerpt}>{post.excerpt}</Body>}
 
           {post.content && (
             <div className={styles.richTextContent}>
@@ -124,8 +121,8 @@ const BlogPostPage = async ({ params }: { params: Promise<{ slug: string }> }) =
             <div className={styles.authorInfo}>
               <UserIcon size={48} className={styles.authorIcon} />
               <div>
-                <h3 className={styles.authorName}>{author.email}</h3>
-                <p className={styles.authorBio}>Guest Author</p>
+                <Heading3 className={styles.authorName}>{author.email}</Heading3>
+                <Body className={styles.authorBio}>Guest Author</Body>
               </div>
             </div>
           </div>
@@ -135,7 +132,7 @@ const BlogPostPage = async ({ params }: { params: Promise<{ slug: string }> }) =
       {relatedPosts.length > 0 && (
         <section className={styles.relatedSection}>
           <div className={`wrapper ${styles.relatedWrapper}`}>
-            <h2 className={styles.relatedTitle}>Related Articles</h2>
+            <Heading2 className={styles.relatedTitle}>Related Articles</Heading2>
             <div className={styles.relatedGrid}>
               {relatedPosts.map((relatedPost) => (
                 <Link
@@ -143,8 +140,8 @@ const BlogPostPage = async ({ params }: { params: Promise<{ slug: string }> }) =
                   href={`/blog/${relatedPost.slug}`}
                   className={styles.relatedCard}
                 >
-                  <h3>{relatedPost.title}</h3>
-                  <p>{relatedPost.excerpt}</p>
+                  <Heading3>{relatedPost.title}</Heading3>
+                  <Body>{relatedPost.excerpt}</Body>
                   <span className={styles.readMore}>Read More →</span>
                 </Link>
               ))}

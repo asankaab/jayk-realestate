@@ -38,7 +38,7 @@
   padding: var(--size-lg);
   display: flex;
   flex-direction: column;
-  gap: var(--size-nl);
+  gap: var(--size-xs);
   border: 1px solid var(--grey-lighter);
   transition: all 0.3s ease;
 }
@@ -89,10 +89,4 @@
   display: flex;
   justify-content: center;
   margin-top: var(--size-lg);
-}
-
-.readMoreButton {
-  padding: var(--size-sm) var(--size-lg) !important;
-  font-size: 16px;
-  font-weight: 600;
 }

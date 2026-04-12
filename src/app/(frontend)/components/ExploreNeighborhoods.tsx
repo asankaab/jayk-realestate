@@ -3,6 +3,7 @@ import React from 'react'
 import Button from './Button'
 import styles from './ExploreNeighborhoods.module.css'
 import { Play } from 'lucide-react'
+import { Heading2, Body } from './Text/Text'
 
 interface ExploreNeighborhoodsProps {
   featured?: {
@@ -24,12 +25,12 @@ export const ExploreNeighborhoods: React.FC<ExploreNeighborhoodsProps> = ({
       <div className={`wrapper ${styles.sectionContent}`}>
         <div className={styles.contentWrapper}>
           <div className={styles.textContent}>
-            <h2 className={styles.title}>Explore Our Neighborhoods</h2>
-            <p className={styles.description}>
+            <Heading2 className={styles.title}>Explore Our Neighborhoods</Heading2>
+            <Body className={styles.description}>
               Tempor massa donec adipiscing egestas. Pretium facilisis massa tempor blandit eu
               curatitur orci risus. Justo lectus gravida aliquet non viverra egestas. Facilisi lorem
               eros arcu laoreet sagittis faucibus quisque fringilla. Egestas dignissim ipsum.
-            </p>
+            </Body>
             <Button className={styles.ctaButton}>Explore</Button>
           </div>
 

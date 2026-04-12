@@ -12,8 +12,8 @@ export const Users: CollectionConfig = {
       name: 'roles',
       type: 'select',
       hasMany: true,
-      options: ['admin', 'author'],
-      defaultValue: ['author'],
+      options: ['admin', 'author', 'user'],
+      defaultValue: ['user'],
       required: true,
       saveToJWT: true,
       access: {

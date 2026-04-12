@@ -61,7 +61,7 @@ a {
 }
 
 a:visited {
-  color: var(--grey-dark);
+  opacity: .9;
 }
 
 /***********************/
