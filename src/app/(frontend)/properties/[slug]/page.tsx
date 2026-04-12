@@ -7,6 +7,7 @@ import { payloadClient } from '@/app/lib/payloadClient'
 import { FeaturedProperties } from '@/app/(frontend)/components/FeaturedProperties'
 import { RichText } from '@/app/(frontend)/components/RichText/RichText'
 import { Heart, Share2 } from 'lucide-react'
+import { RevealEmail } from '@/app/(frontend)/components/RevealEmail'
 import styles from './ProductPage.module.css'
 
 const PropertyDetailsPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
@@ -119,7 +120,10 @@ const PropertyDetailsPage = async ({ params }: { params: Promise<{ slug: string 
               <div className={styles.addedBy}>
                 <div className={styles.feature} style={{ marginTop: '1.5rem' }}>
                   <span className={styles.featureLabel}>Added By</span>
-                  <span className={styles.featureValue}>{addedByName}</span>
+                  <div style={{ display: 'flex', flexDirection: 'column' }}>
+                    <span className={styles.featureValue}>{addedByName}</span>
+                    {addedByUser?.email && <RevealEmail email={addedByUser.email} />}
+                  </div>
                 </div>
               </div>
             </div>

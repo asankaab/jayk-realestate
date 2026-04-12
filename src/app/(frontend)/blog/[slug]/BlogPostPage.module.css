@@ -28,14 +28,6 @@
   margin-bottom: 3rem;
 }
 
-.postTitle {
-  font-size: clamp(2rem, 5vw, 3.5rem);
-  font-weight: 700;
-  line-height: 1.2;
-  margin-bottom: 1.5rem;
-  color: var(--color-text-dark);
-}
-
 .postMeta {
   display: flex;
   align-items: center;
@@ -164,12 +156,11 @@
 .authorName {
   font-size: 1.25rem;
   font-weight: 700;
-  margin: 0 0 0.5rem;
   color: var(--color-text-dark);
 }
 
 .authorBio {
-  margin: 0;
+  margin: var(--size-sm) 0;
   color: var(--color-text-muted);
   font-size: 0.95rem;
 }

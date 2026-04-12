@@ -6,6 +6,7 @@ import { RichText } from '@/app/(frontend)/components/RichText/RichText'
 import { ArrowLeft, Calendar, User as UserIcon } from 'lucide-react'
 import Link from 'next/link'
 import { Heading1, Heading2, Heading3, Body } from '@/app/(frontend)/components/Text/Text'
+import { RevealEmail } from '@/app/(frontend)/components/RevealEmail'
 import styles from './BlogPostPage.module.css'
 
 const BlogPostPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
@@ -67,7 +68,8 @@ const BlogPostPage = async ({ params }: { params: Promise<{ slug: string }> }) =
     return notFound()
   }
 
-  const author = post.author && typeof post.author === 'object' ? post.author : null
+  const author = typeof post.author === 'object' ? post.author : null
+  const authorName = author ? `${author.firstName} ${author.lastName || ''}`.trim() : null
 
   return (
     <article className={styles.blogPostPage}>
@@ -97,7 +99,7 @@ const BlogPostPage = async ({ params }: { params: Promise<{ slug: string }> }) =
             {author && (
               <div className={styles.metaItem}>
                 <UserIcon size={16} />
-                <span>{author.email}</span>
+                <span>{authorName}</span>
               </div>
             )}
 
@@ -120,7 +122,8 @@ const BlogPostPage = async ({ params }: { params: Promise<{ slug: string }> }) =
             <div className={styles.authorInfo}>
               <UserIcon size={48} className={styles.authorIcon} />
               <div>
-                <Heading3 className={styles.authorName}>{author.email}</Heading3>
+                <Heading3 className={styles.authorName}>{authorName}</Heading3>
+                <RevealEmail email={author.email} />
                 <Body className={styles.authorBio}>Guest Author</Body>
               </div>
             </div>
