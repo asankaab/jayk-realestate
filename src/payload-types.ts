@@ -126,6 +126,7 @@ export interface User {
   id: number;
   firstName: string;
   lastName?: string | null;
+  bio?: string | null;
   role: 'admin' | 'author' | 'user';
   updatedAt: string;
   createdAt: string;
@@ -323,6 +324,7 @@ export interface PayloadMigration {
 export interface UsersSelect<T extends boolean = true> {
   firstName?: T;
   lastName?: T;
+  bio?: T;
   role?: T;
   updatedAt?: T;
   createdAt?: T;

@@ -32,6 +32,12 @@ export const Users: CollectionConfig = {
       },
     },
     {
+      name: 'bio',
+      type: 'textarea',
+      maxLength: 250,
+      required: false,
+    },
+    {
       name: 'role',
       type: 'select',
       options: ['admin', 'author', 'user'],
