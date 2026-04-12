@@ -11,12 +11,12 @@ export const Users: CollectionConfig = {
     {
       name: 'firstName',
       type: 'text',
-      required: false,
+      required: true,
     },
     {
       name: 'lastName',
       type: 'text',
-      required: true,
+      required: false,
     },
     {
       name: 'roles',
