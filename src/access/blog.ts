@@ -6,7 +6,7 @@ import type { Access } from 'payload'
 export const canCreateBlog: Access = ({ req: { user } }) => {
   if (!user) return false
 
-  return user.roles === 'admin' || user.roles === 'author'
+  return user.role === 'admin' || user.role === 'author'
 }
 
 /**
@@ -22,12 +22,12 @@ export const canReadBlog: Access = ({ req: { user } }) => {
     } as any
   }
 
-  if (user.roles === 'admin') {
+  if (user.role === 'admin') {
     // Admins see all posts
     return true
   }
 
-  if (user.roles === 'author') {
+  if (user.role === 'author') {
     // Authors see their own posts and all published posts
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return {
@@ -45,11 +45,11 @@ export const canReadBlog: Access = ({ req: { user } }) => {
 export const canUpdateBlog: Access = async ({ req: { user, payload }, id }) => {
   if (!user) return false
 
-  if (user.roles === 'admin') {
+  if (user.role === 'admin') {
     return true
   }
 
-  if (user.roles === 'author' && id) {
+  if (user.role === 'author' && id) {
     // Authors can only update their own posts
     const post = await payload.findByID({
       collection: 'blog',
@@ -68,5 +68,5 @@ export const canUpdateBlog: Access = async ({ req: { user, payload }, id }) => {
 export const canDeleteBlog: Access = ({ req: { user } }) => {
   if (!user) return false
 
-  return user.roles === 'admin'
+  return user.role === 'admin'
 }

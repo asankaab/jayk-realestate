@@ -19,7 +19,7 @@ export const Users: CollectionConfig = {
       required: false,
     },
     {
-      name: 'roles',
+      name: 'role',
       type: 'select',
       options: ['admin', 'author', 'user'],
       defaultValue: 'user',
@@ -28,7 +28,7 @@ export const Users: CollectionConfig = {
       access: {
         update: ({ req: { user } }) => {
           if (!user) return false
-          return user.roles === 'admin'
+          return user.role === 'admin'
         },
       },
     },

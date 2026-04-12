@@ -49,7 +49,7 @@ async function seedBlog() {
           password: 'SecurePassword123!',
           firstName: 'Jay',
           lastName: 'Kyle',
-          roles: 'author',
+          role: 'author',
         },
       })
       authorId = newAuthor.id
