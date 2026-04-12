@@ -2,10 +2,10 @@ import React from 'react'
 import { notFound } from 'next/navigation'
 import type { Blog } from '@/payload-types'
 import { payloadClient } from '@/app/lib/payloadClient'
-import { RichText } from '../../components/RichText/RichText'
+import { RichText } from '@/app/(frontend)/components/RichText/RichText'
 import { ArrowLeft, Calendar, User as UserIcon } from 'lucide-react'
 import Link from 'next/link'
-import { Heading1, Heading2, Heading3, Body } from '../../components/Text/Text'
+import { Heading1, Heading2, Heading3, Body } from '@/app/(frontend)/components/Text/Text'
 import styles from './BlogPostPage.module.css'
 
 const BlogPostPage = async ({ params }: { params: Promise<{ slug: string }> }) => {

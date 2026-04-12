@@ -1,6 +1,6 @@
 'use client'
 import React, { useState, FormEvent } from 'react'
-import { Heading3, Body } from '../../components/Text/Text'
+import { Heading3, Body } from '@/app/(frontend)/components/Text/Text'
 import styles from './ContactForm.module.css'
 
 interface ContactFormProps {

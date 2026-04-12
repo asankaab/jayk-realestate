@@ -1,6 +1,6 @@
 import type { CollectionConfig, CollectionBeforeValidateHook } from 'payload'
-import { revalidate } from '../lib/revalidate'
-import { canCreateBlog, canReadBlog, canUpdateBlog, canDeleteBlog } from '../access/blog'
+import { revalidate } from '@/lib/revalidate'
+import { canCreateBlog, canReadBlog, canUpdateBlog, canDeleteBlog } from '@/access/blog'
 
 // Generate slug from title and auto-set author from current user
 const beforeValidateHook: CollectionBeforeValidateHook = ({ data, req }) => {

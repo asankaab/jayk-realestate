@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from './Blog.module.css'
 import { SectionTitle } from './Text/Text'
-import { payloadClient } from '../../lib/payloadClient'
+import { payloadClient } from '@/app/lib/payloadClient'
 import Button from './Button'
 import { BlogCard } from './BlogCard'
 

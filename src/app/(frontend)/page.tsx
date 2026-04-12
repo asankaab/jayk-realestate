@@ -1,6 +1,6 @@
 import React from 'react'
 import type { Property } from '@/payload-types'
-import { payloadClient } from '../lib/payloadClient'
+import { payloadClient } from '@/app/lib/payloadClient'
 import { Hero } from './components/Hero'
 import { SectionTitle, Body } from './components/Text/Text'
 import { FeaturedProperties } from './components/FeaturedProperties'

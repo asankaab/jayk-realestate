@@ -2,8 +2,8 @@ import React from 'react'
 import Link from 'next/link'
 import type { Blog } from '@/payload-types'
 import { payloadClient } from '@/app/lib/payloadClient'
-import { Heading1, Body } from '../components/Text/Text'
-import { BlogCard } from '../components/BlogCard'
+import { Heading1, Body } from '@/app/(frontend)/components/Text/Text'
+import { BlogCard } from '@/app/(frontend)/components/BlogCard'
 import styles from './BlogListPage.module.css'
 
 const BlogListPage = async () => {

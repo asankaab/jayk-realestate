@@ -1,5 +1,5 @@
 import type { CollectionConfig, CollectionBeforeValidateHook } from 'payload'
-import { revalidate } from '../lib/revalidate'
+import { revalidate } from '@/lib/revalidate'
 
 // All validation hooks run before any other hooks.
 // This is where we can generate the slug from the title.
