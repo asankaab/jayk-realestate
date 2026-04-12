@@ -24,6 +24,24 @@ async function seedProperties() {
   try {
     const payload = await getPayload({ config })
 
+    // First, check if a seeded user exists
+    const userQuery = await payload.find({
+      collection: 'users',
+      where: {
+        email: {
+          equals: 'asanka.abewickrama+jayk-user@gmail.com',
+        },
+      },
+      limit: 1,
+    })
+
+    if (userQuery.docs.length === 0) {
+      throw new Error('User not found. Please create the user first.')
+    }
+
+    const userId = userQuery.docs[0].id
+    console.log(`✓ Using existing user with ID: ${userId}`)
+
     // Sample properties data
     const propertiesData: PropertyData[] = [
       {
@@ -613,6 +631,13 @@ async function seedProperties() {
       },
     ]
 
+    // Get the user for context so beforeValidate hook runs
+    const contextUser = await payload.findByID({
+      collection: 'users',
+      id: userId,
+      depth: 0,
+    })
+
     console.log('Seeding properties...')
     for (const property of propertiesData) {
       try {
@@ -628,10 +653,11 @@ async function seedProperties() {
             area: property.area,
             location: property.location,
             images: property.imageIds,
-            addedBy: 22,
+            addedBy: userId,
           },
           draft: false,
-          overrideAccess: true,
+          user: contextUser,
+          overrideAccess: false,
         })
         console.log(`✓ Created: "${created.title}" (${property.imageIds.length} images)`)
       } catch (error) {
