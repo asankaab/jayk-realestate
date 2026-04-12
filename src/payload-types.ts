@@ -203,7 +203,7 @@ export interface Property {
 export interface Blog {
   id: number;
   title: string;
-  slug?: string | null;
+  slug: string;
   status: 'draft' | 'published';
   featured?: boolean | null;
   featuredImage?: (number | null) | Media;

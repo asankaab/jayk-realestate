@@ -1,90 +1,27 @@
-'use client'
 import React from 'react'
 import Button from './Button'
 import styles from './Blog.module.css'
 import { ArrowRightIcon } from 'lucide-react'
 import { SectionTitle } from './Text/Text'
+import { payloadClient } from '../../lib/payloadClient'
+import type { Blog as BlogPost } from '@/payload-types'
 
-interface BlogPost {
-  id: string
-  title: string
-  excerpt: string
-  author?: {
-    name: string
-    avatar?: string
+export const Blog = async () => {
+  const { docs: posts } = await payloadClient.find({
+    collection: 'blog',
+    where: {
+      status: {
+        equals: 'published',
+      },
+    },
+    sort: '-createdAt',
+    limit: 6,
+    depth: 1,
+  })
+
+  if (!posts || posts.length === 0) {
+    return null
   }
-  publishedAt?: string
-  slug?: string
-}
-
-interface BlogProps {
-  posts?: BlogPost[]
-}
-
-export const Blog: React.FC<BlogProps> = ({
-  posts = [
-    {
-      id: '1',
-      title: 'Navigating Real Estate as a Global Buyer: Tips for Success',
-      excerpt: 'Lorem ipsum dolor sit amet, consectetur. Vestibulum nisl purus et...',
-      author: {
-        name: 'Jay Kendall',
-        avatar: undefined,
-      },
-      publishedAt: '2024-01-15',
-    },
-    {
-      id: '2',
-      title: 'Navigating Real Estate as a Global Buyer: Tips for Success',
-      excerpt: 'Lorem ipsum dolor sit amet, consectetur. Vestibulum nisl purus et...',
-      author: {
-        name: 'Jay Kendall',
-        avatar: undefined,
-      },
-      publishedAt: '2024-01-15',
-    },
-    {
-      id: '3',
-      title: 'Navigating Real Estate as a Global Buyer: Tips for Success',
-      excerpt: 'Lorem ipsum dolor sit amet, consectetur. Vestibulum nisl purus et...',
-      author: {
-        name: 'Jay Kendall',
-        avatar: undefined,
-      },
-      publishedAt: '2024-01-15',
-    },
-    {
-      id: '4',
-      title: 'Navigating Real Estate as a Global Buyer: Tips for Success',
-      excerpt: 'Lorem ipsum dolor sit amet, consectetur. Vestibulum nisl purus et...',
-      author: {
-        name: 'Jay Kendall',
-        avatar: undefined,
-      },
-      publishedAt: '2024-01-15',
-    },
-    {
-      id: '5',
-      title: 'Navigating Real Estate as a Global Buyer: Tips for Success',
-      excerpt: 'Lorem ipsum dolor sit amet, consectetur. Vestibulum nisl purus et...',
-      author: {
-        name: 'Jay Kendall',
-        avatar: undefined,
-      },
-      publishedAt: '2024-01-15',
-    },
-    {
-      id: '6',
-      title: 'Navigating Real Estate as a Global Buyer: Tips for Success',
-      excerpt: 'Lorem ipsum dolor sit amet, consectetur. Vestibulum nisl purus et...',
-      author: {
-        name: 'Jay Kendall',
-        avatar: undefined,
-      },
-      publishedAt: '2024-01-15',
-    },
-  ],
-}) => {
   return (
     <section className={styles.blogSection}>
       <div className={`wrapper ${styles.blogContent}`}>
@@ -95,9 +32,9 @@ export const Blog: React.FC<BlogProps> = ({
             <article key={post.id} className={styles.blogCard}>
               <h3 className={styles.blogTitle}>{post.title}</h3>
 
-              {post.publishedAt && (
+              {post.createdAt && (
                 <p className={styles.publishDate}>
-                  {new Date(post.publishedAt).toLocaleDateString('en-US', {
+                  {new Date(post.createdAt).toLocaleDateString('en-US', {
                     year: 'numeric',
                     month: 'long',
                     day: 'numeric',

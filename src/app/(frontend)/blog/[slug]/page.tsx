@@ -1,0 +1,159 @@
+import React from 'react'
+import { notFound } from 'next/navigation'
+import type { Blog, User } from '@/payload-types'
+import { payloadClient } from '@/app/lib/payloadClient'
+import { RichText } from '../../components/RichText/RichText'
+import { Blog as BlogComponent } from '../../components/Blog'
+import { ArrowLeft, Calendar, User as UserIcon } from 'lucide-react'
+import Link from 'next/link'
+import styles from './BlogPostPage.module.css'
+
+const BlogPostPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
+  let post: Blog | null = null
+  let relatedPosts: Blog[] = []
+  const { slug } = await params
+
+  try {
+    // Fetch the blog post
+    const postFind = await payloadClient.find({
+      collection: 'blog',
+      depth: 2,
+      where: {
+        slug: {
+          equals: slug,
+        },
+        status: {
+          equals: 'published',
+        },
+      },
+    })
+    post = postFind.docs[0]
+
+    // Fetch related posts from same category (if applicable)
+    if (post && post.category) {
+      const relatedFind = await payloadClient.find({
+        collection: 'blog',
+        depth: 1,
+        limit: 3,
+        sort: '-createdAt',
+        where: {
+          and: [
+            {
+              status: {
+                equals: 'published',
+              },
+            },
+            {
+              category: {
+                equals: post.category,
+              },
+            },
+            {
+              slug: {
+                not_equals: slug,
+              },
+            },
+          ],
+        },
+      })
+      relatedPosts = relatedFind.docs
+    }
+  } catch (error) {
+    console.error('Error fetching blog post:', error)
+    return notFound()
+  }
+
+  if (!post) {
+    return notFound()
+  }
+
+  const author = post.author && typeof post.author === 'object' ? post.author : null
+
+  return (
+    <article className={styles.blogPostPage}>
+      <div className={`wrapper ${styles.blogPostWrapper}`}>
+        <Link href="/#blog" className={styles.backLink}>
+          <ArrowLeft size={20} />
+          <span>Back to Blog</span>
+        </Link>
+
+        <header className={styles.postHeader}>
+          <h1 className={styles.postTitle}>{post.title}</h1>
+
+          <div className={styles.postMeta}>
+            {post.createdAt && (
+              <div className={styles.metaItem}>
+                <Calendar size={16} />
+                <span>
+                  {new Date(post.createdAt).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                  })}
+                </span>
+              </div>
+            )}
+
+            {author && (
+              <div className={styles.metaItem}>
+                <UserIcon size={16} />
+                <span>{author.email}</span>
+              </div>
+            )}
+
+            {post.category && (
+              <span className={styles.category}>{post.category}</span>
+            )}
+          </div>
+        </header>
+
+        <div className={styles.postContent}>
+          {post.excerpt && (
+            <p className={styles.excerpt}>{post.excerpt}</p>
+          )}
+
+          {post.content && (
+            <div className={styles.richTextContent}>
+              <RichText data={post.content} />
+            </div>
+          )}
+        </div>
+
+        {author && (
+          <div className={styles.authorSection}>
+            <div className={styles.authorInfo}>
+              <UserIcon size={48} className={styles.authorIcon} />
+              <div>
+                <h3 className={styles.authorName}>{author.email}</h3>
+                <p className={styles.authorBio}>Guest Author</p>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {relatedPosts.length > 0 && (
+        <section className={styles.relatedSection}>
+          <div className={`wrapper ${styles.relatedWrapper}`}>
+            <h2 className={styles.relatedTitle}>Related Articles</h2>
+            <div className={styles.relatedGrid}>
+              {relatedPosts.map((relatedPost) => (
+                <Link
+                  key={relatedPost.id}
+                  href={`/blog/${relatedPost.slug}`}
+                  className={styles.relatedCard}
+                >
+                  <h3>{relatedPost.title}</h3>
+                  <p>{relatedPost.excerpt}</p>
+                  <span className={styles.readMore}>Read More →</span>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+    </article>
+  )
+}
+
+export default BlogPostPage

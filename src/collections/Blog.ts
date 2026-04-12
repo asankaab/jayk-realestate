@@ -44,14 +44,12 @@ export const Blog: CollectionConfig = {
       type: 'text',
       required: true,
     },
-    {
+   {
       name: 'slug',
       type: 'text',
+      required: true,
       unique: true,
       index: true,
-      admin: {
-        readOnly: true,
-      },
     },
     {
       name: 'status',
