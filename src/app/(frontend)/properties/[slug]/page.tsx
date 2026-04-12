@@ -51,6 +51,11 @@ const PropertyDetailsPage = async ({ params }: { params: Promise<{ slug: string 
     (img): img is Media => typeof img === 'object' && img !== null,
   )
 
+  const addedByUser = typeof property.addedBy === 'object' ? property.addedBy : null
+  const addedByName = addedByUser
+    ? `${addedByUser.firstName} ${addedByUser.lastName || ''}`.trim()
+    : null
+
   return (
     <>
       <div className={styles.heroSection}>
@@ -93,19 +98,28 @@ const PropertyDetailsPage = async ({ params }: { params: Promise<{ slug: string 
               <div className={styles.featuresGrid}>
                 <div className={styles.feature}>
                   <span className={styles.featureLabel}>Bedrooms</span>
-                  <span className={styles.featureValue}>{property.bedrooms}</span>
+                  <span className={styles.featureValue}>{property.bedrooms ?? '-'}</span>
                 </div>
                 <div className={styles.feature}>
                   <span className={styles.featureLabel}>Bathrooms</span>
-                  <span className={styles.featureValue}>{property.bathrooms}</span>
+                  <span className={styles.featureValue}>{property.bathrooms ?? '-'}</span>
                 </div>
                 <div className={styles.feature}>
                   <span className={styles.featureLabel}>Area</span>
-                  <span className={styles.featureValue}>{property.area} sq. ft.</span>
+                  <span className={styles.featureValue}>
+                    {property.area ? `${property.area} sq. ft.` : '-'}
+                  </span>
                 </div>
                 <div className={styles.feature}>
                   <span className={styles.featureLabel}>Status</span>
                   <span className={styles.featureValue}>{property.status}</span>
+                </div>
+              </div>
+
+              <div className={styles.addedBy}>
+                <div className={styles.feature} style={{ marginTop: '1.5rem' }}>
+                  <span className={styles.featureLabel}>Added By</span>
+                  <span className={styles.featureValue}>{addedByName}</span>
                 </div>
               </div>
             </div>

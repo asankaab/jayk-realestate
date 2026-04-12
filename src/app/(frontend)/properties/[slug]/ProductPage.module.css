@@ -127,6 +127,10 @@
   }
 }
 
+.addedBy {
+  padding-inline: 2rem;
+}
+
 .feature {
   display: flex;
   flex-direction: column;
