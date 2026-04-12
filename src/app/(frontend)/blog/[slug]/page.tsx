@@ -124,7 +124,7 @@ const BlogPostPage = async ({ params }: { params: Promise<{ slug: string }> }) =
               <div>
                 <Heading3 className={styles.authorName}>{authorName}</Heading3>
                 <RevealEmail email={author.email} />
-                <Body className={styles.authorBio}>Guest Author</Body>
+                <Body className={styles.authorBio}>{author.bio || ''}</Body>
               </div>
             </div>
           </div>
