@@ -1,13 +1,13 @@
 'use client'
 import React, { useState, FormEvent } from 'react'
-import { Heading3, Body } from '../../components/Text/Text'
+import { Heading3 } from '../../components/Text/Text'
 import styles from './ContactForm.module.css'
 
 interface ContactFormProps {
   propertyTitle?: string
 }
 
-export const ContactForm: React.FC<ContactFormProps> = ({ propertyTitle }) => {
+export const ContactForm: React.FC<ContactFormProps> = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',

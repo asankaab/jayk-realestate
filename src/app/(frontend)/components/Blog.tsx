@@ -2,7 +2,7 @@
 import React from 'react'
 import Button from './Button'
 import styles from './Blog.module.css'
-import { ArrowRightIcon, ChevronRight } from 'lucide-react'
+import { ArrowRightIcon } from 'lucide-react'
 import { SectionTitle } from './Text/Text'
 
 interface BlogPost {

@@ -17,7 +17,11 @@ export const Users: CollectionConfig = {
       required: true,
       saveToJWT: true,
       access: {
-        update: ({ req: { user } }) => user?.roles?.includes('admin'),
+        update: ({ req: { user } }) => {
+          if (!user) return false
+          const roles = Array.isArray(user.roles) ? user.roles : [user.roles]
+          return roles.includes('admin')
+        },
       },
     },
   ],
