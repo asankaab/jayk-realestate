@@ -99,6 +99,17 @@ img {
   }
 }
 
+.fluid-container {
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .fluid-container {
+    max-width: 90%;
+  }
+}
+
 .content {
   width: 100%;
 }

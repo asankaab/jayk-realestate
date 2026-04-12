@@ -6,7 +6,7 @@ import Button from './Button'
 
 export const Hero = () => {
   return (
-    <div className={styles.heroContainer}>
+    <div className={styles.heroContainer + ' fluid-container'}>
       <div className={styles.hero + ' wrapper'}>
         <div className={styles.leftColumn}>
           <Heading1>Unlock the door to your future.</Heading1>

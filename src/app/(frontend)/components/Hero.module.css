@@ -3,8 +3,6 @@
   background-image: url('/hero-background.jpg');
   background-size: cover;
   background-position: center;
-  max-width: 1440px;
-  margin: 0 auto;
 }
 
 .hero {
@@ -84,8 +82,7 @@
   }
 
   .rightColumn {
-    width: 50%;
-    padding-inline: 8%;
+    width: 40%;
   }
 
   .buttons {

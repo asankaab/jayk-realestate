@@ -3,8 +3,6 @@
   border-radius: var(--size-md);
   background-size: cover;
   background-position: center;
-  max-width: 1440px;
-  margin: 0 auto;
   padding-bottom: var(--size-2xl);
   position: relative;
   top: var(--size-xl);
