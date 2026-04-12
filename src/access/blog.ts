@@ -17,6 +17,7 @@ export const canCreateBlog: Access = ({ req: { user } }) => {
 export const canReadBlog: Access = ({ req: { user } }) => {
   if (!user) {
     // Unauthenticated users see only published posts
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return {
       status: { equals: 'published' },
     } as any
@@ -31,6 +32,7 @@ export const canReadBlog: Access = ({ req: { user } }) => {
 
   if (roles.includes('author')) {
     // Authors see their own posts and all published posts
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return {
       or: [{ author: { equals: user.id } }, { status: { equals: 'published' } }],
     } as any

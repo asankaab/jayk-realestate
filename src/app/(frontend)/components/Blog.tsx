@@ -2,7 +2,6 @@ import React from 'react'
 import styles from './Blog.module.css'
 import { SectionTitle } from './Text/Text'
 import { payloadClient } from '../../lib/payloadClient'
-import type { Blog as BlogPost } from '@/payload-types'
 import Button from './Button'
 import { BlogCard } from './BlogCard'
 
