@@ -21,16 +21,14 @@ export const Users: CollectionConfig = {
     {
       name: 'roles',
       type: 'select',
-      hasMany: true,
       options: ['admin', 'author', 'user'],
-      defaultValue: ['user'],
+      defaultValue: 'user',
       required: true,
       saveToJWT: true,
       access: {
         update: ({ req: { user } }) => {
           if (!user) return false
-          const roles = Array.isArray(user.roles) ? user.roles : [user.roles]
-          return roles.includes('admin')
+          return user.roles === 'admin'
         },
       },
     },

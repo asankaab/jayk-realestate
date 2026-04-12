@@ -32,7 +32,7 @@ async function seedBlog() {
       collection: 'users',
       where: {
         email: {
-          equals: 'author@example.com',
+          equals: 'asanka.abewickrama+jayk-author@gmail.com',
         },
       },
       limit: 1,
@@ -45,11 +45,11 @@ async function seedBlog() {
       const newAuthor = await payload.create({
         collection: 'users',
         data: {
-          email: 'author@example.com',
+          email: 'asanka.abewickrama+jayk-author@gmail.com',
           password: 'SecurePassword123!',
           firstName: 'Jay',
           lastName: 'Kyle',
-          roles: ['author'],
+          roles: 'author',
         },
       })
       authorId = newAuthor.id
