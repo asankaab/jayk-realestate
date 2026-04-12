@@ -47,6 +47,8 @@ async function seedBlog() {
         data: {
           email: 'author@example.com',
           password: 'SecurePassword123!',
+          firstName: 'Jay',
+          lastName: 'Kyle',
           roles: ['author'],
         },
       })
