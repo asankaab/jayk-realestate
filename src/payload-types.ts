@@ -173,6 +173,7 @@ export interface Property {
   id: number;
   title: string;
   slug?: string | null;
+  addedBy: number | User;
   status: 'For Sale' | 'For Rent' | 'Sold' | 'Leased';
   description?: {
     root: {
@@ -190,8 +191,8 @@ export interface Property {
     [k: string]: unknown;
   } | null;
   price: number;
-  bedrooms: number;
-  bathrooms: number;
+  bedrooms?: number | null;
+  bathrooms?: number | null;
   area?: number | null;
   location: string;
   images?: (number | Media)[] | null;
@@ -365,6 +366,7 @@ export interface MediaSelect<T extends boolean = true> {
 export interface PropertiesSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
+  addedBy?: T;
   status?: T;
   description?: T;
   price?: T;

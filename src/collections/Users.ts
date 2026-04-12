@@ -1,4 +1,11 @@
-import type { CollectionConfig } from 'payload'
+import type { CollectionConfig, FieldHook } from 'payload'
+
+const capitalizeFirstLetter: FieldHook = ({ value }) => {
+  if (typeof value === 'string' && value.length > 0) {
+    return value.charAt(0).toUpperCase() + value.slice(1)
+  }
+  return value
+}
 
 export const Users: CollectionConfig = {
   slug: 'users',
@@ -12,11 +19,17 @@ export const Users: CollectionConfig = {
       name: 'firstName',
       type: 'text',
       required: true,
+      hooks: {
+        beforeChange: [capitalizeFirstLetter],
+      },
     },
     {
       name: 'lastName',
       type: 'text',
       required: false,
+      hooks: {
+        beforeChange: [capitalizeFirstLetter],
+      },
     },
     {
       name: 'role',

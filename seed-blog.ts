@@ -27,8 +27,8 @@ async function seedBlog() {
   try {
     const payload = await getPayload({ config })
 
-    // First, check if a seeded user exists, or create one
-    let author = await payload.find({
+    // First, check if a seeded user exists
+    const author = await payload.find({
       collection: 'users',
       where: {
         email: {
@@ -38,26 +38,12 @@ async function seedBlog() {
       limit: 1,
     })
 
-    let authorId: number
-
     if (author.docs.length === 0) {
-      console.log('Creating author user...')
-      const newAuthor = await payload.create({
-        collection: 'users',
-        data: {
-          email: 'asanka.abewickrama+jayk-author@gmail.com',
-          password: 'SecurePassword123!',
-          firstName: 'Jay',
-          lastName: 'Kyle',
-          role: 'author',
-        },
-      })
-      authorId = newAuthor.id
-      console.log(`✓ Created author user with ID: ${authorId}`)
-    } else {
-      authorId = author.docs[0].id
-      console.log(`✓ Using existing author user with ID: ${authorId}`)
+      throw new Error('Author user not found. Please create the user first.')
     }
+
+    const authorId = author.docs[0].id
+    console.log(`✓ Using existing author user with ID: ${authorId}`)
 
     // Sample blog posts data
     const blogPosts: BlogPostData[] = [

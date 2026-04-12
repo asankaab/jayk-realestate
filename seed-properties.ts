@@ -628,6 +628,7 @@ async function seedProperties() {
             area: property.area,
             location: property.location,
             images: property.imageIds,
+            addedBy: 22,
           },
           draft: false,
           overrideAccess: true,

@@ -2,13 +2,20 @@ import type { CollectionConfig, CollectionBeforeValidateHook } from 'payload'
 import { revalidate } from '@/lib/revalidate'
 
 // All validation hooks run before any other hooks.
-// This is where we can generate the slug from the title.
-const generateSlug: CollectionBeforeValidateHook = ({ data }) => {
-  if (data && data.title && !data.slug) {
+// This is where we can generate the slug and auto-set the user.
+const beforeValidateHook: CollectionBeforeValidateHook = ({ data, req }) => {
+  if (!data) return data
+
+  if (data.title && !data.slug) {
     data.slug = data.title
       .toLowerCase()
       .replace(/ /g, '-')
       .replace(/[^\w-]+/g, '')
+  }
+
+  // Auto-set the user who added the property
+  if (req.user && !data.addedBy) {
+    data.addedBy = req.user.id
   }
 
   return data
@@ -20,7 +27,7 @@ export const Properties: CollectionConfig = {
     useAsTitle: 'title',
   },
   hooks: {
-    beforeValidate: [generateSlug],
+    beforeValidate: [beforeValidateHook],
     afterChange: [revalidate('properties')],
   },
   fields: [
@@ -34,6 +41,15 @@ export const Properties: CollectionConfig = {
       type: 'text',
       unique: true,
       index: true,
+      admin: {
+        readOnly: true,
+      },
+    },
+    {
+      name: 'addedBy',
+      type: 'relationship',
+      relationTo: 'users',
+      required: true,
       admin: {
         readOnly: true,
       },
@@ -57,12 +73,12 @@ export const Properties: CollectionConfig = {
     {
       name: 'bedrooms',
       type: 'number',
-      required: true,
+      required: false,
     },
     {
       name: 'bathrooms',
       type: 'number',
-      required: true,
+      required: false,
     },
     {
       name: 'area',
