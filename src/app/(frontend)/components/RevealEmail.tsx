@@ -31,6 +31,7 @@ export const RevealEmail = ({ email }: { email: string }) => {
         color: '#666',
         cursor: isRevealed ? 'text' : 'pointer',
         display: 'inline-block',
+        paddingBlock: '0.5rem',
       }}
       title={isRevealed ? '' : 'Click to reveal email'}
     >
