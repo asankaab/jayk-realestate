@@ -25,9 +25,19 @@
   box-shadow: var(--shadow-sm);
 }
 
-.propertyCard:hover .propertyStatusBadge {
-  top: calc(var(--size-sm)*2);
+.propertyCard:hover .featuredBadge {
+  animation: flip 0.4s ease-in-out forwards;
 }
+
+@keyframes flip {
+  0% {
+    transform: rotateY(200deg);
+  }
+  100% {
+    transform: rotateY(360deg);
+  }
+}
+
 
 .propertyImageContainer {
   position: relative;
@@ -52,6 +62,25 @@
 }
 
 .propertyStatusBadge {
+  position: absolute;
+  bottom: -0.5rem;
+  right: var(--size-sm);
+  background: var(--primary-color);
+  color: var(--white-color);
+  padding: var(--size-xs) var(--size-nl);
+  border-radius: var(--size-xxs);
+  font-size: var(--size-nl);
+  text-transform: uppercase;
+  backdrop-filter: blur(2px);
+  transition: top 0.2s ease-in-out;
+  box-shadow: var(--shadow-md);
+}
+
+.propertyStatusSold {
+  background-color: var(--grey);
+}
+
+.featuredBadge {
   position: absolute;
   top: var(--size-sm);
   left: var(--size-sm);

@@ -10,6 +10,9 @@ import { Blog } from './components/Blog'
 export default async function HomePage() {
   const { docs: properties }: { docs: Property[] } = await payloadClient.find({
     collection: 'properties',
+    where: {
+      featured: { equals: true },
+    },
     sort: '-createdAt',
     depth: 1, // Add depth to populate relationships
     limit: 10,

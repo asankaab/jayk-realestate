@@ -28,7 +28,12 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
           ) : (
             <div className={styles.noImagePlaceholder}>No Image</div>
           )}
-          <div className={styles.propertyStatusBadge}>{property.status}</div>
+          {property.featured && <div className={styles.featuredBadge}>Featured</div>}
+          <div
+            className={`${styles.propertyStatusBadge} ${property.status == 'Sold' ? styles.propertyStatusSold : ''}`}
+          >
+            {property.status}
+          </div>
         </div>
       </Link>
       <div className={styles.propertyDetails}>

@@ -33,9 +33,7 @@ const PropertyDetailsPage = async ({ params }: { params: Promise<{ slug: string 
       depth: 1,
       limit: 8,
       where: {
-        slug: {
-          not_equals: slug,
-        },
+        and: [{ slug: { not_equals: slug } }, { featured: { equals: true } }],
       },
     })
     featuredProperties = featuredFind.docs
