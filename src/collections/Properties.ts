@@ -62,6 +62,11 @@ export const Properties: CollectionConfig = {
       defaultValue: 'For Sale',
     },
     {
+      name: 'featured',
+      type: 'checkbox',
+      defaultValue: false,
+    },
+    {
       name: 'description',
       type: 'richText',
     },

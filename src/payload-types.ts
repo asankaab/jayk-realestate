@@ -176,6 +176,7 @@ export interface Property {
   slug?: string | null;
   addedBy: number | User;
   status: 'For Sale' | 'For Rent' | 'Sold' | 'Leased';
+  featured?: boolean | null;
   description?: {
     root: {
       type: string;
@@ -370,6 +371,7 @@ export interface PropertiesSelect<T extends boolean = true> {
   slug?: T;
   addedBy?: T;
   status?: T;
+  featured?: T;
   description?: T;
   price?: T;
   bedrooms?: T;
