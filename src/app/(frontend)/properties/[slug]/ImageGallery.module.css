@@ -11,8 +11,13 @@
   background-color: #f3f4f6;
   border-radius: 0.5rem;
   overflow: hidden;
-  group: '';
   touch-action: pan-y;
+}
+
+@media (min-width: 768px) {
+  .imageContainer {
+    height: 34rem;
+  }
 }
 
 .imageContainer:active {
@@ -86,7 +91,6 @@
 
 .thumbnailsContainer {
   display: flex;
-  gap: 0.5rem;
   overflow-x: auto;
   padding-bottom: 0.5rem;
   scroll-behavior: smooth;
@@ -100,13 +104,15 @@
 .thumbnailsContainer {
   -ms-overflow-style: none;
   scrollbar-width: none;
+  max-width: 90vw;
+  padding-block: var(--size-xs);
 }
 
 .thumbnail {
   position: relative;
   flex-shrink: 0;
-  width: 6rem;
-  height: 6rem;
+  width: 5rem;
+  height: 5rem;
   border-radius: 0.5rem;
   overflow: hidden;
   cursor: pointer;
@@ -127,6 +133,7 @@
   opacity: 100;
   border-color: #3b82f6;
   box-shadow: 0 0 0 2px white, 0 0 0 4px #3b82f6;
+  z-index: 5;
 }
 
 .thumbnailImage {

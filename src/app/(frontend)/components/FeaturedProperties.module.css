@@ -19,6 +19,8 @@
 .propertyCardWrapper {
   flex: 0 0 auto;
   width: 90%;
+  min-width: 220px;
+  max-width: 360px;
   margin-right: 1rem;
   scroll-snap-align: start;
 }

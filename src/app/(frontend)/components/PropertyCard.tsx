@@ -60,7 +60,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
                 <Heart /> 21
               </button>
               <button className={styles.actionButton}>
-                <Share2 />
+                <Share2 size={16} />
               </button>
             </div>
           </div>
