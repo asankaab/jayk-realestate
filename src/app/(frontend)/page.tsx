@@ -1,4 +1,3 @@
-import React from 'react'
 import type { Property } from '@/payload-types'
 import { payloadClient } from '@/app/lib/payloadClient'
 import { Hero } from './components/Hero'
