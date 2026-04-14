@@ -7,7 +7,6 @@ import styles from './Navbar.module.css'
 import Button from './Button'
 
 const navLinks = [
-  ,
   { href: '/properties', label: 'Properties' },
   { href: '/our-agents', label: 'Our Agents' },
   { href: '/about-us', label: 'Company' },
