@@ -1,6 +1,10 @@
-import type { CollectionConfig, CollectionBeforeValidateHook } from 'payload'
-import { revalidate } from '@/lib/revalidate'
+import type {
+  CollectionConfig,
+  CollectionBeforeValidateHook,
+  CollectionAfterChangeHook,
+} from 'payload'
 import { canCreateBlog, canReadBlog, canUpdateBlog, canDeleteBlog } from '@/access/blog'
+import { revalidateTag } from 'next/cache'
 
 // Generate slug from title and auto-set author from current user
 const beforeValidateHook: CollectionBeforeValidateHook = ({ data, req }) => {
@@ -22,6 +26,11 @@ const beforeValidateHook: CollectionBeforeValidateHook = ({ data, req }) => {
   return data
 }
 
+// Revalidate the blog tag in Next.js
+const revalidateBlogHook: CollectionAfterChangeHook = () => {
+  revalidateTag('blog', 'max')
+}
+
 export const Blog: CollectionConfig = {
   slug: 'blog',
   admin: {
@@ -36,7 +45,7 @@ export const Blog: CollectionConfig = {
   },
   hooks: {
     beforeValidate: [beforeValidateHook],
-    afterChange: [revalidate('blog')],
+    afterChange: [revalidateBlogHook],
   },
   fields: [
     {

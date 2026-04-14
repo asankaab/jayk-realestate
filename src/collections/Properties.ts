@@ -1,5 +1,4 @@
 import type { CollectionConfig, CollectionBeforeValidateHook } from 'payload'
-import { revalidate } from '@/lib/revalidate'
 
 // All validation hooks run before any other hooks.
 // This is where we can generate the slug and auto-set the user.
@@ -28,7 +27,6 @@ export const Properties: CollectionConfig = {
   },
   hooks: {
     beforeValidate: [beforeValidateHook],
-    afterChange: [revalidate('properties')],
   },
   fields: [
     {

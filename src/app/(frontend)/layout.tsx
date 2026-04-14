@@ -1,7 +1,6 @@
 import React from 'react'
 import Navbar from './components/Navbar'
 import './styles/main.css'
-import './styles/home.css'
 import { Albert_Sans } from 'next/font/google'
 
 const albertSans = Albert_Sans({ subsets: ['latin'], weight: '400' })

@@ -20,9 +20,10 @@
   color: var(--primary-color);
   text-decoration: none;
   display: block;
+  min-width: 80px;
 }
 
-.logoImage{
+.logo img{
   width: auto;
 }
 
