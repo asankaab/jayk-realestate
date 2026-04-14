@@ -22,6 +22,10 @@
   display: block;
 }
 
+.logoImage{
+  width: auto;
+}
+
 .navLinks, .rightSide {
   display: none;
 }

@@ -24,6 +24,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
               alt={property.title}
               className={styles.propertyImage}
               fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
           ) : (
             <div className={styles.noImagePlaceholder}>No Image</div>
