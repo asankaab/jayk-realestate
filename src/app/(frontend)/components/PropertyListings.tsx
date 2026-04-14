@@ -2,14 +2,14 @@
 import React, { useRef, useState, useEffect } from 'react'
 import type { Property } from '@/payload-types'
 import { PropertyCard } from './PropertyCard'
-import styles from './FeaturedProperties.module.css'
+import styles from './PropertyListings.module.css'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 
-interface FeaturedPropertiesProps {
+interface PropertyListingsProps {
   properties: Property[]
 }
 
-export const FeaturedProperties: React.FC<FeaturedPropertiesProps> = ({ properties }) => {
+export const PropertyListings: React.FC<PropertyListingsProps> = ({ properties }) => {
   const scrollContainerRef = useRef<HTMLDivElement>(null)
   const [canScrollLeft, setCanScrollLeft] = useState(false)
   const [canScrollRight, setCanScrollRight] = useState(false)
@@ -51,7 +51,7 @@ export const FeaturedProperties: React.FC<FeaturedPropertiesProps> = ({ properti
   }, [properties])
 
   return (
-    <div className={styles.featuredPropertiesContainer}>
+    <div className={styles.PropertyListingsContainer}>
       <div className={styles.propertiesGrid} ref={scrollContainerRef}>
         {properties.map((property) => (
           <div key={property.id} className={styles.propertyCardWrapper}>

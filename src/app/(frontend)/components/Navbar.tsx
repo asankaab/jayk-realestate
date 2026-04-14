@@ -7,8 +7,7 @@ import styles from './Navbar.module.css'
 import Button from './Button'
 
 const navLinks = [
-  { href: '/properties/buy', label: 'Buy' },
-  { href: '/properties/sell', label: 'Sell' },
+  { href: '/properties', label: 'Properties' },
   { href: '/our-agents', label: 'Our Agents' },
   { href: '/about-us', label: 'Company' },
   { href: '/contact', label: 'Contact' },
@@ -27,7 +26,13 @@ const Navbar = () => {
         <div className={styles.navContent}>
           <div className={styles.leftSide}>
             <Link href="/" className={styles.logo}>
-              <Image src="/jayk-logo.svg" alt="jayk logo" width={80} height={40} />
+              <Image
+                src="/jayk-logo.svg"
+                alt="jayk logo"
+                width={80}
+                height={40}
+                className={styles.logoImage}
+              />
             </Link>
             <div className={styles.navLinks}>
               {navLinks.map((link) => (

@@ -4,15 +4,15 @@ import { ImageGallery } from './ImageGallery'
 import { ContactForm } from './ContactForm'
 import type { Media, Property } from '@/payload-types'
 import { payloadClient } from '@/app/lib/payloadClient'
-import { FeaturedProperties } from '@/app/(frontend)/components/FeaturedProperties'
 import { RichText } from '@/app/(frontend)/components/RichText/RichText'
 import { Heart, Share2 } from 'lucide-react'
 import { RevealEmail } from '@/app/(frontend)/components/RevealEmail'
 import styles from './ProductPage.module.css'
+import { PropertyListings } from '../../components/PropertyListings'
 
 const PropertyDetailsPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
   let property: Property | null = null
-  let featuredProperties: Property[] = []
+  let featuredPropertyListings: Property[] = []
   const { slug } = await params
 
   try {
@@ -27,7 +27,7 @@ const PropertyDetailsPage = async ({ params }: { params: Promise<{ slug: string 
     })
     property = propertyFind.docs[0]
 
-    // Fetch featured properties (limit to 8 excluding current property)
+    // Fetch Recent Listings (limit to 8 excluding current property)
     const featuredFind = await payloadClient.find({
       collection: 'properties',
       depth: 1,
@@ -36,7 +36,7 @@ const PropertyDetailsPage = async ({ params }: { params: Promise<{ slug: string 
         and: [{ slug: { not_equals: slug } }, { featured: { equals: true } }],
       },
     })
-    featuredProperties = featuredFind.docs
+    featuredPropertyListings = featuredFind.docs
   } catch (error) {
     console.error('Error fetching property:', error)
     return notFound()
@@ -131,11 +131,11 @@ const PropertyDetailsPage = async ({ params }: { params: Promise<{ slug: string 
 
       <ContactForm propertyTitle={property.title} />
 
-      {featuredProperties.length > 0 && (
+      {featuredPropertyListings.length > 0 && (
         <div className={styles.featuredSection}>
           <div className="wrapper">
             <h2 className={styles.sectionTitle}>Featured Listings</h2>
-            <FeaturedProperties properties={featuredProperties} />
+            <PropertyListings properties={featuredPropertyListings} />
           </div>
         </div>
       )}

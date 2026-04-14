@@ -68,7 +68,14 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({ images, title }) => 
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
-        <Image src={imageUrl} alt={title} className={styles.mainImage} fill priority />
+        <Image
+          src={imageUrl}
+          alt={title}
+          className={styles.mainImage}
+          fill
+          priority
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
+        />
 
         {/* Navigation arrows */}
         {images.length > 1 && (
@@ -117,6 +124,7 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({ images, title }) => 
                 alt={image.alt || `${title} thumbnail ${index + 1}`}
                 className={styles.thumbnailImage}
                 fill
+                sizes="100px"
               />
             </button>
           ))}
