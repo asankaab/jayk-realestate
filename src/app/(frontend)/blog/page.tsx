@@ -3,8 +3,6 @@ import type { Blog } from '@/payload-types'
 import { Heading1, Body } from '@/app/(frontend)/components/Text/Text'
 import { BlogCard } from '@/app/(frontend)/components/BlogCard'
 import styles from './BlogListPage.module.css'
-import { headers } from 'next/headers'
-import { payloadFetchClient } from '@/app/lib/payloadFetchClient'
 import { payloadClient } from '@/app/lib/payloadClient'
 import { unstable_cache } from 'next/cache'
 
