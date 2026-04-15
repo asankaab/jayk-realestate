@@ -19,8 +19,8 @@ export default function RealtorDetails() {
                 className={styles.profileImage}
               />
               <div className={styles.profileInfo}>
-                <Heading2>Jay Konell</Heading2>
-                <Heading4>FULL-TIME REALTOR</Heading4>
+                <Heading2 className={styles.name}>Jay Konell</Heading2>
+                <Heading4 className={styles.role}>FULL-TIME REALTOR</Heading4>
               </div>
             </div>
             <div className={styles.bioBody}>
@@ -43,7 +43,7 @@ export default function RealtorDetails() {
           <div className={styles.cardColumn}>
             <div className={styles.contactCard}>
               <div className={styles.cardBlock}>
-                <Body>REALTOR®</Body>
+                <Body>REALTOR</Body>
                 <Body>
                   U.S. Military on the Move
                   <br />
@@ -53,7 +53,7 @@ export default function RealtorDetails() {
               <hr className={styles.divider} />
               <div className={styles.cardBlock}>
                 <Body>Orlando SW Office</Body>
-                <Body>Watson Realty Corp. REALTORS®</Body>
+                <Body>Mixed Realty Corp. REALTORS</Body>
               </div>
               <Body>(407)1234567</Body>
               <div className={styles.cardFooter}>

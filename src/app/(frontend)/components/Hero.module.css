@@ -1,6 +1,7 @@
 .heroContainer {
   border-radius: var(--size-md);
   background-image: url('/hero-background.jpg');
+  background-image: url('/hero-background.webp');
   background-size: cover;
   background-position: center;
 }
