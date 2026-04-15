@@ -57,7 +57,7 @@ export default function RealtorDetails() {
               </div>
               <Body>(407)1234567</Body>
               <div className={styles.cardFooter}>
-                <Button>Contact</Button>
+                <Button href="/contact">Contact</Button>
                 <div className={styles.socialIcons}>
                   {/* Replace with actual SVG components or icons */}
                   <img src="/icons/facebook.svg" alt="Facebook" className={styles.icon} />

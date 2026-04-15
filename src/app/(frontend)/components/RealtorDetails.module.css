@@ -65,8 +65,16 @@
   background-color: var(--white-color);
 }
 
+.contactCard p {
+  font-weight: bold;
+}
+
 .cardBlock {
   margin-bottom: 20px;
+}
+
+.contactCard .cardBlock:first-child p {
+  color: var(--primary-color);
 }
 
 .cardLabel, .cardBold, .phoneNumber {
@@ -98,8 +106,8 @@
 }
 
 .icon {
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   cursor: pointer;
 }
 
