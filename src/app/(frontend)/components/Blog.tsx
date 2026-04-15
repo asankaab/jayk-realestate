@@ -4,19 +4,30 @@ import { SectionTitle } from './Text/Text'
 import { payloadClient } from '@/app/lib/payloadClient'
 import Button from './Button'
 import { BlogCard } from './BlogCard'
+import { unstable_cache } from 'next/cache'
+
+const getBlogPosts = unstable_cache(
+  async () => {
+    const data = await payloadClient.find({
+      collection: 'blog',
+      where: {
+        status: {
+          equals: 'published',
+        },
+      },
+      sort: '-createdAt',
+      limit: 6,
+      depth: 1,
+    })
+
+    return data
+  },
+  ['home-blog-posts'],
+  { tags: ['blog'] },
+)
 
 export const Blog = async () => {
-  const { docs: posts } = await payloadClient.find({
-    collection: 'blog',
-    where: {
-      status: {
-        equals: 'published',
-      },
-    },
-    sort: '-createdAt',
-    limit: 6,
-    depth: 1,
-  })
+  const { docs: posts } = await getBlogPosts()
 
   if (!posts || posts.length === 0) {
     return null
