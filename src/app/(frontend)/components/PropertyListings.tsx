@@ -3,7 +3,10 @@ import React, { useRef, useState, useEffect } from 'react'
 import type { Property } from '@/payload-types'
 import { PropertyCard } from './PropertyCard'
 import styles from './PropertyListings.module.css'
+import propertyCardStyles from './PropertyCard.module.css'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
+import Link from 'next/link'
+import Button from './Button'
 
 interface PropertyListingsProps {
   properties: Property[]
@@ -58,6 +61,17 @@ export const PropertyListings: React.FC<PropertyListingsProps> = ({ properties }
             <PropertyCard property={property} />
           </div>
         ))}
+        <div className={styles.propertyCardWrapper}>
+          <Link
+            href="/properties"
+            className={propertyCardStyles.propertyCard}
+            style={{ justifyContent: 'center', alignItems: 'center', textDecoration: 'none' }}
+          >
+            <Button fill="filled" color="accent">
+              See More...
+            </Button>
+          </Link>
+        </div>
       </div>
       {canScrollLeft && (
         <button className={`${styles.scrollButton} ${styles.left}`} onClick={() => scroll('left')}>

@@ -6,6 +6,7 @@ import { SectionTitle, Body } from './components/Text/Text'
 import { ExploreNeighborhoods } from './components/ExploreNeighborhoods'
 import { Blog } from './components/Blog'
 import { PropertyListings } from './components/PropertyListings'
+import RealtorDetails from './components/RealtorDetails'
 
 const getProperties = unstable_cache(
   async () => {
@@ -37,6 +38,7 @@ export default async function HomePage() {
       </section>
       <ExploreNeighborhoods />
       <Blog />
+      <RealtorDetails />
     </div>
   )
 }

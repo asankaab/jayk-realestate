@@ -35,7 +35,7 @@ export const Blog = async () => {
   return (
     <section className={styles.blogSection} id="blog">
       <div className={`wrapper ${styles.blogContent}`}>
-        <SectionTitle className={styles.sectionTitle}>Blog</SectionTitle>
+        <SectionTitle>Blog</SectionTitle>
 
         <div className={styles.blogGrid}>
           {posts.map((post) => (

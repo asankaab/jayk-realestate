@@ -62,10 +62,8 @@
 }
 
 .excerpt {
-  font-size: 14px;
   line-height: 1.6;
   color: var(--grey-dark);
-  margin: 0;
   flex-grow: 1;
 }
 
