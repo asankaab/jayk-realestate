@@ -12,7 +12,9 @@ interface BlogCardProps {
 export const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
   return (
     <article className={styles.blogCard}>
-      <Heading3 className={styles.blogTitle}>{post.title}</Heading3>
+      <Link href={`/blog/${post.slug || post.id}`}>
+        <Heading3 className={styles.blogTitle}>{post.title}</Heading3>
+      </Link>
 
       {post.createdAt && (
         <Body className={styles.publishDate}>

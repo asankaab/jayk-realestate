@@ -8,7 +8,7 @@ import Button from './Button'
 
 const navLinks = [
   { href: '/properties', label: 'Properties' },
-  { href: '/our-agents', label: 'Our Agents' },
+  { href: '/blog', label: 'Blog' },
   { href: '/about-us', label: 'Company' },
   { href: '/contact', label: 'Contact' },
 ]
