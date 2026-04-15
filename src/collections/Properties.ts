@@ -43,7 +43,7 @@ export const Properties: CollectionConfig = {
   hooks: {
     beforeValidate: [beforeValidateHook],
     afterChange: [revalidatePropertiesHook],
-    // afterDelete: [revalidateAfterDeleteHook],
+    afterDelete: [revalidateAfterDeleteHook],
   },
   fields: [
     {
