@@ -1,27 +1,32 @@
-import React from 'react'
 import Link from 'next/link'
 import type { Blog } from '@/payload-types'
-import { payloadClient } from '@/app/lib/payloadClient'
 import { Heading1, Body } from '@/app/(frontend)/components/Text/Text'
 import { BlogCard } from '@/app/(frontend)/components/BlogCard'
 import styles from './BlogListPage.module.css'
+import { payloadClient } from '@/app/lib/payloadClient'
+import { unstable_cache } from 'next/cache'
+
+const getPosts = unstable_cache(
+  async () => {
+    const data = await payloadClient.find({
+      collection: 'blog',
+      sort: '-createdAt',
+      depth: 1, // Add depth to populate relationships
+      limit: 10,
+    })
+
+    return data
+  },
+  ['blog-posts-list'],
+  { tags: ['blog'] },
+)
 
 const BlogListPage = async () => {
   let posts: Blog[] = []
   let totalDocs = 0
 
   try {
-    const result = await payloadClient.find({
-      collection: 'blog',
-      where: {
-        status: {
-          equals: 'published',
-        },
-      },
-      sort: '-createdAt',
-      limit: 20,
-      depth: 1,
-    })
+    const result = await getPosts()
     posts = result.docs
     totalDocs = result.totalDocs
   } catch (error) {

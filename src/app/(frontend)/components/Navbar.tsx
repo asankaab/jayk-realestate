@@ -26,13 +26,7 @@ const Navbar = () => {
         <div className={styles.navContent}>
           <div className={styles.leftSide}>
             <Link href="/" className={styles.logo}>
-              <Image
-                src="/jayk-logo.svg"
-                alt="jayk logo"
-                width={80}
-                height={40}
-                className={styles.logoImage}
-              />
+              <Image src="/jayk-logo.svg" alt="jayk logo" width={80} height={40} />
             </Link>
             <div className={styles.navLinks}>
               {navLinks.map((link) => (

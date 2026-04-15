@@ -1,5 +1,10 @@
-import type { CollectionConfig, CollectionBeforeValidateHook } from 'payload'
-import { revalidate } from '@/lib/revalidate'
+import type {
+  CollectionConfig,
+  CollectionBeforeValidateHook,
+  CollectionAfterChangeHook,
+  CollectionAfterDeleteHook,
+} from 'payload'
+import { revalidateTag } from 'next/cache'
 
 // All validation hooks run before any other hooks.
 // This is where we can generate the slug and auto-set the user.
@@ -21,6 +26,15 @@ const beforeValidateHook: CollectionBeforeValidateHook = ({ data, req }) => {
   return data
 }
 
+// Revalidate the properties tag in Next.js
+const revalidatePropertiesHook: CollectionAfterChangeHook = () => {
+  revalidateTag('properties', 'max')
+}
+
+const revalidateAfterDeleteHook: CollectionAfterDeleteHook = () => {
+  revalidateTag('properties', 'max')
+}
+
 export const Properties: CollectionConfig = {
   slug: 'properties',
   admin: {
@@ -28,7 +42,8 @@ export const Properties: CollectionConfig = {
   },
   hooks: {
     beforeValidate: [beforeValidateHook],
-    afterChange: [revalidate('properties')],
+    afterChange: [revalidatePropertiesHook],
+    afterDelete: [revalidateAfterDeleteHook],
   },
   fields: [
     {

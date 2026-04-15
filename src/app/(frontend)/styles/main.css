@@ -110,6 +110,10 @@ img {
   }
 }
 
+section {
+  padding: var(--size-xl) 0;
+}
+
 .content {
   width: 100%;
 }
