@@ -5,6 +5,7 @@ import type {
   CollectionAfterDeleteHook,
 } from 'payload'
 import { revalidateTag } from 'next/cache'
+import { canReadProperties, canUpdateDeleteProperties } from '../access/properties'
 
 // All validation hooks run before any other hooks.
 // This is where we can generate the slug and auto-set the user.
@@ -40,6 +41,11 @@ export const Properties: CollectionConfig = {
   admin: {
     useAsTitle: 'title',
   },
+  access: {
+    read: canReadProperties,
+    update: canUpdateDeleteProperties,
+    delete: canUpdateDeleteProperties,
+  },
   hooks: {
     beforeValidate: [beforeValidateHook],
     afterChange: [revalidatePropertiesHook],
@@ -67,6 +73,7 @@ export const Properties: CollectionConfig = {
       required: true,
       admin: {
         readOnly: true,
+        position: 'sidebar',
       },
     },
     {
@@ -80,6 +87,12 @@ export const Properties: CollectionConfig = {
       name: 'featured',
       type: 'checkbox',
       defaultValue: false,
+    },
+    {
+      name: 'images',
+      type: 'relationship',
+      relationTo: 'media',
+      hasMany: true,
     },
     {
       name: 'description',
@@ -109,12 +122,6 @@ export const Properties: CollectionConfig = {
       name: 'location',
       type: 'text',
       required: true,
-    },
-    {
-      name: 'images',
-      type: 'relationship',
-      relationTo: 'media',
-      hasMany: true,
     },
   ],
 }
