@@ -51,20 +51,22 @@ export default function RealtorDetails() {
           {/* Right Column - Contact Card */}
           <div className={styles.cardColumn}>
             <div className={styles.contactCard}>
-              <div className={styles.cardBlock}>
-                <Body>REALTOR</Body>
-                <Body>
-                  U.S. Military on the Move
-                  <br />
-                  Certified Military Specialist
-                </Body>
+              <div>
+                <div className={styles.cardBlock}>
+                  <Body>REALTOR</Body>
+                  <Body>
+                    U.S. Military on the Move
+                    <br />
+                    Certified Military Specialist
+                  </Body>
+                </div>
+                <hr className={styles.divider} />
+                <div className={styles.cardBlock}>
+                  <Body>Orlando SW Office</Body>
+                  <Body>Mixed Realty Corp. REALTORS</Body>
+                </div>
+                <Body>(407)1234567</Body>
               </div>
-              <hr className={styles.divider} />
-              <div className={styles.cardBlock}>
-                <Body>Orlando SW Office</Body>
-                <Body>Mixed Realty Corp. REALTORS</Body>
-              </div>
-              <Body>(407)1234567</Body>
               <div className={styles.cardFooter}>
                 <Button href="/contact">Contact</Button>
                 <div className={styles.socialIcons}>

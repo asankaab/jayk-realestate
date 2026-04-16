@@ -68,6 +68,11 @@
   background-color: var(--grey-lightest);
 }
 
+.video {
+  width: 100%;
+  height: auto;
+}
+
 @media (min-width: 1024px) {
   .mediaContainer {
     max-width: 600px;

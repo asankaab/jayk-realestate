@@ -44,6 +44,7 @@ export const ExploreNeighborhoods: React.FC<ExploreNeighborhoodsProps> = ({
               )}
 
               <video
+                className={styles.video}
                 width="640"
                 height="360"
                 controls

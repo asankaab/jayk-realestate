@@ -55,11 +55,17 @@
 .cardColumn {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
 .contactCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-sm);
+  justify-content: space-between;
   width: 100%;
   max-width: 400px;
+  min-width: 300px;
   border: 1px solid var(--grey-lighter);
   border-radius: 8px;
   padding: 30px;
@@ -134,7 +140,7 @@
 }
 
 /* Desktop Breakpoint */
-@media (min-width: 860px) {
+@media (min-width: 769px) {
   .content {
     flex-direction: row;
   }
@@ -145,6 +151,6 @@
   
   .cardColumn {
     justify-content: flex-end;
-    width: 25%;
+    width: auto;
   }
 }
