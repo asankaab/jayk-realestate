@@ -21,7 +21,7 @@ const Navbar = () => {
   }
 
   return (
-    <header>
+    <header className={styles.header}>
       <nav className={styles.navbar}>
         <div className="wrapper">
           <div className={styles.navContent}>

@@ -1,6 +1,9 @@
 import styles from './RealtorDetails.module.css'
 import { Body, Heading2, Heading4, SectionTitle } from './Text/Text'
 import Button from './Button'
+import Link from 'next/link'
+import { ArrowRight } from 'lucide-react'
+import Image from 'next/image'
 
 export default function RealtorDetails() {
   return (
@@ -13,10 +16,13 @@ export default function RealtorDetails() {
           {/* Left Column - Bio */}
           <div className={styles.bioColumn}>
             <div className={styles.profileHeader}>
-              <img
-                src="/avatar.avif" // Update with actual image path
+              <Image
+                width={100}
+                height={100}
+                src="/avatar.jpeg" // Update with actual image path
                 alt="Jay"
                 className={styles.profileImage}
+                sizes="(max-width: 768px) 100vw, 300px"
               />
               <div className={styles.profileInfo}>
                 <Heading2 className={styles.name}>Jay Konell</Heading2>
@@ -37,6 +43,9 @@ export default function RealtorDetails() {
                 industry-leading technology, I can help you sell your current home or assist you in
                 buying your next home.
               </Body>
+              <Link href="/about-us" className={styles.readMore}>
+                Read More <ArrowRight size={16} className={styles.arrow} />
+              </Link>
             </div>
           </div>
           {/* Right Column - Contact Card */}

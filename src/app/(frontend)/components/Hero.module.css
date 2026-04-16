@@ -1,5 +1,6 @@
 .heroContainer {
   border-radius: var(--size-md);
+  background-color: rgb(209, 216, 218);
   background-image: url('/hero-background.jpg');
   background-image: url('/hero-background.webp');
   background-size: cover;

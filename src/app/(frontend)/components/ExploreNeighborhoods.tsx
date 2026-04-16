@@ -32,7 +32,9 @@ export const ExploreNeighborhoods: React.FC<ExploreNeighborhoodsProps> = ({
               curatitur orci risus. Justo lectus gravida aliquet non viverra egestas. Facilisi lorem
               eros arcu laoreet sagittis faucibus quisque fringilla. Egestas dignissim ipsum.
             </Body>
-            <Button className={styles.ctaButton}>Explore</Button>
+            <Button href="/properties" className={styles.ctaButton}>
+              Explore
+            </Button>
           </div>
 
           <div className={styles.mediaContent}>
@@ -40,14 +42,23 @@ export const ExploreNeighborhoods: React.FC<ExploreNeighborhoodsProps> = ({
               {featured?.image && (
                 <Image src={featured.image} alt={featured.title} className={styles.mediaImage} />
               )}
-              {featured?.video && (
-                <video
-                  src={featured.video}
-                  className={styles.mediaImage}
-                  controls
-                  poster={featured.image}
+
+              <video
+                width="640"
+                height="360"
+                controls
+                disablePictureInPicture
+                loading="lazy"
+                loop
+                preload="metadata"
+              >
+                <source
+                  src="https://cdn.pixabay.com/video/2023/04/22/160065-820183310_medium.mp4"
+                  type="video/mp4"
                 />
-              )}
+                Your browser does not support the video tag.
+              </video>
+
               {!featured?.image && !featured?.video && (
                 <div className={styles.mediaPlaceholder}>
                   <div className={styles.playButton}>
