@@ -49,7 +49,7 @@ export const ExploreNeighborhoods: React.FC<ExploreNeighborhoodsProps> = ({
                 height="360"
                 controls
                 disablePictureInPicture
-                loading="lazy"
+                // loading="lazy"
                 loop
                 preload="metadata"
               >
