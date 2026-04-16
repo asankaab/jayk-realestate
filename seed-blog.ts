@@ -45,6 +45,22 @@ async function seedBlog() {
     const authorId = author.docs[0].id
     console.log(`✓ Using existing author user with ID: ${authorId}`)
 
+    // Clear existing blog posts to ensure a clean seed
+    const existingPosts = await payload.find({
+      collection: 'blog',
+      limit: 100,
+    })
+
+    if (existingPosts.docs.length > 0) {
+      console.log(`\nClearing ${existingPosts.docs.length} existing blog posts...`)
+      for (const doc of existingPosts.docs) {
+        await payload.delete({
+          collection: 'blog',
+          id: doc.id,
+        })
+      }
+      console.log('✓ Cleared existing blog posts')
+    }
     // Sample blog posts data
     const blogPosts: BlogPostData[] = [
       {
@@ -617,40 +633,29 @@ async function seedBlog() {
     console.log('\nSeeding blog posts...')
     for (const post of blogPosts) {
       try {
-        const slug =
-          post.slug ||
-          post.title
-            .toLowerCase()
-            .replace(/ /g, '-')
-            .replace(/[^\w-]+/g, '')
-
         const created = await payload.create({
           collection: 'blog',
           data: {
             title: post.title,
-            slug,
             category: post.category,
             status: post.status,
             featured: post.featured,
             excerpt: post.excerpt,
             content: post.content,
+            slug: post.title
+              .toLowerCase()
+              .replace(/ /g, '-')
+              .replace(/[^\w-]+/g, ''),
             author: authorId,
           },
           draft: false,
           user: authorUser, // Pass user context for proper hook execution
-          overrideAccess: false, // Respect access control with user context
+          overrideAccess: false,
         })
         console.log(`✓ Created: "${created.title}"`)
       } catch (error) {
-        if (
-          error instanceof Error &&
-          (error.message.includes('unique constraint') ||
-            error.message.includes('already exists') ||
-            error.message.includes('duplicate'))
-        ) {
-          console.log(`⊘ Skipped: "${post.title}" (already exists)`)
-        } else if (error instanceof Error) {
-          console.log(`⊘ Skipped: "${post.title}" (${error.message.substring(0, 100)})`)
+        if (error instanceof Error) {
+          console.log(`⊘ Failed to create "${post.title}": ${error.message}`)
         } else {
           throw error
         }

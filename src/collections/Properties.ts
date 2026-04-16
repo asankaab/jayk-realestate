@@ -29,11 +29,19 @@ const beforeValidateHook: CollectionBeforeValidateHook = ({ data, req }) => {
 
 // Revalidate the properties tag in Next.js
 const revalidatePropertiesHook: CollectionAfterChangeHook = () => {
-  revalidateTag('properties', 'max')
+  try {
+    revalidateTag('properties', 'max')
+  } catch (e) {
+    // Ignore outside Next.js request context
+  }
 }
 
 const revalidateAfterDeleteHook: CollectionAfterDeleteHook = () => {
-  revalidateTag('properties', 'max')
+  try {
+    revalidateTag('properties', 'max')
+  } catch (e) {
+    // Ignore outside Next.js request context
+  }
 }
 
 export const Properties: CollectionConfig = {
