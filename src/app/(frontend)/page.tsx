@@ -1,4 +1,5 @@
 import { Hero } from './components/Hero'
+import { Sponsors } from './components/Sponsors'
 import { ExploreNeighborhoods } from './components/ExploreNeighborhoods'
 import { Blog } from './components/Blog'
 import RealtorDetails from './components/RealtorDetails'
@@ -14,6 +15,7 @@ export default async function HomePage() {
       <Blog />
       <RealtorDetails />
       <FAQ />
+      <Sponsors />
     </div>
   )
 }

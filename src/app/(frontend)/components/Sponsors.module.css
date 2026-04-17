@@ -1,0 +1,39 @@
+.sponsorsSection {
+  padding-block: var(--size-2xl);
+  background-color: var(--primary-shade);
+  z-index: -1;
+}
+
+.logoContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: var(--size-xl);
+  padding-block: var(--size-xl);
+}
+
+.logoItem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+  cursor: pointer;
+}
+
+.logoItem:hover {
+  opacity: 1;
+}
+
+.logoImage {
+  object-fit: contain;
+  max-width: 100%;
+  max-height: 40px;
+}
+
+@media (min-width: 1024px) {
+  .logoContainer {
+    justify-content: space-between;
+  }
+}

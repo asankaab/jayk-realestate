@@ -1,6 +1,9 @@
 .faqSection {
-  padding-block: var(--size-2xl);
+  padding-bottom: var(--size-2xl);
   background-color: var(--white-color);
+  border-radius: var(--size-md);
+  position: relative;
+  top: var(--size-xl);
 }
 
 .contentWrapper {
