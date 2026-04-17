@@ -3,6 +3,7 @@ import { ExploreNeighborhoods } from './components/ExploreNeighborhoods'
 import { Blog } from './components/Blog'
 import RealtorDetails from './components/RealtorDetails'
 import { RecentListings } from './components/RecentListings'
+import { FAQ } from './components/FAQ'
 
 export default async function HomePage() {
   return (
@@ -12,6 +13,7 @@ export default async function HomePage() {
       <ExploreNeighborhoods />
       <Blog />
       <RealtorDetails />
+      <FAQ />
     </div>
   )
 }
