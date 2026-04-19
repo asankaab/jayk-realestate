@@ -76,6 +76,11 @@
   width: fit-content;
 }
 
+.logoWrap img {
+  width: auto;
+  height: 100%;
+}
+
 .bottomBar {
   margin-top: var(--size-xl);
   padding-top: var(--size-md);
