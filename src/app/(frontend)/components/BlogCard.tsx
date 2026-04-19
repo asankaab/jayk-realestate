@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { ArrowRightIcon } from 'lucide-react'
 import { Heading3, Body } from './Text/Text'
 import type { Blog } from '@/payload-types'
-import styles from './Blog.module.css'
+import styles from './BlogCard.module.css'
 
 interface BlogCardProps {
   post: Blog

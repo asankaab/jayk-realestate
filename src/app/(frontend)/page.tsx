@@ -1,10 +1,10 @@
-import { Hero } from './components/Hero'
-import { Sponsors } from './components/Sponsors'
-import { ExploreNeighborhoods } from './components/ExploreNeighborhoods'
-import { Blog } from './components/Blog'
-import RealtorDetails from './components/RealtorDetails'
-import { RecentListings } from './components/RecentListings'
-import { FAQ } from './components/FAQ'
+import { Hero } from './components/sections/Hero'
+import { Sponsors } from './components/sections/Sponsors'
+import { ExploreNeighborhoods } from './components/sections/ExploreNeighborhoods'
+import { Blog } from './components/sections/Blog'
+import RealtorDetails from './components/sections/RealtorDetails'
+import { RecentListings } from './components/sections/RecentListings'
+import { FAQ } from './components/sections/FAQ'
 
 export default async function HomePage() {
   return (

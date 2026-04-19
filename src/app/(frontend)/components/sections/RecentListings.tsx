@@ -1,8 +1,8 @@
 import type { Property } from '@/payload-types'
 import { payloadClient } from '@/app/lib/payloadClient'
 import { unstable_cache } from 'next/cache'
-import { SectionTitle, Body } from './Text/Text'
-import { PropertyListings } from './PropertyListings'
+import { SectionTitle, Body } from '../Text/Text'
+import { PropertyListings } from '../PropertyListings'
 
 const getProperties = unstable_cache(
   async () => {

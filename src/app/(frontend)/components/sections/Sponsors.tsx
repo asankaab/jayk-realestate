@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 import Image from 'next/image'
-import { SectionTitle } from './Text/Text'
+import { SectionTitle } from '../Text/Text'
 import styles from './Sponsors.module.css'
 
 const sponsorsList = [

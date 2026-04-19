@@ -1,6 +1,6 @@
 import styles from './RealtorDetails.module.css'
-import { Body, Heading2, Heading4, SectionTitle } from './Text/Text'
-import Button from './Button'
+import { Body, Heading2, Heading4, SectionTitle } from '../Text/Text'
+import Button from '../Button'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import Image from 'next/image'

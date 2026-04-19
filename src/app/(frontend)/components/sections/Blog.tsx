@@ -1,9 +1,9 @@
 import React from 'react'
 import styles from './Blog.module.css'
-import { SectionTitle } from './Text/Text'
+import { SectionTitle } from '../Text/Text'
 import { payloadClient } from '@/app/lib/payloadClient'
-import Button from './Button'
-import { BlogCard } from './BlogCard'
+import Button from '../Button'
+import { BlogCard } from '../BlogCard'
 import { unstable_cache } from 'next/cache'
 
 const getBlogPosts = unstable_cache(

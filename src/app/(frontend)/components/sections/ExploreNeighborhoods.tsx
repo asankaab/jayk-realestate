@@ -1,10 +1,10 @@
 import React from 'react'
-import Button from './Button'
+import Button from '../Button'
 import styles from './ExploreNeighborhoods.module.css'
 import { Play } from 'lucide-react'
-import { Heading2, Body } from './Text/Text'
+import { Heading2, Body } from '../Text/Text'
 import Image from 'next/image'
-import { Video } from './Video'
+import { Video } from '../Video'
 
 interface ExploreNeighborhoodsProps {
   featured?: {

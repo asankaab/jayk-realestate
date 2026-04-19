@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from 'react'
 import Image from 'next/image'
-import { SectionTitle, Body, Heading3 } from './Text/Text'
+import { SectionTitle, Body, Heading3 } from '../Text/Text'
 import styles from './FAQ.module.css'
 
 const faqs = [
