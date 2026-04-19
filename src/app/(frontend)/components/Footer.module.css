@@ -1,6 +1,10 @@
 .footer {
-  padding-block: var(--size-2xl);
+  padding: var(--size-xl) 0 0;
   background-color: var(--primary-shade);
+
+  @media (min-width: 1600px) {
+    padding: var(--size-2xl) 0;
+  }
 }
 
 .footerShell {
@@ -134,15 +138,5 @@
   .topGrid {
     grid-template-columns: minmax(0, 1.7fr) minmax(18rem, 0.9fr);
     gap: var(--size-md);
-  }
-}
-
-@media (max-width: 767px) {
-  .footer {
-    padding-bottom: 0;
-  }
-
-  .footerShell {
-    padding-bottom: var(--size-md);
   }
 }
