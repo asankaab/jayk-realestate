@@ -121,7 +121,6 @@
 }
 
 .disclaimer {
-  padding-block: var(--size-2xl);
   color: var(--grey-lighter);
   line-height: 1.45;
 }
