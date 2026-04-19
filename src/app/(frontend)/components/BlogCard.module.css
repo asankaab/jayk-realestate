@@ -7,6 +7,7 @@
   gap: var(--size-xs);
   border: 1px solid var(--grey-lighter);
   transition: all 0.3s ease;
+  height: 100%;
 }
 
 .blogCard:hover {
