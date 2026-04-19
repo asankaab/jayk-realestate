@@ -2,9 +2,7 @@
   min-height: 100vh;
   padding: 3rem 0 4rem;
   background:
-    linear-gradient(180deg, rgba(var(--primary-color-rgb), 0.06) 0%, transparent 18%),
-    linear-gradient(135deg, rgba(var(--accent-color-rgb), 0.05), transparent 45%),
-    var(--white-color);
+    var(--linear-gradient);
 }
 
 .contentWrapper {

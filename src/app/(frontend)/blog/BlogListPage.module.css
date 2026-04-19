@@ -1,9 +1,7 @@
 .blogListPage {
   min-height: 100vh;
   padding: 3rem 0 4rem;
-  background:
-    linear-gradient(180deg, rgba(var(--primary-color-rgb), 0.04) 0%, transparent 25%),
-    var(--white-color);
+  background: var(--linear-gradient);
 }
 
 .contentWrapper {
