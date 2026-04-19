@@ -35,29 +35,37 @@ const BlogListPage = async () => {
 
   return (
     <div className={styles.blogListPage}>
-      <div className={`wrapper ${styles.blogListWrapper}`}>
+      <div className={`wrapper ${styles.contentWrapper}`}>
         <header className={styles.pageHeader}>
+          <span className={styles.eyebrow}>Real Estate News</span>
           <Heading1>Our Blog</Heading1>
           <Body className={styles.pageDescription}>
-            Stay updated with the latest real estate insights, market trends, and expert tips
+            Stay updated with the latest real estate insights, market trends, and expert tips.
           </Body>
         </header>
 
         {posts.length > 0 ? (
           <>
-            <div className={styles.blogGrid}>
-              {posts.map((post) => (
-                <BlogCard key={post.id} post={post} />
-              ))}
+            <div className={styles.summaryBar}>
+              <Body className={styles.summaryText}>
+                Showing {posts.length} of {totalDocs} articles
+              </Body>
             </div>
 
-            <Body className={styles.totalPosts}>
-              Showing {posts.length} of {totalDocs} articles
-            </Body>
+            <div className={styles.blogGrid}>
+              {posts.map((post) => (
+                <div key={post.id} className={styles.cardWrapper}>
+                  <BlogCard post={post} />
+                </div>
+              ))}
+            </div>
           </>
         ) : (
-          <div className={styles.noContent}>
-            <Body>No blog posts published yet.</Body>
+          <div className={styles.emptyState}>
+            <Heading1>No blog posts published yet</Heading1>
+            <Body className={styles.emptyDescription}>
+              New articles will appear here as soon as they are published.
+            </Body>
             <Link href="/" className={styles.homeLink}>
               Back to Home
             </Link>

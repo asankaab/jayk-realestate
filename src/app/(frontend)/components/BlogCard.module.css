@@ -10,8 +10,9 @@
 }
 
 .blogCard:hover {
-  box-shadow: var(--shadow-sm);
-  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-8px);
+  border-color: var(--primary-color);
 }
 
 .blogTitle {
