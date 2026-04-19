@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { useState } from 'react'
 import styles from './Navbar.module.css'
 import Button from './Button'
+import AuthModal from './AuthModal'
 
 const navLinks = [
   { href: '/properties', label: 'Properties' },
@@ -39,15 +40,14 @@ const Navbar = () => {
             </div>
             <div className={styles.rightSide}>
               <div className={styles.buttonContainer}>
-                <Button size="small" color="accent" href="/signup" onClick={toggleMenu}>
+                <Button size="small" color="accent" href="?auth=signup">
                   Sign up
                 </Button>
                 <Button
                   size="small"
                   fill="outlined"
                   color="primary"
-                  href="/login"
-                  onClick={toggleMenu}
+                  href="?auth=login"
                 >
                   Login
                 </Button>
@@ -69,16 +69,17 @@ const Navbar = () => {
               </Link>
             ))}
             <div className={styles.buttonContainer}>
-              <Button color="accent" href="/signup" onClick={toggleMenu}>
+              <Button color="accent" href="?auth=signup" onClick={toggleMenu}>
                 Sign up
               </Button>
-              <Button fill="outlined" color="primary" href="/login" onClick={toggleMenu}>
+              <Button fill="outlined" color="primary" href="?auth=login" onClick={toggleMenu}>
                 Login
               </Button>
             </div>
           </div>
         )}
       </nav>
+      <AuthModal />
     </header>
   )
 }

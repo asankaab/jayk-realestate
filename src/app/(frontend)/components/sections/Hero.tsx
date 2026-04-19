@@ -15,11 +15,11 @@ export const Hero = () => {
             live.
           </Heading4>
           <div className={styles.buttons}>
-            <Button href="properties" fill="outlined">
+            <Button href="properties" fill="filled" color="accent">
               Explore
             </Button>
-            <Button href="signup" color="accent">
-              Sign Up
+            <Button href="?auth=signup" fill="outlined" color="primary">
+              Signup
             </Button>
           </div>
         </div>
