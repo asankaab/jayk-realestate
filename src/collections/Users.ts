@@ -26,7 +26,7 @@ export const Users: CollectionConfig = {
 
           const userQuery = await payload.find({
             collection: 'users',
-            where: { clerkID: { equals: userId } },
+            where: { clerkId: { equals: userId } },
           })
 
           if (userQuery.docs.length > 0) {
@@ -43,7 +43,7 @@ export const Users: CollectionConfig = {
   },
   fields: [
     {
-      name: 'clerkID',
+      name: 'clerkId',
       type: 'text',
       unique: true,
       index: true,

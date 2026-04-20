@@ -54,7 +54,7 @@ export async function POST(req: Request) {
       await payloadCMS.create({
         collection: 'users',
         data: {
-          clerkID: id,
+          clerkId: id,
           email: email || '',
           firstName: first_name || 'User',
           lastName: last_name || '',
@@ -76,7 +76,7 @@ export async function POST(req: Request) {
     try {
       const existingUsers = await payloadCMS.find({
         collection: 'users',
-        where: { clerkID: { equals: id } },
+        where: { clerkId: { equals: id } },
       });
 
       if (existingUsers.docs.length > 0) {
@@ -106,7 +106,7 @@ export async function POST(req: Request) {
     try {
       const existingUsers = await payloadCMS.find({
         collection: 'users',
-        where: { clerkID: { equals: id } },
+        where: { clerkId: { equals: id } },
       });
 
       if (existingUsers.docs.length > 0) {
