@@ -128,6 +128,7 @@ export interface UserAuthOperations {
 export interface User {
   id: number;
   clerkID?: string | null;
+  email: string;
   firstName: string;
   lastName?: string | null;
   bio?: string | null;
@@ -314,6 +315,7 @@ export interface PayloadMigration {
  */
 export interface UsersSelect<T extends boolean = true> {
   clerkID?: T;
+  email?: T;
   firstName?: T;
   lastName?: T;
   bio?: T;

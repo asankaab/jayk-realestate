@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { useState } from 'react'
 import styles from './Navbar.module.css'
 import Button from './Button'
-import { SignedIn, SignedOut, SignInButton, SignUpButton, UserButton } from '@clerk/nextjs'
+import { SignInButton, SignUpButton, UserButton, useUser } from '@clerk/nextjs'
 
 const navLinks = [
   { href: '/properties', label: 'Properties' },
@@ -16,6 +16,7 @@ const navLinks = [
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
+  const { user } = useUser()
 
   const toggleMenu = () => {
     setIsOpen(!isOpen)
@@ -40,17 +41,18 @@ const Navbar = () => {
             </div>
             <div className={styles.rightSide}>
               <div className={styles.buttonContainer}>
-                <SignedOut>
-                  <SignInButton mode="modal">
-                    <button className={styles.loginBtn}>Login</button>
-                  </SignInButton>
-                  <SignUpButton mode="modal">
-                    <button className={styles.signupBtn}>Sign up</button>
-                  </SignUpButton>
-                </SignedOut>
-                <SignedIn>
-                  <UserButton afterSignOutUrl="/" />
-                </SignedIn>
+                {!user ? (
+                  <>
+                    <SignInButton mode="modal">
+                      <button className={styles.loginBtn}>Login</button>
+                    </SignInButton>
+                    <SignUpButton mode="modal">
+                      <button className={styles.signupBtn}>Sign up</button>
+                    </SignUpButton>
+                  </>
+                ) : (
+                  <UserButton />
+                )}
               </div>
             </div>
             <div className={styles.hamburger} onClick={toggleMenu}>
@@ -69,19 +71,24 @@ const Navbar = () => {
               </Link>
             ))}
             <div className={styles.buttonContainer}>
-              <SignedOut>
-                <SignInButton mode="modal">
-                  <button className={styles.loginBtn} onClick={toggleMenu}>Login</button>
-                </SignInButton>
-                <SignUpButton mode="modal">
-                  <button className={styles.signupBtn} onClick={toggleMenu}>Sign up</button>
-                </SignUpButton>
-              </SignedOut>
-              <SignedIn>
+              {!user ? (
+                <>
+                  <SignInButton mode="modal">
+                    <button className={styles.loginBtn} onClick={toggleMenu}>
+                      Login
+                    </button>
+                  </SignInButton>
+                  <SignUpButton mode="modal">
+                    <button className={styles.signupBtn} onClick={toggleMenu}>
+                      Sign up
+                    </button>
+                  </SignUpButton>
+                </>
+              ) : (
                 <div style={{ padding: '0.5rem 0' }}>
-                  <UserButton afterSignOutUrl="/" />
+                  <UserButton />
                 </div>
-              </SignedIn>
+              )}
             </div>
           </div>
         )}

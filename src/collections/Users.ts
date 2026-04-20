@@ -18,25 +18,25 @@ export const Users: CollectionConfig = {
     strategies: [
       {
         name: 'clerk',
-        authenticate: async ({ req }) => {
-          const { auth } = await import('@clerk/nextjs/server');
-          const { userId } = await auth();
+        authenticate: async ({ headers, payload }) => {
+          const { auth } = await import('@clerk/nextjs/server')
+          const { userId } = await auth()
 
-          if (!userId) return null;
+          if (!userId) return { user: null }
 
-          const userQuery = await req.payload.find({
+          const userQuery = await payload.find({
             collection: 'users',
             where: { clerkID: { equals: userId } },
-          });
+          })
 
           if (userQuery.docs.length > 0) {
             return {
               user: userQuery.docs[0],
               collection: 'users',
-            };
+            }
           }
 
-          return null;
+          return { user: null }
         },
       },
     ],
@@ -49,7 +49,12 @@ export const Users: CollectionConfig = {
       index: true,
       admin: { readOnly: true },
     },
-    // Email added by default
+    {
+      name: 'email',
+      type: 'email',
+      required: true,
+      unique: true,
+    },
     {
       name: 'firstName',
       type: 'text',
