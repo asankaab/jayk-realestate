@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { useState } from 'react'
 import styles from './Navbar.module.css'
 import Button from './Button'
-import AuthModal from './AuthModal'
+import { SignedIn, SignedOut, SignInButton, SignUpButton, UserButton } from '@clerk/nextjs'
 
 const navLinks = [
   { href: '/properties', label: 'Properties' },
@@ -40,17 +40,17 @@ const Navbar = () => {
             </div>
             <div className={styles.rightSide}>
               <div className={styles.buttonContainer}>
-                <Button size="small" color="accent" href="?auth=signup">
-                  Sign up
-                </Button>
-                <Button
-                  size="small"
-                  fill="outlined"
-                  color="primary"
-                  href="?auth=login"
-                >
-                  Login
-                </Button>
+                <SignedOut>
+                  <SignInButton mode="modal">
+                    <button className={styles.loginBtn}>Login</button>
+                  </SignInButton>
+                  <SignUpButton mode="modal">
+                    <button className={styles.signupBtn}>Sign up</button>
+                  </SignUpButton>
+                </SignedOut>
+                <SignedIn>
+                  <UserButton afterSignOutUrl="/" />
+                </SignedIn>
               </div>
             </div>
             <div className={styles.hamburger} onClick={toggleMenu}>
@@ -69,17 +69,23 @@ const Navbar = () => {
               </Link>
             ))}
             <div className={styles.buttonContainer}>
-              <Button color="accent" href="?auth=signup" onClick={toggleMenu}>
-                Sign up
-              </Button>
-              <Button fill="outlined" color="primary" href="?auth=login" onClick={toggleMenu}>
-                Login
-              </Button>
+              <SignedOut>
+                <SignInButton mode="modal">
+                  <button className={styles.loginBtn} onClick={toggleMenu}>Login</button>
+                </SignInButton>
+                <SignUpButton mode="modal">
+                  <button className={styles.signupBtn} onClick={toggleMenu}>Sign up</button>
+                </SignUpButton>
+              </SignedOut>
+              <SignedIn>
+                <div style={{ padding: '0.5rem 0' }}>
+                  <UserButton afterSignOutUrl="/" />
+                </div>
+              </SignedIn>
             </div>
           </div>
         )}
       </nav>
-      <AuthModal />
     </header>
   )
 }

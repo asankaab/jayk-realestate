@@ -13,8 +13,42 @@ export const Users: CollectionConfig = {
     useAsTitle: 'email',
     hidden: ({ user }) => user?.role !== 'admin',
   },
-  auth: true,
+  auth: {
+    disableLocalStrategy: true,
+    strategies: [
+      {
+        name: 'clerk',
+        authenticate: async ({ req }) => {
+          const { auth } = await import('@clerk/nextjs/server');
+          const { userId } = await auth();
+
+          if (!userId) return null;
+
+          const userQuery = await req.payload.find({
+            collection: 'users',
+            where: { clerkID: { equals: userId } },
+          });
+
+          if (userQuery.docs.length > 0) {
+            return {
+              user: userQuery.docs[0],
+              collection: 'users',
+            };
+          }
+
+          return null;
+        },
+      },
+    ],
+  },
   fields: [
+    {
+      name: 'clerkID',
+      type: 'text',
+      unique: true,
+      index: true,
+      admin: { readOnly: true },
+    },
     // Email added by default
     {
       name: 'firstName',
