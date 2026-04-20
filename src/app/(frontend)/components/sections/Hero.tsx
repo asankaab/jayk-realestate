@@ -1,8 +1,8 @@
 import { Building2, Home, LandPlot, Store } from 'lucide-react'
-import { Heading1, Heading4, Small } from './Text/Text'
-import { SearchBar } from './SearchBar'
+import { Heading1, Heading4, Small } from '../Text/Text'
+import { SearchBar } from '../SearchBar'
 import styles from './Hero.module.css'
-import Button from './Button'
+import Button from '../Button'
 
 export const Hero = () => {
   return (
@@ -15,11 +15,11 @@ export const Hero = () => {
             live.
           </Heading4>
           <div className={styles.buttons}>
-            <Button href="properties" fill="outlined">
+            <Button href="properties" fill="filled" color="accent">
               Explore
             </Button>
-            <Button href="signup" color="accent">
-              Sign Up
+            <Button href="?auth=signup" fill="outlined" color="primary">
+              Signup
             </Button>
           </div>
         </div>

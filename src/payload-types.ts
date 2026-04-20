@@ -157,6 +157,7 @@ export interface User {
 export interface Media {
   id: number;
   alt: string;
+  user: number | User;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -180,6 +181,7 @@ export interface Property {
   addedBy: number | User;
   status: 'For Sale' | 'For Rent' | 'Sold' | 'Leased';
   featured?: boolean | null;
+  images?: (number | Media)[] | null;
   description?: {
     root: {
       type: string;
@@ -200,7 +202,6 @@ export interface Property {
   bathrooms?: number | null;
   area?: number | null;
   location: string;
-  images?: (number | Media)[] | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -353,6 +354,7 @@ export interface UsersSelect<T extends boolean = true> {
  */
 export interface MediaSelect<T extends boolean = true> {
   alt?: T;
+  user?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -375,13 +377,13 @@ export interface PropertiesSelect<T extends boolean = true> {
   addedBy?: T;
   status?: T;
   featured?: T;
+  images?: T;
   description?: T;
   price?: T;
   bedrooms?: T;
   bathrooms?: T;
   area?: T;
   location?: T;
-  images?: T;
   updatedAt?: T;
   createdAt?: T;
 }

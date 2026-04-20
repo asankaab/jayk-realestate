@@ -9,11 +9,8 @@ type TextProps = {
 }
 
 const createTextComponent = (Component: React.ElementType, defaultClassName: string) => {
-  const TextComponent: React.FC<TextProps> = ({ children, color = 'black', className = '' }) => {
-    const colorClass = styles[color]
-    return (
-      <Component className={`${defaultClassName} ${colorClass} ${className}`}>{children}</Component>
-    )
+  const TextComponent: React.FC<TextProps> = ({ children, className = '' }) => {
+    return <Component className={`${defaultClassName} ${className}`}>{children}</Component>
   }
   return TextComponent
 }

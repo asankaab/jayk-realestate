@@ -1,37 +1,3 @@
-.blogSection {
-  background-color: var(--primary-shade);
-  padding:var(--size-2xl) 0 var(--size-xl);
-}
-
-.blogContent {
-  display: block;
-}
-
-.sectionTitle {
-  font-size: 32px;
-  font-weight: 600;
-  text-align: center;
-  color: var(--black-color);
-}
-
-.blogGrid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--size-lg);
-}
-
-@media (min-width: 768px) {
-  .blogGrid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (min-width: 1024px) {
-  .blogGrid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
 .blogCard {
   background-color: var(--white-color);
   border-radius: 8px;
@@ -41,17 +7,22 @@
   gap: var(--size-xs);
   border: 1px solid var(--grey-lighter);
   transition: all 0.3s ease;
+  height: 100%;
 }
 
 .blogCard:hover {
-  box-shadow: var(--shadow-sm);
-  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-8px);
+  border-color: var(--primary-color);
 }
 
 .blogTitle {
-  font-size: 18px;
   font-weight: 600;
   line-height: 1.4;
+  color: var(--grey-dark);
+}
+
+.blogTitle:hover {
   color: var(--black-color);
 }
 
@@ -62,10 +33,8 @@
 }
 
 .excerpt {
-  font-size: 14px;
   line-height: 1.6;
   color: var(--grey-dark);
-  margin: 0;
   flex-grow: 1;
 }
 
@@ -83,10 +52,4 @@
 
 .readMore:hover {
   gap: 12px;
-}
-
-.ctaContainer {
-  display: flex;
-  justify-content: center;
-  margin-top: var(--size-lg);
 }

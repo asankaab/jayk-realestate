@@ -10,6 +10,7 @@ type ButtonProps = {
   fill?: 'filled' | 'outlined'
   color?: 'primary' | 'accent'
   className?: string
+  type?: 'submit' | 'button'
 }
 
 const Button: React.FC<ButtonProps> = ({

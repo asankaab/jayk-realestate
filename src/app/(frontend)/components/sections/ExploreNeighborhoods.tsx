@@ -1,10 +1,10 @@
-'use client'
 import React from 'react'
-import Button from './Button'
+import Button from '../Button'
 import styles from './ExploreNeighborhoods.module.css'
 import { Play } from 'lucide-react'
-import { Heading2, Body } from './Text/Text'
+import { Heading2, Body } from '../Text/Text'
 import Image from 'next/image'
+import { Video } from '../Video'
 
 interface ExploreNeighborhoodsProps {
   featured?: {
@@ -17,7 +17,7 @@ interface ExploreNeighborhoodsProps {
 export const ExploreNeighborhoods: React.FC<ExploreNeighborhoodsProps> = ({
   featured = {
     image: undefined,
-    video: undefined,
+    video: 'https://cdn.pixabay.com/video/2023/04/22/160065-820183310_medium.mp4',
     title: 'Neighborhoods Overview',
   },
 }) => {
@@ -32,36 +32,18 @@ export const ExploreNeighborhoods: React.FC<ExploreNeighborhoodsProps> = ({
               curatitur orci risus. Justo lectus gravida aliquet non viverra egestas. Facilisi lorem
               eros arcu laoreet sagittis faucibus quisque fringilla. Egestas dignissim ipsum.
             </Body>
-            <Button className={styles.ctaButton}>Explore</Button>
+            <Button href="/properties" className={styles.ctaButton}>
+              Explore
+            </Button>
           </div>
 
           <div className={styles.mediaContent}>
-            <div className={styles.mediaContainer}>
+            <div className={`${styles.mediaContainer} group`}>
               {featured?.image && (
                 <Image src={featured.image} alt={featured.title} className={styles.mediaImage} />
               )}
-              {featured?.video && (
-                <video
-                  src={featured.video}
-                  className={styles.mediaImage}
-                  controls
-                  poster={featured.image}
-                />
-              )}
-              {!featured?.image && !featured?.video && (
-                <div className={styles.mediaPlaceholder}>
-                  <div className={styles.playButton}>
-                    <Play fill="currentColor" />
-                  </div>
-                </div>
-              )}
-              {(featured?.image || featured?.video) && (
-                <div className={styles.playOverlay}>
-                  <div className={styles.playButton}>
-                    <Play fill="currentColor" />
-                  </div>
-                </div>
-              )}
+
+              <Video url={featured?.video} hasMedia={!!(featured?.image || featured?.video)} />
             </div>
           </div>
         </div>

@@ -63,10 +63,25 @@ export const canUpdateBlog: Access = async ({ req: { user, payload }, id }) => {
 }
 
 /**
- * Only admins can delete blog posts
+ * Admins can delete any blog post
+ * Authors can only delete their own blog posts
  */
-export const canDeleteBlog: Access = ({ req: { user } }) => {
+export const canDeleteBlog: Access = async ({ req: { user, payload }, id }) => {
   if (!user) return false
 
-  return user.role === 'admin'
+  if (user.role === 'admin') {
+    return true
+  }
+
+  if (user.role === 'author' && id) {
+    // Authors can only delete their own posts
+    const post = await payload.findByID({
+      collection: 'blog',
+      id: String(id),
+      depth: 0,
+    })
+    return post?.author === user.id
+  }
+
+  return false
 }

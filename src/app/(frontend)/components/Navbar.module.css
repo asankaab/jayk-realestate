@@ -1,11 +1,14 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
 .navbar {
   padding-block: var(--size-nl);
   background-color: var(--white-color);
   border-bottom: 1px solid var(--grey-lighter);
   color: var(--black-color);
-  position: sticky;
-  top: 0;
-  z-index: 10;
 }
 
 .navContent {

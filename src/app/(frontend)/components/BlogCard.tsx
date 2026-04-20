@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { ArrowRightIcon } from 'lucide-react'
 import { Heading3, Body } from './Text/Text'
 import type { Blog } from '@/payload-types'
-import styles from './Blog.module.css'
+import styles from './BlogCard.module.css'
 
 interface BlogCardProps {
   post: Blog
@@ -12,7 +12,9 @@ interface BlogCardProps {
 export const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
   return (
     <article className={styles.blogCard}>
-      <Heading3 className={styles.blogTitle}>{post.title}</Heading3>
+      <Link href={`/blog/${post.slug || post.id}`}>
+        <Heading3 className={styles.blogTitle}>{post.title}</Heading3>
+      </Link>
 
       {post.createdAt && (
         <Body className={styles.publishDate}>

@@ -5,21 +5,16 @@ import config from './src/payload.config'
 interface PropertyData {
   title: string
   status: 'For Sale' | 'For Rent' | 'Sold' | 'Leased'
+  featured?: boolean
   description: any
   price: number
-  bedrooms: number
-  bathrooms: number
-  area: number
+  bedrooms?: number
+  bathrooms?: number
+  area?: number
   location: string
   imageIds: number[]
-  slug?: string
 }
 
-/**
- * Seed property data into the database
- * Images must already be uploaded and have IDs from 89 to 119
- * Run with: npx tsx seed-properties.ts
- */
 async function seedProperties() {
   try {
     const payload = await getPayload({ config })
@@ -41,6 +36,36 @@ async function seedProperties() {
 
     const userId = userQuery.docs[0].id
     console.log(`✓ Using existing user with ID: ${userId}`)
+
+    // Clear existing properties
+    const existingProperties = await payload.find({
+      collection: 'properties',
+      limit: 100,
+    })
+    
+    if (existingProperties.docs.length > 0) {
+      console.log(`Clearing ${existingProperties.docs.length} existing properties...`)
+      for (const doc of existingProperties.docs) {
+        await payload.delete({
+          collection: 'properties',
+          id: doc.id,
+        })
+      }
+      console.log('✓ Cleared existing properties')
+    }
+
+    // Get available media IDs
+    const mediaQuery = await payload.find({
+      collection: 'media',
+      limit: 100,
+    })
+    const availableMediaIds = mediaQuery.docs.map(m => m.id as number)
+    console.log(`✓ Found ${availableMediaIds.length} media items`)
+
+    // Helper to get valid image IDs
+    const getValidImageIds = (requestedIds: number[]) => {
+      return requestedIds.filter(id => availableMediaIds.includes(id))
+    }
 
     // Sample properties data
     const propertiesData: PropertyData[] = [
@@ -87,7 +112,7 @@ async function seedProperties() {
             ],
           },
         },
-        imageIds: [89, 90, 91],
+        imageIds: getValidImageIds([125, 126, 127]),
       },
       {
         title: 'Contemporary Suburban Family Home',
@@ -132,7 +157,7 @@ async function seedProperties() {
             ],
           },
         },
-        imageIds: [92, 93, 94],
+        imageIds: getValidImageIds([128, 129, 130]),
       },
       {
         title: 'Cozy Village Cottage with Charm',
@@ -177,7 +202,7 @@ async function seedProperties() {
             ],
           },
         },
-        imageIds: [95, 96],
+        imageIds: getValidImageIds([131, 132]),
       },
       {
         title: 'Historic Estate with Grounds',
@@ -222,7 +247,7 @@ async function seedProperties() {
             ],
           },
         },
-        imageIds: [97, 98, 99, 100],
+        imageIds: getValidImageIds([133, 134, 135, 136]),
       },
       {
         title: 'Urban Loft in Historic Building',
@@ -267,7 +292,7 @@ async function seedProperties() {
             ],
           },
         },
-        imageIds: [101, 102, 103],
+        imageIds: getValidImageIds([137, 138, 139]),
       },
       {
         title: 'Beachfront Villa with Ocean Views',
@@ -312,7 +337,7 @@ async function seedProperties() {
             ],
           },
         },
-        imageIds: [104, 105, 106, 107],
+        imageIds: getValidImageIds([140, 141, 142, 143]),
       },
       {
         title: 'Spacious Ranch-Style Home',
@@ -357,7 +382,7 @@ async function seedProperties() {
             ],
           },
         },
-        imageIds: [108, 109],
+        imageIds: getValidImageIds([144, 145]),
       },
       {
         title: 'Downtown Luxury Apartment',
@@ -402,7 +427,7 @@ async function seedProperties() {
             ],
           },
         },
-        imageIds: [110, 111],
+        imageIds: getValidImageIds([146, 147]),
       },
       {
         title: 'Investment Duplex in Revitalizing Neighborhood',
@@ -447,7 +472,7 @@ async function seedProperties() {
             ],
           },
         },
-        imageIds: [112, 113],
+        imageIds: getValidImageIds([148, 149]),
       },
       {
         title: 'Garden Apartment in Quiet Complex',
@@ -492,7 +517,7 @@ async function seedProperties() {
             ],
           },
         },
-        imageIds: [114, 115],
+        imageIds: getValidImageIds([150, 151, 158]),
       },
       {
         title: 'Classic Victorian Mansion',
@@ -537,7 +562,7 @@ async function seedProperties() {
             ],
           },
         },
-        imageIds: [116, 117],
+        imageIds: getValidImageIds([152, 153]),
       },
       {
         title: 'Contemporary Studio Apartment',
@@ -582,7 +607,7 @@ async function seedProperties() {
             ],
           },
         },
-        imageIds: [118],
+        imageIds: getValidImageIds([154]),
       },
       {
         title: 'Mountain Retreat with Forest Views',
@@ -627,7 +652,7 @@ async function seedProperties() {
             ],
           },
         },
-        imageIds: [119],
+        imageIds: getValidImageIds([155, 156]),
       },
     ]
 
@@ -654,6 +679,7 @@ async function seedProperties() {
             location: property.location,
             images: property.imageIds,
             addedBy: userId,
+            featured: false,
           },
           draft: false,
           user: contextUser,
@@ -661,15 +687,8 @@ async function seedProperties() {
         })
         console.log(`✓ Created: "${created.title}" (${property.imageIds.length} images)`)
       } catch (error) {
-        if (
-          error instanceof Error &&
-          (error.message.includes('unique constraint') ||
-            error.message.includes('already exists') ||
-            error.message.includes('duplicate'))
-        ) {
-          console.log(`⊘ Skipped: "${property.title}" (already exists)`)
-        } else if (error instanceof Error) {
-          console.log(`⊘ Skipped: "${property.title}" (${error.message.substring(0, 100)})`)
+        if (error instanceof Error) {
+          console.log(`⊘ Failed: "${property.title}" (${error.message.substring(0, 100)})`)
         } else {
           throw error
         }

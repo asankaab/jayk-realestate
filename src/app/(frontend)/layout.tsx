@@ -2,6 +2,7 @@ import React from 'react'
 import Navbar from './components/Navbar'
 import './styles/main.css'
 import { Albert_Sans } from 'next/font/google'
+import Footer from './components/Footer'
 
 const albertSans = Albert_Sans({ subsets: ['latin'], weight: '400' })
 
@@ -21,6 +22,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
       <body className={albertSans.className}>
         <Navbar />
         <main>{children}</main>
+        <Footer />
       </body>
     </html>
   )

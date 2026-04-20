@@ -29,11 +29,19 @@ const beforeValidateHook: CollectionBeforeValidateHook = ({ data, req }) => {
 
 // Revalidate the blog tag in Next.js
 const revalidateBlogHook: CollectionAfterChangeHook = () => {
-  revalidateTag('blog', 'max')
+  try {
+    revalidateTag('blog', 'max')
+  } catch (e) {
+    // Ignore outside Next.js request context
+  }
 }
 
 const revalidateAfterDeleteHook: CollectionAfterDeleteHook = () => {
-  revalidateTag('blog', 'max')
+  try {
+    revalidateTag('blog', 'max')
+  } catch (e) {
+    // Ignore outside Next.js request context
+  }
 }
 
 export const Blog: CollectionConfig = {
