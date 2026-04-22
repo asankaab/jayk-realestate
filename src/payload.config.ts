@@ -16,6 +16,13 @@ const dirname = path.dirname(filename)
 
 export default buildConfig({
   admin: {
+    components: {
+      providers: ['@/app/(payload)/admin/components/ClerkPayloadProvider#ClerkPayloadProvider'],
+      beforeLogin: ['@/app/(payload)/admin/components/ClerkLogin#ClerkLogin'],
+      logout: {
+        Button: '@/app/(payload)/admin/components/LogoutButton#LogoutButton',
+      },
+    },
     user: Users.slug,
     importMap: {
       baseDir: path.resolve(dirname),
