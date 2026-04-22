@@ -14,13 +14,13 @@ export const Users: CollectionConfig = {
     hidden: ({ user }) => user?.role !== 'admin',
   },
   auth: {
-    disableLocalStrategy: true,
     strategies: [
       {
         name: 'clerk',
         authenticate: async ({ headers, payload }) => {
           const { auth } = await import('@clerk/nextjs/server')
           const { userId } = await auth()
+          console.log(userId)
 
           if (!userId) return { user: null }
 
