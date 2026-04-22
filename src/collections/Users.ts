@@ -14,6 +14,7 @@ export const Users: CollectionConfig = {
     hidden: ({ user }) => user?.role !== 'admin',
   },
   auth: {
+    disableLocalStrategy: true,
     strategies: [
       {
         name: 'clerk',
