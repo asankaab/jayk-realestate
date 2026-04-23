@@ -7,11 +7,17 @@ export const ClerkPayloadProvider: React.FC<{ children: React.ReactNode }> = ({ 
   return (
     <ClerkProvider
       appearance={{
-        options: {
-          logoImageUrl: '/jayk-logo.svg',
-        },
+        theme: 'simple',
         variables: {
           fontSize: '1rem',
+          spacing: '1.2rem',
+        },
+      }}
+      localization={{
+        signIn: {
+          start: {
+            title: 'Sign in to admin panel',
+          },
         },
       }}
     >

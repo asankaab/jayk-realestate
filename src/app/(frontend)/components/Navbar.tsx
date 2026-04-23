@@ -51,7 +51,12 @@ const Navbar = () => {
                     </SignUpButton>
                   </>
                 ) : (
-                  <UserButton />
+                  <UserButton>
+                    <UserButton.MenuItems>
+                      <UserButton.Action label="manageAccount" />
+                      <UserButton.Action label="signOut" />
+                    </UserButton.MenuItems>
+                  </UserButton>
                 )}
               </div>
             </div>

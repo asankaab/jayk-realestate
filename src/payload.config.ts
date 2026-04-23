@@ -17,6 +17,10 @@ const dirname = path.dirname(filename)
 export default buildConfig({
   admin: {
     components: {
+      graphics: {
+        Logo: '@/app/(payload)/admin/components/Logo#Logo',
+        Icon: '@/app/(payload)/admin/components/Logo#Logo',
+      },
       providers: ['@/app/(payload)/admin/components/ClerkPayloadProvider#ClerkPayloadProvider'],
       beforeLogin: ['@/app/(payload)/admin/components/ClerkLogin#ClerkLogin'],
       logout: {

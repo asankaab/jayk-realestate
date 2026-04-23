@@ -8,7 +8,7 @@ export const LogoutButton: React.FC = () => {
   const { signOut } = useClerk()
 
   const handleLogout = async () => {
-    await signOut({ redirectUrl: '/admin' })
+    await signOut({ redirectUrl: '/admin/login' })
   }
 
   return (
