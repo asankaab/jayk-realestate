@@ -18,8 +18,19 @@ export const metadata = {
 export default async function RootLayout(props: { children: React.ReactNode }) {
   const { children } = props
 
+  const disableDevelopmentMode = process.env.NEXT_PUBLIC_DISABLE_DEVELOPMENT_MODE
+
   return (
-    <ClerkProvider>
+    <ClerkProvider
+      appearance={{
+        options: {
+          unsafe_disableDevelopmentModeWarnings: disableDevelopmentMode,
+        },
+        variables: {
+          colorRing: '#D71243',
+        },
+      }}
+    >
       <html lang="en">
         <body className={albertSans.className}>
           <Navbar />

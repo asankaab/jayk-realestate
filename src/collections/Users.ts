@@ -44,33 +44,54 @@ export const Users: CollectionConfig = {
   },
   fields: [
     {
-      name: 'clerkId',
-      type: 'text',
-      unique: true,
-      index: true,
-      admin: { readOnly: true },
-    },
-    {
-      name: 'email',
-      type: 'email',
-      required: true,
-      unique: true,
-    },
-    {
-      name: 'firstName',
-      type: 'text',
-      required: true,
-      hooks: {
-        beforeChange: [capitalizeFirstLetter],
-      },
-    },
-    {
-      name: 'lastName',
-      type: 'text',
-      required: false,
-      hooks: {
-        beforeChange: [capitalizeFirstLetter],
-      },
+      type: 'group',
+      label: '*',
+      hidden: true,
+      fields: [
+        {
+          name: 'clerkId',
+          type: 'text',
+          unique: true,
+          index: true,
+          admin: { readOnly: true },
+        },
+        {
+          name: 'email',
+          type: 'email',
+          required: true,
+          unique: true,
+          admin: {
+            readOnly: true,
+          },
+        },
+        {
+          type: 'row',
+          fields: [
+            {
+              name: 'firstName',
+              type: 'text',
+              required: true,
+              admin: {
+                readOnly: true,
+              },
+              hooks: {
+                beforeChange: [capitalizeFirstLetter],
+              },
+            },
+            {
+              name: 'lastName',
+              type: 'text',
+              required: false,
+              admin: {
+                readOnly: true,
+              },
+              hooks: {
+                beforeChange: [capitalizeFirstLetter],
+              },
+            },
+          ],
+        },
+      ],
     },
     {
       name: 'bio',
@@ -90,6 +111,9 @@ export const Users: CollectionConfig = {
           if (!user) return false
           return user.role === 'admin'
         },
+      },
+      admin: {
+        position: 'sidebar',
       },
     },
   ],

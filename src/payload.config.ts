@@ -16,6 +16,9 @@ const dirname = path.dirname(filename)
 
 export default buildConfig({
   admin: {
+    avatar: {
+      Component: '@/app/(payload)/admin/components/ClerkAvatar#ClerkAvatar',
+    },
     components: {
       graphics: {
         Logo: '@/app/(payload)/admin/components/Logo#Logo',
