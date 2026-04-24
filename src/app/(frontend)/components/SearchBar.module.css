@@ -40,7 +40,7 @@
   }
   
   .searchBar input {
-    background: transparent;
+    background: rgba(255, 255, 255, 0.503);
     border: none;
     width: 100%;
     padding: var(--size-nl);
@@ -64,7 +64,7 @@
   }
   
   .valueForm input {
-    background: transparent;
+    background: rgba(255, 255, 255, 0.503);
     border: 1px solid var(--white-color);
     border-radius: 5px;
     padding: var(--size-nl);

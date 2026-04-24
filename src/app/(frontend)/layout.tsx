@@ -27,7 +27,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
           unsafe_disableDevelopmentModeWarnings: disableDevelopmentMode,
         },
         variables: {
-          colorRing: '#D71243',
+          colorRing: '#DEDEDE',
         },
       }}
     >

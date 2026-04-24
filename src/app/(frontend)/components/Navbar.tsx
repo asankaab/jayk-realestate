@@ -2,7 +2,8 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useState, useEffect, Suspense } from 'react'
+import { useSearchParams } from 'next/navigation'
 import styles from './Navbar.module.css'
 import Button from './Button'
 import {
@@ -10,6 +11,7 @@ import {
   SignUpButton,
   UserButton,
   useUser,
+  useClerk,
   ClerkLoading,
   ClerkLoaded,
 } from '@clerk/nextjs'
@@ -21,6 +23,24 @@ const navLinks = [
   { href: '/contact', label: 'Contact' },
 ]
 
+function ClerkModalManager() {
+  const searchParams = useSearchParams()
+  const clerk = useClerk()
+  const { user, isLoaded } = useUser()
+
+  useEffect(() => {
+    if (!isLoaded || user) return
+
+    if (searchParams.has('sign-in')) {
+      clerk.openSignIn()
+    } else if (searchParams.has('sign-up')) {
+      clerk.openSignUp()
+    }
+  }, [searchParams, clerk, user, isLoaded])
+
+  return null
+}
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
   const { user } = useUser()
@@ -31,6 +51,9 @@ const Navbar = () => {
 
   return (
     <header className={styles.header}>
+      <Suspense fallback={null}>
+        <ClerkModalManager />
+      </Suspense>
       <nav className={styles.navbar}>
         <div className="wrapper">
           <div className={styles.navContent}>
@@ -55,17 +78,12 @@ const Navbar = () => {
                   {!user ? (
                     <>
                       <SignInButton mode="modal">
-                        <Button size="small" fill="outlined" className={styles.loginBtn}>
+                        <Button size="small" className={styles.loginBtn}>
                           Login
                         </Button>
                       </SignInButton>
                       <SignUpButton mode="modal">
-                        <Button
-                          size="small"
-                          fill="outlined"
-                          color="accent"
-                          className={styles.signupBtn}
-                        >
+                        <Button size="small" color="accent" className={styles.signupBtn}>
                           Sign up
                         </Button>
                       </SignUpButton>
