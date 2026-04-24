@@ -5,7 +5,14 @@ import Link from 'next/link'
 import { useState } from 'react'
 import styles from './Navbar.module.css'
 import Button from './Button'
-import { SignInButton, SignUpButton, UserButton, useUser } from '@clerk/nextjs'
+import {
+  SignInButton,
+  SignUpButton,
+  UserButton,
+  useUser,
+  ClerkLoading,
+  ClerkLoaded,
+} from '@clerk/nextjs'
 
 const navLinks = [
   { href: '/properties', label: 'Properties' },
@@ -41,23 +48,37 @@ const Navbar = () => {
             </div>
             <div className={styles.rightSide}>
               <div className={styles.buttonContainer}>
-                {!user ? (
-                  <>
-                    <SignInButton mode="modal">
-                      <button className={styles.loginBtn}>Login</button>
-                    </SignInButton>
-                    <SignUpButton mode="modal">
-                      <button className={styles.signupBtn}>Sign up</button>
-                    </SignUpButton>
-                  </>
-                ) : (
-                  <UserButton>
-                    <UserButton.MenuItems>
-                      <UserButton.Action label="manageAccount" />
-                      <UserButton.Action label="signOut" />
-                    </UserButton.MenuItems>
-                  </UserButton>
-                )}
+                <ClerkLoading>
+                  <div className={styles.skeleton}></div>
+                </ClerkLoading>
+                <ClerkLoaded>
+                  {!user ? (
+                    <>
+                      <SignInButton mode="modal">
+                        <Button size="small" fill="outlined" className={styles.loginBtn}>
+                          Login
+                        </Button>
+                      </SignInButton>
+                      <SignUpButton mode="modal">
+                        <Button
+                          size="small"
+                          fill="outlined"
+                          color="accent"
+                          className={styles.signupBtn}
+                        >
+                          Sign up
+                        </Button>
+                      </SignUpButton>
+                    </>
+                  ) : (
+                    <UserButton>
+                      <UserButton.MenuItems>
+                        <UserButton.Action label="manageAccount" />
+                        <UserButton.Action label="signOut" />
+                      </UserButton.MenuItems>
+                    </UserButton>
+                  )}
+                </ClerkLoaded>
               </div>
             </div>
             <div className={styles.hamburger} onClick={toggleMenu}>
@@ -76,24 +97,29 @@ const Navbar = () => {
               </Link>
             ))}
             <div className={styles.buttonContainer}>
-              {!user ? (
-                <>
-                  <SignInButton mode="modal">
-                    <button className={styles.loginBtn} onClick={toggleMenu}>
-                      Login
-                    </button>
-                  </SignInButton>
-                  <SignUpButton mode="modal">
-                    <button className={styles.signupBtn} onClick={toggleMenu}>
-                      Sign up
-                    </button>
-                  </SignUpButton>
-                </>
-              ) : (
-                <div style={{ padding: '0.5rem 0' }}>
-                  <UserButton />
-                </div>
-              )}
+              <ClerkLoading>
+                <div className={styles.skeleton}></div>
+              </ClerkLoading>
+              <ClerkLoaded>
+                {!user ? (
+                  <>
+                    <SignInButton mode="modal">
+                      <button className={styles.loginBtn} onClick={toggleMenu}>
+                        Login
+                      </button>
+                    </SignInButton>
+                    <SignUpButton mode="modal">
+                      <button className={styles.signupBtn} onClick={toggleMenu}>
+                        Sign up
+                      </button>
+                    </SignUpButton>
+                  </>
+                ) : (
+                  <div style={{ padding: '0.5rem 0' }}>
+                    <UserButton />
+                  </div>
+                )}
+              </ClerkLoaded>
             </div>
           </div>
         )}
