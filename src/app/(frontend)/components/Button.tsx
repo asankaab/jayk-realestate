@@ -11,6 +11,7 @@ type ButtonProps = {
   color?: 'primary' | 'accent'
   className?: string
   type?: 'submit' | 'button'
+  style?: React.CSSProperties
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -21,6 +22,8 @@ const Button: React.FC<ButtonProps> = ({
   fill = 'filled',
   color = 'primary',
   className,
+  style,
+  type = 'button',
 }) => {
   const buttonClasses = [
     styles.button,
@@ -33,14 +36,14 @@ const Button: React.FC<ButtonProps> = ({
 
   if (href) {
     return (
-      <Link href={href} className={buttonClasses}>
+      <Link href={href} className={buttonClasses} style={style}>
         {children}
       </Link>
     )
   }
 
   return (
-    <button onClick={onClick} className={buttonClasses}>
+    <button type={type} onClick={onClick} className={buttonClasses} style={style}>
       {children}
     </button>
   )

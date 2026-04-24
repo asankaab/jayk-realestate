@@ -14,6 +14,7 @@ import {
   useClerk,
   ClerkLoading,
   ClerkLoaded,
+  UserAvatar,
 } from '@clerk/nextjs'
 
 const navLinks = [
@@ -44,6 +45,7 @@ function ClerkModalManager() {
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
   const { user } = useUser()
+  const clerk = useClerk()
 
   const toggleMenu = () => {
     setIsOpen(!isOpen)
@@ -58,7 +60,7 @@ const Navbar = () => {
         <div className="wrapper">
           <div className={styles.navContent}>
             <div className={styles.leftSide}>
-              <Link href="/" className={styles.logo}>
+              <Link href="/" className={styles.logo} onClick={() => setIsOpen(false)}>
                 <Image src="/jayk-logo.svg" alt="jayk logo" width={80} height={40} />
               </Link>
               <div className={styles.navLinks}>
@@ -78,12 +80,10 @@ const Navbar = () => {
                   {!user ? (
                     <>
                       <SignInButton mode="modal">
-                        <Button size="small" className={styles.loginBtn}>
-                          Login
-                        </Button>
+                        <Button size="small">Login</Button>
                       </SignInButton>
                       <SignUpButton mode="modal">
-                        <Button size="small" color="accent" className={styles.signupBtn}>
+                        <Button size="small" color="accent">
                           Sign up
                         </Button>
                       </SignUpButton>
@@ -91,6 +91,28 @@ const Navbar = () => {
                   ) : (
                     <UserButton>
                       <UserButton.MenuItems>
+                        <UserButton.Link
+                          label="Dashboard"
+                          href="/dashboard"
+                          labelIcon={
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              width="16"
+                              height="16"
+                            >
+                              <rect x="3" y="3" width="7" height="7"></rect>
+                              <rect x="14" y="3" width="7" height="7"></rect>
+                              <rect x="14" y="14" width="7" height="7"></rect>
+                              <rect x="3" y="14" width="7" height="7"></rect>
+                            </svg>
+                          }
+                        />
                         <UserButton.Action label="manageAccount" />
                         <UserButton.Action label="signOut" />
                       </UserButton.MenuItems>
@@ -120,21 +142,67 @@ const Navbar = () => {
               </ClerkLoading>
               <ClerkLoaded>
                 {!user ? (
-                  <>
+                  <div style={{ display: 'flex', gap: '.5rem', width: '100%', height: '2.5rem' }}>
                     <SignInButton mode="modal">
-                      <button className={styles.loginBtn} onClick={toggleMenu}>
+                      <Button style={{ width: '100%' }} size="small" onClick={toggleMenu}>
                         Login
-                      </button>
+                      </Button>
                     </SignInButton>
                     <SignUpButton mode="modal">
-                      <button className={styles.signupBtn} onClick={toggleMenu}>
+                      <Button
+                        style={{ width: '100%' }}
+                        size="small"
+                        color="accent"
+                        onClick={toggleMenu}
+                      >
                         Sign up
-                      </button>
+                      </Button>
                     </SignUpButton>
-                  </>
+                  </div>
                 ) : (
-                  <div style={{ padding: '0.5rem 0' }}>
-                    <UserButton />
+                  <div className={styles.userProfileContainer}>
+                    <Button
+                      style={{ width: '100%', marginBottom: '0.5rem' }}
+                      size="small"
+                      color="primary"
+                      href="/dashboard"
+                      onClick={toggleMenu}
+                    >
+                      Dashboard
+                    </Button>
+                    <div
+                      style={{
+                        display: 'flex',
+                        gap: '1rem',
+                        width: '100%',
+                        alignItems: 'center',
+                      }}
+                    >
+                      <div style={{ flexShrink: 0, display: 'flex' }}>
+                        <UserAvatar />
+                      </div>
+                      <Button
+                        style={{ width: '100%' }}
+                        size="small"
+                        fill="outlined"
+                        onClick={() => {
+                          clerk.openUserProfile()
+                        }}
+                      >
+                        Manage Account
+                      </Button>
+                      <Button
+                        style={{ width: '100%' }}
+                        size="small"
+                        color="accent"
+                        onClick={() => {
+                          clerk.signOut()
+                          toggleMenu()
+                        }}
+                      >
+                        Sign Out
+                      </Button>
+                    </div>
                   </div>
                 )}
               </ClerkLoaded>

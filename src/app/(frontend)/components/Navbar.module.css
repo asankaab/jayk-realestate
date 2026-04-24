@@ -36,7 +36,8 @@
 
 .buttonContainer {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: center;
   gap: var(--size-nl);
 }
 
@@ -75,6 +76,14 @@
 .mobileNav > a:last-of-type {
   border-bottom: none;
   margin-bottom: var(--size-nl);
+}
+
+.userProfileContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  border-top: 1px solid var(--grey-lighter);
 }
 
 .skeleton {
