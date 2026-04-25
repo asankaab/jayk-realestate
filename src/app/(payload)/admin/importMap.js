@@ -21,6 +21,11 @@ import { StrikethroughFeatureClient as StrikethroughFeatureClient_e70f5e05f09f93
 import { UnderlineFeatureClient as UnderlineFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
 import { BoldFeatureClient as BoldFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
 import { ItalicFeatureClient as ItalicFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
+import { ClerkAvatar as ClerkAvatar_6cc3a2a68ada9b93679e24491af35fad } from '@/app/(payload)/admin/components/ClerkAvatar'
+import { LogoutButton as LogoutButton_ab9c229231c96453286ed9024b802675 } from '@/app/(payload)/admin/components/LogoutButton'
+import { Logo as Logo_2ae2332e938a0419429ab2356f27f6a2 } from '@/app/(payload)/admin/components/Logo'
+import { ClerkLogin as ClerkLogin_f5e6dab960409d2dfa9c5f3ff1ff513c } from '@/app/(payload)/admin/components/ClerkLogin'
+import { ClerkPayloadProvider as ClerkPayloadProvider_a520ba20f7b37f3efecbeda3b38432ab } from '@/app/(payload)/admin/components/ClerkPayloadProvider'
 import { VercelBlobClientUploadHandler as VercelBlobClientUploadHandler_16c82c5e25f430251a3e3ba57219ff4e } from '@payloadcms/storage-vercel-blob/client'
 import { CollectionCards as CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1 } from '@payloadcms/next/rsc'
 
@@ -48,6 +53,11 @@ export const importMap = {
   "@payloadcms/richtext-lexical/client#UnderlineFeatureClient": UnderlineFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "@payloadcms/richtext-lexical/client#BoldFeatureClient": BoldFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "@payloadcms/richtext-lexical/client#ItalicFeatureClient": ItalicFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+  "@/app/(payload)/admin/components/ClerkAvatar#ClerkAvatar": ClerkAvatar_6cc3a2a68ada9b93679e24491af35fad,
+  "@/app/(payload)/admin/components/LogoutButton#LogoutButton": LogoutButton_ab9c229231c96453286ed9024b802675,
+  "@/app/(payload)/admin/components/Logo#Logo": Logo_2ae2332e938a0419429ab2356f27f6a2,
+  "@/app/(payload)/admin/components/ClerkLogin#ClerkLogin": ClerkLogin_f5e6dab960409d2dfa9c5f3ff1ff513c,
+  "@/app/(payload)/admin/components/ClerkPayloadProvider#ClerkPayloadProvider": ClerkPayloadProvider_a520ba20f7b37f3efecbeda3b38432ab,
   "@payloadcms/storage-vercel-blob/client#VercelBlobClientUploadHandler": VercelBlobClientUploadHandler_16c82c5e25f430251a3e3ba57219ff4e,
   "@payloadcms/next/rsc#CollectionCards": CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1
 }

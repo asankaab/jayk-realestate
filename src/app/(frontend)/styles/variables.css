@@ -7,7 +7,7 @@
   --accent-color: #D71243;
   --accent-color-rgb: 215, 18, 67;
   --primary-shade: #F4F6FC;
-  --accent-shade: #b60f38;
+  --accent-shade: #ffd3de;
   --white-alpha: rgba(255, 255, 255, 0.4);
   --grey-lighter: #DEDEDE;
   --grey-light: #BDBDBD;
@@ -35,4 +35,24 @@
 
   --linear-gradient: linear-gradient(180deg, rgba(var(--primary-color-rgb), 0.04) 0%, transparent 25%),
     var(--white-color);
+
+  /* clerk */
+
+  --clerk-color-primary: #23346D;
+  --clerk-color-primary-foreground: #FFFFFF;
+  --clerk-color-danger: #EF4444;
+  --clerk-color-success: #22C543;
+  --clerk-color-warning: #F36B16;
+  --clerk-color-neutral: #000000;
+  --clerk-color-foreground: #000000;
+  --clerk-color-muted-foreground: #747686;
+  --clerk-color-background: #FFFFFF;
+  --clerk-color-input: #FFFFFF;
+  --clerk-color-input-foreground: #000000;
+  --clerk-color-ring: #000000;
+  --clerk-color-shimmer: #FFFFFF;
+  --clerk-color-modal-backdrop: #000000ab;
+  --clerk-border-radius: 0.375rem;
+  --clerk-spacing: 1rem;
+
 }

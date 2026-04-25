@@ -21,6 +21,7 @@
     "seed:properties": "cross-env NODE_OPTIONS=--no-deprecation npx tsx seed-properties.ts"
   },
   "dependencies": {
+    "@clerk/nextjs": "^7.2.3",
     "@payloadcms/db-vercel-postgres": "3.82.1",
     "@payloadcms/next": "3.82.1",
     "@payloadcms/richtext-lexical": "3.82.1",
@@ -34,7 +35,8 @@
     "payload": "3.82.1",
     "react": "19.2.5",
     "react-dom": "19.2.5",
-    "sharp": "0.34.2"
+    "sharp": "0.34.2",
+    "svix": "^1.90.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.5",

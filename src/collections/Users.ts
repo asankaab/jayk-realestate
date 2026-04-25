@@ -13,24 +13,85 @@ export const Users: CollectionConfig = {
     useAsTitle: 'email',
     hidden: ({ user }) => user?.role !== 'admin',
   },
-  auth: true,
+  auth: {
+    disableLocalStrategy: true,
+    strategies: [
+      {
+        name: 'clerk',
+        authenticate: async ({ headers, payload }) => {
+          const { auth } = await import('@clerk/nextjs/server')
+          const { userId } = await auth()
+          console.log(userId)
+
+          if (!userId) return { user: null }
+
+          const userQuery = await payload.find({
+            collection: 'users',
+            where: { clerkId: { equals: userId } },
+          })
+
+          if (userQuery.docs.length > 0) {
+            return {
+              user: userQuery.docs[0],
+              collection: 'users',
+            }
+          }
+
+          return { user: null }
+        },
+      },
+    ],
+  },
   fields: [
-    // Email added by default
     {
-      name: 'firstName',
-      type: 'text',
-      required: true,
-      hooks: {
-        beforeChange: [capitalizeFirstLetter],
-      },
-    },
-    {
-      name: 'lastName',
-      type: 'text',
-      required: false,
-      hooks: {
-        beforeChange: [capitalizeFirstLetter],
-      },
+      type: 'group',
+      label: '*',
+      hidden: true,
+      fields: [
+        {
+          name: 'clerkId',
+          type: 'text',
+          unique: true,
+          index: true,
+          admin: { readOnly: true },
+        },
+        {
+          name: 'email',
+          type: 'email',
+          required: true,
+          unique: true,
+          admin: {
+            readOnly: true,
+          },
+        },
+        {
+          type: 'row',
+          fields: [
+            {
+              name: 'firstName',
+              type: 'text',
+              required: true,
+              admin: {
+                readOnly: true,
+              },
+              hooks: {
+                beforeChange: [capitalizeFirstLetter],
+              },
+            },
+            {
+              name: 'lastName',
+              type: 'text',
+              required: false,
+              admin: {
+                readOnly: true,
+              },
+              hooks: {
+                beforeChange: [capitalizeFirstLetter],
+              },
+            },
+          ],
+        },
+      ],
     },
     {
       name: 'bio',
@@ -50,6 +111,9 @@ export const Users: CollectionConfig = {
           if (!user) return false
           return user.role === 'admin'
         },
+      },
+      admin: {
+        position: 'sidebar',
       },
     },
   ],
