@@ -32,9 +32,9 @@ function ClerkModalManager() {
   useEffect(() => {
     if (!isLoaded || user) return
 
-    if (searchParams.has('sign-in')) {
+    if (searchParams.get('auth') === 'sign-in') {
       clerk.openSignIn()
-    } else if (searchParams.has('sign-up')) {
+    } else if (searchParams.get('auth') === 'sign-up') {
       clerk.openSignUp()
     }
   }, [searchParams, clerk, user, isLoaded])
