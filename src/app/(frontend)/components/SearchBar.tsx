@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import styles from './SearchBar.module.css'
 import Button from './Button'
+import { Search } from 'lucide-react'
 
 export const SearchBar = () => {
   const router = useRouter()
@@ -67,7 +68,9 @@ export const SearchBar = () => {
               value={searchValue}
               onChange={(e) => setSearchValue(e.target.value)}
             />
-            <button type="submit" style={{ display: 'none' }}>Search</button>
+            <button type="submit">
+              <Search />
+            </button>
           </form>
         ) : (
           <div className={styles.valueForm}>

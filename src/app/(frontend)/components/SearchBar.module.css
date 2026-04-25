@@ -38,7 +38,24 @@
   
   .searchBar {
     display: flex;
+    gap: var(--size-sm);
     width: 100%;
+    position: relative;
+  }
+  
+  .searchBar button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    right: 5px;
+    top: 8px;
+    z-index: 5;
+    transition: transform 0.5s ease-in;
+
+    :hover:first-child {
+      stroke: var(--accent-color);
+    }
   }
   
   .searchBar input {
