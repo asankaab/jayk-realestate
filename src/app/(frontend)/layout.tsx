@@ -18,7 +18,8 @@ export const metadata = {
 export default async function RootLayout(props: { children: React.ReactNode }) {
   const { children } = props
 
-  const disableDevelopmentMode = process.env.NEXT_PUBLIC_DISABLE_CLERK_DEV_MODE
+  const disableDevelopmentMode =
+    process.env.NEXT_PUBLIC_DISABLE_CLERK_DEV_MODE == 'true' ? true : false
 
   return (
     <ClerkProvider
