@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState, useEffect, Suspense } from 'react'
-import { useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import styles from './Navbar.module.css'
 import Button from './Button'
 import {
@@ -24,27 +24,30 @@ const navLinks = [
   { href: '/contact', label: 'Contact' },
 ]
 
-function ClerkModalManager() {
-  const searchParams = useSearchParams()
-  const clerk = useClerk()
-  const { user, isLoaded } = useUser()
+// function ClerkModalManager() {
+//   const searchParams = useSearchParams()
+//   const clerk = useClerk()
+//   const { user, isLoaded } = useUser()
+//   const router = useRouter()
 
-  useEffect(() => {
-    if (!isLoaded || user) return
+//   useEffect(() => {
+//     if (isLoaded && !user) router.push('/')
 
-    if (searchParams.get('auth') === 'sign-in') {
-      clerk.openSignIn()
-    } else if (searchParams.get('auth') === 'sign-up') {
-      clerk.openSignUp()
-    }
-  }, [searchParams, clerk, user, isLoaded])
+//     if (isLoaded && !clerk.isSignedIn) {
+//       if (searchParams.get('auth') === 'sign-in') {
+//         clerk.openSignIn()
+//       } else if (searchParams.get('auth') === 'sign-up') {
+//         clerk.openSignUp()
+//       }
+//     }
+//   }, [searchParams, clerk, user, isLoaded])
 
-  return null
-}
+//   return null
+// }
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
-  const { user } = useUser()
+  const { user, isSignedIn } = useUser()
   const clerk = useClerk()
 
   const toggleMenu = () => {
@@ -53,9 +56,7 @@ const Navbar = () => {
 
   return (
     <header className={styles.header}>
-      <Suspense fallback={null}>
-        <ClerkModalManager />
-      </Suspense>
+      <Suspense fallback={null}></Suspense>
       <nav className={styles.navbar}>
         <div className="wrapper">
           <div className={styles.navContent}>
