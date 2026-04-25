@@ -28,7 +28,7 @@
 
 .button--primary--filled:hover {
     background-color: var(--primary-shade);
-    border-color: var(--grey-lighter);
+    border-color: rgba(var(--primary-color-rgb), 0.2);
     color: var(--primary-color);
 }
 
@@ -52,7 +52,7 @@
 
 .button--accent--filled:hover {
     background-color: rgba(var(--accent-color-rgb), 0.1);
-    border-color: var(--accent-color);
+    border-color: rgba(var(--accent-color-rgb), 0.2);
     color: var(--accent-color);
 }
 
