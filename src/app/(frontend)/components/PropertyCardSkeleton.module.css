@@ -1,0 +1,23 @@
+.skeletonCard {
+  pointer-events: none;
+}
+
+.pulse {
+  background: linear-gradient(
+    90deg,
+    rgba(var(--grey-lighter-rgb), 0.5) 0%,
+    rgba(var(--grey-rgb), 0.1) 50%,
+    rgba(var(--grey-lighter-rgb), 0.5) 100%
+  );
+  background-size: 200% 100%;
+  animation: pulse 1.5s infinite linear;
+}
+
+@keyframes pulse {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
