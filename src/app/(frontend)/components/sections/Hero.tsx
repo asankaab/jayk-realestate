@@ -18,8 +18,8 @@ export const Hero = () => {
             <Button href="properties" fill="filled" color="accent">
               Explore
             </Button>
-            <Button href="?auth=signup" fill="outlined" color="primary">
-              Signup
+            <Button href="/contact" fill="outlined" color="primary">
+              Contact
             </Button>
           </div>
         </div>
