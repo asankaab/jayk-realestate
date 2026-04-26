@@ -12,6 +12,7 @@ type ButtonProps = {
   className?: string
   type?: 'submit' | 'button'
   style?: React.CSSProperties
+  replace?: boolean
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -24,6 +25,7 @@ const Button: React.FC<ButtonProps> = ({
   className,
   style,
   type = 'button',
+  replace,
 }) => {
   const buttonClasses = [
     styles.button,
@@ -36,7 +38,7 @@ const Button: React.FC<ButtonProps> = ({
 
   if (href) {
     return (
-      <Link href={href} className={buttonClasses} style={style}>
+      <Link href={href} replace={replace} className={buttonClasses} style={style}>
         {children}
       </Link>
     )

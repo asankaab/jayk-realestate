@@ -1,21 +1,46 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
 import styles from './SearchBar.module.css'
 import Button from './Button'
+import { Search } from 'lucide-react'
 
 export const SearchBar = () => {
+  const router = useRouter()
+  const searchParams = useSearchParams()
   const [activeTab, setActiveTab] = useState('find')
   const [searchValue, setSearchValue] = useState('')
   const [bathrooms, setBathrooms] = useState('')
   const [bedrooms, setBedrooms] = useState('')
   const [area, setArea] = useState('')
 
+  useEffect(() => {
+    const q = searchParams.get('q')
+    if (q) {
+      setSearchValue(q)
+    }
+  }, [searchParams])
+
   const handleTabChange = (tab: string) => {
     setActiveTab(tab)
-    setSearchValue('')
+    if (tab !== 'find') {
+      setSearchValue('')
+    } else {
+      const q = searchParams.get('q')
+      if (q) setSearchValue(q)
+    }
     setBathrooms('')
     setBedrooms('')
     setArea('')
+  }
+
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (searchValue.trim()) {
+      router.push(`/properties?q=${encodeURIComponent(searchValue.trim())}`)
+    } else {
+      router.push('/properties')
+    }
   }
 
   return (
@@ -25,44 +50,47 @@ export const SearchBar = () => {
           className={`${styles.tab} ${activeTab === 'find' ? styles.active : ''}`}
           onClick={() => handleTabChange('find')}
         >
-          Find a home
+          Find a Home
         </button>
         <button
           className={`${styles.tab} ${activeTab === 'value' ? styles.active : ''}`}
           onClick={() => handleTabChange('value')}
         >
-          Value estimate
+          Value Estimate
         </button>
       </div>
       <div className={styles.content}>
         {activeTab === 'find' ? (
-          <div className={styles.searchBar}>
+          <form className={styles.searchBar} onSubmit={handleSearchSubmit}>
             <input
               type="text"
               placeholder="Search for properties..."
               value={searchValue}
-              onChange={e => setSearchValue(e.target.value)}
+              onChange={(e) => setSearchValue(e.target.value)}
             />
-          </div>
+            <button type="submit">
+              <Search />
+            </button>
+          </form>
         ) : (
           <div className={styles.valueForm}>
             <input
               type="number"
               placeholder="Bathrooms"
               value={bathrooms}
-              onChange={e => setBathrooms(e.target.value)}
+              onChange={(e) => setBathrooms(e.target.value)}
             />
             <input
               type="number"
               placeholder="Bedrooms"
               value={bedrooms}
-              onChange={e => setBedrooms(e.target.value)}
+              onChange={(e) => setBedrooms(e.target.value)}
             />
             <input
               type="number"
               placeholder="Area (sqft)"
               value={area}
-              onChange={e => setArea(e.target.value)}
+              onChange={(e) => setArea(e.target.value)}
             />
             <Button>Calculate</Button>
           </div>

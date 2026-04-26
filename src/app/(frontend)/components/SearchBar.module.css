@@ -10,19 +10,21 @@
   }
   
   .tab {
-    background: var(--primary-shade);
-    border: 1px solid var(--white-color);
-    border-bottom: none;
+    background: var(--primary-color);
+    border-bottom: 1px solid var(--white-color);
     padding: var(--size-sm) var(--size-md);
     cursor: pointer;
     border-radius: 5px 5px 0 0;
-    color: var(--grey);
+    color: var(--white-alpha);
     margin-right: 5px;
   }
   
   .tab.active {
-    background-color: var(--primary-color);
-    color: var(--white-color);
+    background-color: var(--white-alpha);
+    backdrop-filter: blur(5px);
+    color: var(--primary-color);
+    font-weight: bold;
+    border: 1px solid var(--white-color);
     border-bottom: 1px solid transparent;
   }
   
@@ -36,7 +38,24 @@
   
   .searchBar {
     display: flex;
+    gap: var(--size-sm);
     width: 100%;
+    position: relative;
+  }
+  
+  .searchBar button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    right: 5px;
+    top: 8px;
+    z-index: 5;
+    transition: transform 0.5s ease-in;
+
+    :hover:first-child {
+      stroke: var(--accent-color);
+    }
   }
   
   .searchBar input {

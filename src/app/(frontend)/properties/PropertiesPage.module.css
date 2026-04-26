@@ -54,7 +54,7 @@
 
 .propertiesGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
   gap: 1.75rem;
 }
 
@@ -142,7 +142,7 @@
   align-items: center;
   justify-content: center;
   padding: 0.9rem 1.5rem;
-  border-radius: 999px;
+  border-radius: 8px;
   background: var(--accent-color);
   color: var(--white-color);
   font-weight: 700;
