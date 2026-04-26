@@ -1,0 +1,31 @@
+.dashboardContainer {
+  padding-block: 4rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.emptyState {
+  text-align: center;
+  padding: 4rem 2rem;
+  background-color: var(--primary-shade);
+  border-radius: 12px;
+  border: 1px dashed var(--grey-lighter);
+  margin-top: 2rem;
+}
+
+.emptyState h3 {
+  margin-bottom: 1rem;
+}
