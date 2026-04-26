@@ -10,10 +10,11 @@
 .footerShell {
   background: var(--primary-color);
   color: var(--white-color);
-  border-radius: var(--size-md);
+  border-radius: var(--size-md) var(--size-md) 0 0;
   padding-block: var(--size-xl);
 
   @media(min-width: 769px) {
+    border-radius: var(--size-md);
     padding-block: var(--size-2xl);
   }
 }
