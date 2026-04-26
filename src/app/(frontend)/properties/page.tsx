@@ -68,7 +68,7 @@ const PropertiesListSkeleton = () => {
     <>
       <div className={styles.summaryBar}>
         <Body className={styles.summaryText}>
-           <span style={{opacity: 0}}>&nbsp;</span>
+          <span style={{ opacity: 0 }}>&nbsp;</span>
         </Body>
       </div>
       <div className={styles.propertiesGrid}>
@@ -82,7 +82,13 @@ const PropertiesListSkeleton = () => {
   )
 }
 
-const PropertiesList = async ({ query, requestedPage }: { query?: string, requestedPage: number }) => {
+const PropertiesList = async ({
+  query,
+  requestedPage,
+}: {
+  query?: string
+  requestedPage: number
+}) => {
   let properties: Property[] = []
   let totalDocs = 0
   let totalPages = 1
@@ -202,7 +208,9 @@ const PropertiesPage = async ({ searchParams }: PropertiesPageProps) => {
             className={styles.searchWrapper}
             style={{ marginTop: '2rem', width: '100%', display: 'flex', justifyContent: 'center' }}
           >
-            <SearchInput />
+            <Suspense fallback={<div>Loading search...</div>}>
+              <SearchInput />
+            </Suspense>
           </div>
         </header>
 
