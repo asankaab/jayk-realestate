@@ -2,7 +2,7 @@
 import React, { useState, useRef, TouchEvent } from 'react'
 import type { Media } from '@/payload-types'
 import Image from 'next/image'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { ChevronLeft, ChevronRight, ImageIcon } from 'lucide-react'
 import styles from './ImageGallery.module.css'
 
 interface ImageGalleryProps {
@@ -12,6 +12,7 @@ interface ImageGalleryProps {
 
 export const ImageGallery: React.FC<ImageGalleryProps> = ({ images, title }) => {
   const [selectedImageIndex, setSelectedImageIndex] = useState(0)
+  const [isLoading, setIsLoading] = useState(true)
   const touchStartX = useRef<number>(0)
   const touchEndX = useRef<number>(0)
 
@@ -42,22 +43,26 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({ images, title }) => 
 
     if (isLeftSwipe && selectedImageIndex < images.length - 1) {
       setSelectedImageIndex(selectedImageIndex + 1)
+      setIsLoading(true)
     }
 
     if (isRightSwipe && selectedImageIndex > 0) {
       setSelectedImageIndex(selectedImageIndex - 1)
+      setIsLoading(true)
     }
   }
 
   const handlePrevious = () => {
     if (selectedImageIndex > 0) {
       setSelectedImageIndex(selectedImageIndex - 1)
+      setIsLoading(true)
     }
   }
 
   const handleNext = () => {
     if (selectedImageIndex < images.length - 1) {
       setSelectedImageIndex(selectedImageIndex + 1)
+      setIsLoading(true)
     }
   }
 
@@ -68,13 +73,19 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({ images, title }) => 
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
+        {isLoading && (
+          <div className={`${styles.skeleton} ${styles.skeletonPulse}`}>
+            <ImageIcon size={80} />
+          </div>
+        )}
         <Image
           src={imageUrl}
           alt={title}
-          className={styles.mainImage}
+          className={`${styles.mainImage} ${isLoading ? styles.mainImageLoading : ''}`}
           fill
           priority
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
+          onLoad={() => setIsLoading(false)}
         />
 
         {/* Navigation arrows */}
@@ -113,7 +124,12 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({ images, title }) => 
           {images.map((image, index) => (
             <button
               key={image.id}
-              onClick={() => setSelectedImageIndex(index)}
+              onClick={() => {
+                if (selectedImageIndex !== index) {
+                  setSelectedImageIndex(index)
+                  setIsLoading(true)
+                }
+              }}
               className={`${styles.thumbnail} ${
                 selectedImageIndex === index ? styles.thumbnailActive : styles.thumbnailInactive
               }`}
