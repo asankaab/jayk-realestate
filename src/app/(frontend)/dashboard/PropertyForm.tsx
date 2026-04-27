@@ -7,6 +7,18 @@ import { Heading3 } from '@/app/(frontend)/components/Text/Text'
 import styles from './PropertyForm.module.css'
 import { isRedirectError } from 'next/dist/client/components/redirect-error'
 import Button from '@/app/(frontend)/components/Button'
+import { processImage } from './actions'
+
+type ProcessedImage = {
+  id: number
+  url: string
+}
+
+type NewImagePreview = {
+  file: File
+  preview: string
+  processing?: boolean
+}
 
 type PropertyFormProps = {
   initialData?: {
@@ -31,18 +43,29 @@ export const PropertyForm: React.FC<PropertyFormProps> = ({ initialData, onSubmi
   const [existingImages, setExistingImages] = useState<{ id: number; url: string }[]>(
     initialData?.images || [],
   )
-  const [newImagePreviews, setNewImagePreviews] = useState<{ file: File; preview: string }[]>([])
+  const [newImagePreviews, setNewImagePreviews] = useState<
+    {
+      file: File
+      preview: string
+      processing?: boolean
+    }[]
+  >([])
+  const [processedImages, setProcessedImages] = useState<ProcessedImage[]>([])
+
+  // Check if any images are still being processed
+  const isProcessing = newImagePreviews.some((img) => img.processing)
 
   const handleRemoveImage = (id: number) => {
     setExistingImages((prev) => prev.filter((img) => img.id !== id))
   }
 
-  const handleNewImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleNewImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files
     if (!files) return
 
     const MAX_FILE_SIZE = 1 * 1024 * 1024 // 1MB in bytes
-    const newPreviews: { file: File; preview: string }[] = []
+    const newPreviews: { file: File; preview: string; processing: boolean }[] = []
+
     for (let i = 0; i < files.length; i++) {
       const file = files[i]
       if (file.size > MAX_FILE_SIZE) {
@@ -50,9 +73,30 @@ export const PropertyForm: React.FC<PropertyFormProps> = ({ initialData, onSubmi
         continue
       }
       const preview = URL.createObjectURL(file)
-      newPreviews.push({ file, preview })
+      newPreviews.push({ file, preview, processing: true })
     }
+
     setNewImagePreviews((prev) => [...prev, ...newPreviews])
+
+    // Process each image after selection
+    for (let i = 0; i < newPreviews.length; i++) {
+      const index = newImagePreviews.length + i
+      const { file, preview } = newPreviews[i]
+
+      try {
+        const titleInput = document.getElementById('title') as HTMLInputElement | null;
+        const currentTitle = titleInput?.value;
+        const processed = await processImage(file, currentTitle)
+        setProcessedImages((prev) => [...prev, processed])
+        setNewImagePreviews((prev) =>
+          prev.map((p, idx) => (idx === index ? { ...p, processing: false } : p)),
+        )
+      } catch (err) {
+        console.error('Failed to process image:', err)
+        setError(`Failed to process "${file.name}". Please try again.`)
+        setNewImagePreviews((prev) => prev.filter((_, idx) => idx !== index))
+      }
+    }
   }
 
   const handleRemoveNewImage = (index: number) => {
@@ -62,6 +106,7 @@ export const PropertyForm: React.FC<PropertyFormProps> = ({ initialData, onSubmi
       updated.splice(index, 1)
       return updated
     })
+    setProcessedImages((prev) => prev.filter((_, idx) => idx !== index))
   }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -69,11 +114,15 @@ export const PropertyForm: React.FC<PropertyFormProps> = ({ initialData, onSubmi
     setIsSubmitting(true)
     setError(null)
 
+    // Create formData from the form
     const formData = new FormData(e.currentTarget)
 
-    // Append new image files to formData
-    newImagePreviews.forEach(({ file }) => {
-      formData.append('newImages', file)
+    // Remove the automatically appended file objects
+    formData.delete('newImages')
+
+    // Append processed image IDs instead of files
+    processedImages.forEach((img) => {
+      formData.append('newImages', img.id.toString())
     })
 
     try {
@@ -252,22 +301,31 @@ export const PropertyForm: React.FC<PropertyFormProps> = ({ initialData, onSubmi
             accept="image/*"
             className={styles.input}
             onChange={handleNewImageChange}
+            disabled={isSubmitting || isProcessing}
           />
           {newImagePreviews.length > 0 && (
             <div className={styles.imageGrid}>
               {newImagePreviews.map((img, index) => (
                 <div key={index} className={styles.imageWrapper}>
-                  <Image
-                    src={img.preview}
-                    alt={`New Image ${index + 1}`}
-                    fill
-                    style={{ objectFit: 'cover' }}
-                    sizes="100px"
-                  />
+                  {img.processing ? (
+                    <div className={styles.processingOverlay}>
+                      <span className={styles.spinner}></span>
+                      <span>Processing...</span>
+                    </div>
+                  ) : (
+                    <Image
+                      src={img.preview}
+                      alt={`New Image ${index + 1}`}
+                      fill
+                      style={{ objectFit: 'cover' }}
+                      sizes="100px"
+                    />
+                  )}
                   <button
                     type="button"
                     onClick={() => handleRemoveNewImage(index)}
                     className={styles.removeButton}
+                    disabled={isSubmitting || isProcessing}
                   >
                     Remove
                   </button>
@@ -278,11 +336,11 @@ export const PropertyForm: React.FC<PropertyFormProps> = ({ initialData, onSubmi
         </div>
 
         <div className={styles.buttonWrapper}>
-          <Button href="/dashboard" fill="outlined" disabled={isSubmitting}>
+          <Button href="/dashboard" fill="outlined" disabled={isSubmitting || isProcessing}>
             Cancel
           </Button>
-          <Button color="accent" type="submit" disabled={isSubmitting}>
-            {isSubmitting ? 'Saving...' : 'Save Property'}
+          <Button color="accent" type="submit" disabled={isSubmitting || isProcessing}>
+            {isSubmitting || isProcessing ? 'Processing...' : 'Save Property'}
           </Button>
         </div>
 

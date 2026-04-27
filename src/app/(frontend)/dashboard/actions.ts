@@ -5,7 +5,7 @@ import { redirect } from 'next/navigation'
 import { payloadClient } from '@/app/lib/payloadClient'
 import { auth } from '@clerk/nextjs/server'
 
-const JAYK_LOGO_URL = 'https://jayk-realestate.vercel.app/jayk-logo.png'
+const JAYK_LOGO_URL = 'https://jayk-realestate.vercel.app/watermark.png'
 
 // Upload image to temp file service and return the URL
 async function uploadToTempService(file: File): Promise<string> {
@@ -48,7 +48,7 @@ async function addWatermarkToImage(imageUrl: string): Promise<Buffer> {
   watermarkUrl.searchParams.set('markRatio', '0.25')
 
   const response = await fetch(
-    `https://quickchart.io/watermark/?mainImageUrl=${imageUrl}&markImageUrl=${JAYK_LOGO_URL}&markRatio=0.25`,
+    `https://quickchart.io/watermark/?mainImageUrl=${imageUrl}&markImageUrl=${JAYK_LOGO_URL}&markRatio=0.1`,
   )
 
   if (response.status !== 200) {
@@ -60,7 +60,7 @@ async function addWatermarkToImage(imageUrl: string): Promise<Buffer> {
 }
 
 // Upload image with watermark
-async function uploadImageWithWatermark(file: File, userId: number): Promise<number> {
+async function uploadImageWithWatermark(file: File, userId: number, title?: string): Promise<number> {
   // First upload the image to temp service to get a URL
   const tempUrl = await uploadToTempService(file)
 
@@ -71,7 +71,7 @@ async function uploadImageWithWatermark(file: File, userId: number): Promise<num
   const watermarkedMedia = await payloadClient.create({
     collection: 'media',
     data: {
-      alt: file.name,
+      alt: title || file.name,
       user: userId,
     },
     file: {
@@ -83,6 +83,48 @@ async function uploadImageWithWatermark(file: File, userId: number): Promise<num
   } as any)
 
   return watermarkedMedia.id as number
+}
+
+// Process a single image with watermark (for client-side use)
+export async function processImage(file: File, title?: string): Promise<{ id: number; url: string }> {
+  const { userId } = await auth()
+  if (!userId) {
+    throw new Error('Unauthorized')
+  }
+
+  const user = await getPayloadUser(userId)
+  if (!user) {
+    throw new Error('User not found in CMS')
+  }
+
+  // Upload to temp service
+  const tempUrl = await uploadToTempService(file)
+
+  // Apply watermark
+  const watermarkedBuffer = await addWatermarkToImage(tempUrl)
+
+  // Upload to Payload
+  const watermarkedMedia = await payloadClient.create({
+    collection: 'media',
+    data: {
+      alt: title || file.name,
+      user: user.id,
+    },
+    file: {
+      data: watermarkedBuffer,
+      mimetype: file.type,
+      name: file.name,
+      size: watermarkedBuffer.length,
+    },
+  } as any)
+
+  const mediaWithUrl = watermarkedMedia as unknown as { url?: string | (() => string) }
+  const url = typeof mediaWithUrl.url === 'function' ? mediaWithUrl.url() : mediaWithUrl.url || ''
+
+  return {
+    id: watermarkedMedia.id as number,
+    url,
+  }
 }
 
 // create property
@@ -106,12 +148,19 @@ export async function createProperty(formData: FormData) {
   const bathrooms = formData.get('bathrooms') ? Number(formData.get('bathrooms')) : undefined
   const area = formData.get('area') ? Number(formData.get('area')) : undefined
 
-  const newImages = formData.getAll('newImages') as File[]
+  const newImages = formData.getAll('newImages')
   const imageIds: number[] = []
 
-  for (const file of newImages) {
-    if (file.size > 0 && file.name) {
-      const imageId = await uploadImageWithWatermark(file, user.id)
+  for (const img of newImages) {
+    // Check if it's a processed image ID (string) or a File object
+    if (typeof img === 'string') {
+      const parsedId = Number(img)
+      if (!isNaN(parsedId)) {
+        imageIds.push(parsedId)
+      }
+    } else if (img instanceof File && img.size > 0 && img.name) {
+      // Fallback: process File objects (shouldn't happen with new flow)
+      const imageId = await uploadImageWithWatermark(img, user.id as number, title)
       imageIds.push(imageId)
     }
   }
@@ -168,12 +217,17 @@ export async function updateProperty(id: string, formData: FormData) {
   const area = formData.get('area') ? Number(formData.get('area')) : undefined
 
   const existingImageIds = formData.getAll('existingImages').map((id) => Number(id))
-  const newImages = formData.getAll('newImages') as File[]
+  const newImages = formData.getAll('newImages')
   const uploadedImageIds: number[] = []
 
-  for (const file of newImages) {
-    if (file.size > 0 && file.name) {
-      const imageId = await uploadImageWithWatermark(file, user.id)
+  for (const img of newImages) {
+    if (typeof img === 'string') {
+      const parsedId = Number(img)
+      if (!isNaN(parsedId)) {
+        uploadedImageIds.push(parsedId)
+      }
+    } else if (img instanceof File && img.size > 0 && img.name) {
+      const imageId = await uploadImageWithWatermark(img, user.id as number, title)
       uploadedImageIds.push(imageId)
     }
   }
