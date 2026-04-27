@@ -52,6 +52,11 @@ export default async function EditPropertyPage({ params }: { params: Promise<{ i
           bedrooms: property.bedrooms,
           bathrooms: property.bathrooms,
           area: property.area,
+          images: Array.isArray(property.images) 
+            ? property.images.map((img: any) => 
+                typeof img === 'object' ? { id: img.id, url: img.url } : { id: img, url: '' }
+              ).filter(img => img.url)
+            : [],
         }}
       />
     </div>

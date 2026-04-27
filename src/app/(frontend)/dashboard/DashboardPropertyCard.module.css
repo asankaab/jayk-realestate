@@ -1,12 +1,19 @@
 .dashboardCard {
   display: flex;
   flex-direction: column;
-  border-radius: 12px;
+  border-radius: 8px;
   overflow: hidden;
   background-color: var(--white-color);
   box-shadow: var(--shadow-sm);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   border: 1px solid var(--grey-lighter);
+  height: 100%;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   height: 100%;
 }
 
@@ -23,18 +30,17 @@
   flex: 1;
 }
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 1rem;
-}
-
 .title {
   font-weight: 700;
   font-size: 1.25rem;
+  line-height: 1.5rem;
   color: var(--black-color);
-  margin-bottom: 0.25rem;
+  margin-bottom: var(--size-sm);
+}
+
+.priceStatusBlock {
+  display: flex;
+  justify-content: space-between;
 }
 
 .price {
@@ -58,6 +64,7 @@
   font-size: 0.8rem;
   font-weight: 600;
   text-transform: uppercase;
+  width: max-content;
 }
 
 .statusSold {
@@ -67,6 +74,7 @@
 
 .actions {
   display: flex;
+  justify-content: space-between;
   gap: 0.5rem;
   margin-top: auto;
   padding-top: 1rem;
@@ -113,4 +121,13 @@
 .deleteButton:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+.previewLink {
+  display: flex;
+  align-items: center;
+  justify-self: right;
+  :hover {
+    stroke: var(--primary-color);
+  }
 }

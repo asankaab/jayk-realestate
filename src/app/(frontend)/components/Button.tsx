@@ -13,6 +13,7 @@ type ButtonProps = {
   type?: 'submit' | 'button'
   style?: React.CSSProperties
   replace?: boolean
+  disabled?: boolean
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -26,11 +27,13 @@ const Button: React.FC<ButtonProps> = ({
   style,
   type = 'button',
   replace,
+  disabled,
 }) => {
   const buttonClasses = [
     styles.button,
     styles[`button--${size}`],
     styles[`button--${color}--${fill}`],
+    disabled ? styles['button--disabled'] : '',
     className,
   ]
     .filter(Boolean)
@@ -45,7 +48,7 @@ const Button: React.FC<ButtonProps> = ({
   }
 
   return (
-    <button type={type} onClick={onClick} className={buttonClasses} style={style}>
+    <button type={type} onClick={onClick} className={buttonClasses} style={style} disabled={disabled}>
       {children}
     </button>
   )

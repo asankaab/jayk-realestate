@@ -1,7 +1,7 @@
 .formWrapper {
   background-color: var(--white-color);
   padding: 3rem;
-  border-radius: 12px;
+  border-radius: 8px;
   border: 1px solid var(--grey-lighter);
   box-shadow: var(--shadow-md);
   max-width: 800px;
@@ -48,7 +48,7 @@
 .textarea {
   padding: 0.85rem 1rem;
   border: 1px solid var(--grey-lighter);
-  border-radius: 8px;
+  border-radius: 4px;
   font-size: 1rem;
   font-family: inherit;
   background-color: var(--white-color);
@@ -130,4 +130,42 @@
   text-align: center;
   margin-top: 1rem;
   font-weight: 600;
+}
+
+.imageGrid {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.5rem;
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid var(--grey-lighter);
+}
+
+.removeButton {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  background: rgba(239, 68, 68, 0.9);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+
+.removeButton:hover {
+  background: rgb(220, 38, 38);
+}
+
+.noImagesText {
+  font-size: 0.875rem;
+  color: var(--grey-dark);
 }

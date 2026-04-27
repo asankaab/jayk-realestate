@@ -59,6 +59,7 @@ export default async function DashboardPage() {
                 price: property.price,
                 location: property.location,
                 status: property.status,
+                slug: property.slug,
               }}
             />
           ))}

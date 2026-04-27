@@ -3,8 +3,10 @@
 import React, { useTransition } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import Button from '../components/Button'
 import styles from './DashboardPropertyCard.module.css'
 import { deleteProperty } from './actions'
+import { ExternalLink, Link2, View } from 'lucide-react'
 
 type DashboardPropertyCardProps = {
   property: {
@@ -13,6 +15,7 @@ type DashboardPropertyCardProps = {
     price: number
     location: string
     status: string
+    slug: string
   }
 }
 
@@ -36,30 +39,32 @@ export const DashboardPropertyCard: React.FC<DashboardPropertyCardProps> = ({ pr
     <div className={styles.dashboardCard}>
       <div className={styles.details}>
         <div className={styles.header}>
-          <div>
-            <div className={styles.title}>{property.title}</div>
-            <div className={styles.location}>{property.location}</div>
+          <div className={styles.title}>{property.title}</div>
+          <div className={styles.location}>{property.location}</div>
+          <div className={styles.priceStatusBlock}>
+            <div className={styles.price}>${property.price.toLocaleString()}</div>
+            <span
+              className={`${styles.status} ${property.status === 'Sold' ? styles.statusSold : ''}`}
+            >
+              {property.status}
+            </span>
           </div>
-          <div className={styles.price}>${property.price.toLocaleString()}</div>
-        </div>
-        
-        <div>
-          <span className={`${styles.status} ${property.status === 'Sold' ? styles.statusSold : ''}`}>
-            {property.status}
-          </span>
         </div>
 
+        <div></div>
+
         <div className={styles.actions}>
-          <Link href={`/dashboard/${property.id}/edit`} className={styles.editButton}>
-            Edit
+          <div style={{ display: 'flex', gap: '0.5rem' }}>
+            <Button href={`/dashboard/${property.id}/edit`} fill="outlined" size="small">
+              Edit
+            </Button>
+            <Button onClick={handleDelete} color="accent" size="small" disabled={isPending}>
+              {isPending ? 'Deleting...' : 'Delete'}
+            </Button>
+          </div>
+          <Link href={`properties/${property.slug}`} target="_blank" className={styles.previewLink}>
+            <ExternalLink size={18} color="var(--grey)" />
           </Link>
-          <button 
-            onClick={handleDelete} 
-            className={styles.deleteButton}
-            disabled={isPending}
-          >
-            {isPending ? 'Deleting...' : 'Delete'}
-          </button>
         </div>
       </div>
     </div>
