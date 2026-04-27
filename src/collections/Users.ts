@@ -21,7 +21,6 @@ export const Users: CollectionConfig = {
         authenticate: async ({ headers, payload }) => {
           const { auth } = await import('@clerk/nextjs/server')
           const { userId } = await auth()
-          console.log(userId)
 
           if (!userId) return { user: null }
 

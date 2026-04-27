@@ -62,7 +62,13 @@ const Navbar = () => {
           <div className={styles.navContent}>
             <div className={styles.leftSide}>
               <Link href="/" className={styles.logo} onClick={() => setIsOpen(false)}>
-                <Image src="/jayk-logo.svg" alt="jayk logo" width={80} height={40} />
+                <Image
+                  src="/jayk-logo.svg"
+                  alt="jayk logo"
+                  width={80}
+                  height={40}
+                  loading="eager"
+                />
               </Link>
               <div className={styles.navLinks}>
                 {navLinks.map((link) => (

@@ -53,6 +53,7 @@ export default buildConfig({
         [Media.slug]: true,
       },
       token: process.env.BLOB_READ_WRITE_TOKEN || '',
+      addRandomSuffix: true,
     }),
   ],
 })
