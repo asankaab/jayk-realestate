@@ -69,9 +69,11 @@ export const PropertyForm: React.FC<PropertyFormProps> = ({ initialData, onSubmi
     setIsSubmitting(true)
     setError(null)
 
+    // Create formData from the form, but exclude the file input
     const formData = new FormData(e.currentTarget)
+    formData.delete('newImages')
 
-    // Append new image files to formData
+    // Append new image files from previews only
     newImagePreviews.forEach(({ file }) => {
       formData.append('newImages', file)
     })

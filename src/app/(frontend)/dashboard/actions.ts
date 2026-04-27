@@ -5,7 +5,7 @@ import { redirect } from 'next/navigation'
 import { payloadClient } from '@/app/lib/payloadClient'
 import { auth } from '@clerk/nextjs/server'
 
-const JAYK_LOGO_URL = 'https://jayk-realestate.vercel.app/jayk-logo.png'
+const JAYK_LOGO_URL = 'https://jayk-realestate.vercel.app/watermark.png'
 
 // Upload image to temp file service and return the URL
 async function uploadToTempService(file: File): Promise<string> {
@@ -48,7 +48,7 @@ async function addWatermarkToImage(imageUrl: string): Promise<Buffer> {
   watermarkUrl.searchParams.set('markRatio', '0.25')
 
   const response = await fetch(
-    `https://quickchart.io/watermark/?mainImageUrl=${imageUrl}&markImageUrl=${JAYK_LOGO_URL}&markRatio=0.25`,
+    `https://quickchart.io/watermark/?mainImageUrl=${imageUrl}&markImageUrl=${JAYK_LOGO_URL}&markRatio=0.1`,
   )
 
   if (response.status !== 200) {
