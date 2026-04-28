@@ -47,7 +47,7 @@ const navLinks = [
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
-  const { user, isSignedIn } = useUser()
+  const { isSignedIn } = useUser()
   const clerk = useClerk()
 
   const toggleMenu = () => {
@@ -84,7 +84,7 @@ const Navbar = () => {
                   <div className={styles.skeleton}></div>
                 </ClerkLoading>
                 <ClerkLoaded>
-                  {!user ? (
+                  {!isSignedIn ? (
                     <>
                       <SignInButton mode="modal">
                         <Button size="small">Login</Button>
@@ -148,7 +148,7 @@ const Navbar = () => {
                 <div className={styles.skeleton}></div>
               </ClerkLoading>
               <ClerkLoaded>
-                {!user ? (
+                {!isSignedIn ? (
                   <div style={{ display: 'flex', gap: '.5rem', width: '100%', height: '2.5rem' }}>
                     <SignInButton mode="modal">
                       <Button style={{ width: '100%' }} size="small" onClick={toggleMenu}>
