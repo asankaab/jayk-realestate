@@ -81,6 +81,29 @@
   justify-content: flex-end;
 }
 
+.processingOverlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  background-color: var(--primary-shade);
+  opacity: 0.6;
+  .spinner svg{
+    transform: rotate(15deg);
+    animation: rotate 1.5s linear infinite;
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
 .submitButton {
   padding: 1rem 1.5rem;
   background-color: var(--accent-color);
