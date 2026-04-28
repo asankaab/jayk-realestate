@@ -2,24 +2,21 @@ import React from 'react'
 import Link from 'next/link'
 import styles from './Button.module.css'
 
-type ButtonProps = {
-  children: React.ReactNode
+export interface ButtonProps extends Omit<
+  React.ButtonHTMLAttributes<HTMLButtonElement>,
+  'color' | 'onClick'
+> {
   href?: string
-  onClick?: () => void
   size?: 'small' | 'default'
   fill?: 'filled' | 'outlined'
   color?: 'primary' | 'accent'
-  className?: string
-  type?: 'submit' | 'button'
-  style?: React.CSSProperties
   replace?: boolean
-  disabled?: boolean
+  onClick?: React.MouseEventHandler<HTMLButtonElement | HTMLAnchorElement>
 }
 
 const Button: React.FC<ButtonProps> = ({
   children,
   href,
-  onClick,
   size = 'default',
   fill = 'filled',
   color = 'primary',
@@ -28,6 +25,8 @@ const Button: React.FC<ButtonProps> = ({
   type = 'button',
   replace,
   disabled,
+  onClick,
+  ...props
 }) => {
   const buttonClasses = [
     styles.button,
@@ -41,14 +40,21 @@ const Button: React.FC<ButtonProps> = ({
 
   if (href) {
     return (
-      <Link href={href} replace={replace} className={buttonClasses} style={style}>
+      <Link href={href} replace={replace} className={buttonClasses} style={style} onClick={onClick}>
         {children}
       </Link>
     )
   }
 
   return (
-    <button type={type} onClick={onClick} className={buttonClasses} style={style} disabled={disabled}>
+    <button
+      type={type}
+      className={buttonClasses}
+      style={style}
+      disabled={disabled}
+      onClick={onClick}
+      {...props}
+    >
       {children}
     </button>
   )

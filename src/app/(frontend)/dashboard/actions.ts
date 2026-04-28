@@ -48,7 +48,7 @@ async function addWatermarkToImage(imageUrl: string): Promise<Buffer> {
   watermarkUrl.searchParams.set('markRatio', '0.25')
 
   const response = await fetch(
-    `https://quickchart.io/watermark/?mainImageUrl=${imageUrl}&markImageUrl=${JAYK_LOGO_URL}&markRatio=0.1`,
+    `https://quickchart.io/watermark/?mainImageUrl=${imageUrl}&markImageUrl=${JAYK_LOGO_URL}&markRatio=0.1&position=center`,
   )
 
   if (response.status !== 200) {
@@ -60,7 +60,11 @@ async function addWatermarkToImage(imageUrl: string): Promise<Buffer> {
 }
 
 // Upload image with watermark
-async function uploadImageWithWatermark(file: File, userId: number, title?: string): Promise<number> {
+async function uploadImageWithWatermark(
+  file: File,
+  userId: number,
+  title?: string,
+): Promise<number> {
   // First upload the image to temp service to get a URL
   const tempUrl = await uploadToTempService(file)
 
@@ -86,7 +90,10 @@ async function uploadImageWithWatermark(file: File, userId: number, title?: stri
 }
 
 // Process a single image with watermark (for client-side use)
-export async function processImage(file: File, title?: string): Promise<{ id: number; url: string }> {
+export async function processImage(
+  file: File,
+  title?: string,
+): Promise<{ id: number; url: string }> {
   const { userId } = await auth()
   if (!userId) {
     throw new Error('Unauthorized')
