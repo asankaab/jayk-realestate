@@ -46,6 +46,7 @@ async function addWatermarkToImage(imageUrl: string): Promise<Buffer> {
   watermarkUrl.searchParams.set('mainImageUrl', imageUrl)
   watermarkUrl.searchParams.set('markImageUrl', JAYK_LOGO_URL)
   watermarkUrl.searchParams.set('markRatio', '0.25')
+watermarkUrl.searchParams.set('position', 'center')
 
   const response = await fetch(
     `https://quickchart.io/watermark/?mainImageUrl=${imageUrl}&markImageUrl=${JAYK_LOGO_URL}&markRatio=0.1&position=center`,
