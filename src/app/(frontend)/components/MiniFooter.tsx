@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import styles from './Footer.module.css'
+import styles from './MiniFooter.module.css'
 import { Body, Small } from './Text/Text'
 
 const footerMetaLinks = [
@@ -13,8 +13,8 @@ const MiniFooter = () => {
     <footer className={styles.footer}>
       <div className={styles.footerShell + ' fluid-container'}>
         <div className="wrapper">
-          <div className={styles.bottomBarSmall}>
-            <div className={styles.bottomRowSmall}>
+          <div className={styles.bottomBar}>
+            <div className={styles.bottomRow}>
               <Body className={styles.copyright}>
                 © 1994 - 2024 - Jayk Real Estate. All rights reserved.
               </Body>
