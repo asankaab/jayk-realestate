@@ -173,7 +173,7 @@ const Navbar = () => {
                       size="small"
                       color="primary"
                       href="/dashboard"
-                      onClick={toggleMenu}
+                      onClick={()=>toggleMenu()}
                     >
                       Dashboard
                     </Button>
