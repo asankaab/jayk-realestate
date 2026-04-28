@@ -8,10 +8,11 @@ import styles from './PropertyForm.module.css'
 import { isRedirectError } from 'next/dist/client/components/redirect-error'
 import Button from '@/app/(frontend)/components/Button'
 import { processImage } from './actions'
+import { LucideLoader } from 'lucide-react'
 
 type ProcessedImage = {
-  id: number
-  url: string
+  tempUrl: string
+  watermarkedUrl: string
 }
 
 type NewImagePreview = {
@@ -84,9 +85,7 @@ export const PropertyForm: React.FC<PropertyFormProps> = ({ initialData, onSubmi
       const { file, preview } = newPreviews[i]
 
       try {
-        const titleInput = document.getElementById('title') as HTMLInputElement | null;
-        const currentTitle = titleInput?.value;
-        const processed = await processImage(file, currentTitle)
+        const processed = await processImage(file)
         setProcessedImages((prev) => [...prev, processed])
         setNewImagePreviews((prev) =>
           prev.map((p, idx) => (idx === index ? { ...p, processing: false } : p)),
@@ -120,9 +119,9 @@ export const PropertyForm: React.FC<PropertyFormProps> = ({ initialData, onSubmi
     // Remove the automatically appended file objects
     formData.delete('newImages')
 
-    // Append processed image IDs instead of files
+    // Append watermarked URLs instead of IDs
     processedImages.forEach((img) => {
-      formData.append('newImages', img.id.toString())
+      formData.append('newImages', img.watermarkedUrl)
     })
 
     try {
@@ -309,8 +308,9 @@ export const PropertyForm: React.FC<PropertyFormProps> = ({ initialData, onSubmi
                 <div key={index} className={styles.imageWrapper}>
                   {img.processing ? (
                     <div className={styles.processingOverlay}>
-                      <span className={styles.spinner}></span>
-                      <span>Processing...</span>
+                      <span className={styles.spinner}>
+                        <LucideLoader />
+                      </span>
                     </div>
                   ) : (
                     <Image
@@ -339,12 +339,17 @@ export const PropertyForm: React.FC<PropertyFormProps> = ({ initialData, onSubmi
           <Button href="/dashboard" fill="outlined" disabled={isSubmitting || isProcessing}>
             Cancel
           </Button>
-          <Button color="accent" type="submit" disabled={isSubmitting || isProcessing}>
-            {isSubmitting || isProcessing ? 'Processing...' : 'Save Property'}
+          <Button
+            color="accent"
+            type="submit"
+            disabled={isSubmitting || isProcessing}
+            onClick={() => setError(null)}
+          >
+            {isSubmitting ? 'Saving...' : isProcessing ? 'Processing...' : 'Save Property'}
           </Button>
         </div>
 
-        {error && <small className={styles.errorMessage}>{error}</small>}
+        {error && !isSubmitting && <small className={styles.errorMessage}>{error}</small>}
       </form>
     </div>
   )
