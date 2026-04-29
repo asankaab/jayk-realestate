@@ -94,8 +94,11 @@ export const PropertyForm: React.FC<PropertyFormProps> = ({ initialData, onSubmi
         const processed = await processImage(file)
         setProcessedImages((prev) => [...prev, processed])
         setNewImagePreviews((prev) =>
-          prev.map((p, idx) => (idx === index ? { ...p, processing: false } : p)),
+          prev.map((p, idx) =>
+            idx === index ? { ...p, preview: processed.watermarkedUrl, processing: false } : p,
+          ),
         )
+        URL.revokeObjectURL(newPreviews[i].preview)
       } catch (err) {
         console.error('Failed to process image:', err)
         setError(`Failed to process "${file.name}". Please try again.`)
@@ -108,7 +111,9 @@ export const PropertyForm: React.FC<PropertyFormProps> = ({ initialData, onSubmi
   const handleRemoveNewImage = (index: number) => {
     setNewImagePreviews((prev) => {
       const updated = [...prev]
-      URL.revokeObjectURL(updated[index].preview)
+      if (updated[index].preview.startsWith('blob:')) {
+        URL.revokeObjectURL(updated[index].preview)
+      }
       updated.splice(index, 1)
       return updated
     })
@@ -321,12 +326,10 @@ export const PropertyForm: React.FC<PropertyFormProps> = ({ initialData, onSubmi
                       </span>
                     </div>
                   ) : (
-                    <Image
+                    <img
                       src={img.preview}
                       alt={`New Image ${index + 1}`}
-                      fill
-                      style={{ objectFit: 'cover' }}
-                      sizes="100px"
+                      className={styles.previewImage}
                     />
                   )}
                   <button
