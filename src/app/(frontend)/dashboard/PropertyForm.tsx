@@ -204,19 +204,36 @@ export const PropertyForm: React.FC<PropertyFormProps> = ({ initialData, onSubmi
           </div>
         </div>
 
-        <div className={styles.formGroup}>
-          <label htmlFor="location" className={styles.label}>
-            Location *
-          </label>
-          <input
-            type="text"
-            id="location"
-            name="location"
-            defaultValue={initialData?.location}
-            required
-            className={styles.input}
-            placeholder="e.g., 123 Main St, Anytown"
-          />
+        <div className={styles.formRow}>
+          <div className={styles.formGroup}>
+            <label htmlFor="location" className={styles.label}>
+              Location *
+            </label>
+            <input
+              type="text"
+              id="location"
+              name="location"
+              defaultValue={initialData?.location}
+              required
+              className={styles.input}
+              placeholder="e.g., 123 Main St, Anytown"
+            />
+          </div>
+
+          <div className={styles.formGroup}>
+            <label htmlFor="area" className={styles.label}>
+              Area (sq. ft.)
+            </label>
+            <input
+              type="number"
+              id="area"
+              name="area"
+              defaultValue={initialData?.area || ''}
+              min="0"
+              className={styles.input}
+              placeholder="e.g., 2000"
+            />
+          </div>
         </div>
 
         <div className={styles.formRow}>
@@ -248,23 +265,6 @@ export const PropertyForm: React.FC<PropertyFormProps> = ({ initialData, onSubmi
               step="0.5"
               className={styles.input}
               placeholder="e.g., 2"
-            />
-          </div>
-        </div>
-
-        <div className={styles.formRow}>
-          <div className={styles.formGroup}>
-            <label htmlFor="area" className={styles.label}>
-              Area (sq. ft.)
-            </label>
-            <input
-              type="number"
-              id="area"
-              name="area"
-              defaultValue={initialData?.area || ''}
-              min="0"
-              className={styles.input}
-              placeholder="e.g., 2000"
             />
           </div>
         </div>
