@@ -1,7 +1,6 @@
 'use client'
 
 import React, { useState } from 'react'
-import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import { Heading3 } from '@/app/(frontend)/components/Text/Text'
 import styles from './PropertyForm.module.css'
@@ -37,20 +36,15 @@ type PropertyFormProps = {
   title: string
 }
 
+const isImageFile = (file: File) => file.type.startsWith('image/')
+
 export const PropertyForm: React.FC<PropertyFormProps> = ({ initialData, onSubmit, title }) => {
-  const router = useRouter()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [existingImages, setExistingImages] = useState<{ id: number; url: string }[]>(
     initialData?.images || [],
   )
-  const [newImagePreviews, setNewImagePreviews] = useState<
-    {
-      file: File
-      preview: string
-      processing?: boolean
-    }[]
-  >([])
+  const [newImagePreviews, setNewImagePreviews] = useState<NewImagePreview[]>([])
   const [processedImages, setProcessedImages] = useState<ProcessedImage[]>([])
 
   // Check if any images are still being processed
@@ -65,16 +59,28 @@ export const PropertyForm: React.FC<PropertyFormProps> = ({ initialData, onSubmi
     if (!files) return
 
     const MAX_FILE_SIZE = 2 * 1024 * 1024 // 2MB in bytes
-    const newPreviews: { file: File; preview: string; processing: boolean }[] = []
+    const newPreviews: NewImagePreview[] = []
+    let ignoredFiles = 0
 
     for (let i = 0; i < files.length; i++) {
       const file = files[i]
+
+      if (!isImageFile(file)) {
+        ignoredFiles += 1
+        continue
+      }
+
       if (file.size > MAX_FILE_SIZE) {
         setError(`"${file.name}" exceeds the 2MB size limit!`)
         continue
       }
+
       const preview = URL.createObjectURL(file)
       newPreviews.push({ file, preview, processing: true })
+    }
+
+    if (ignoredFiles > 0) {
+      setError(`Ignored ${ignoredFiles} non-image ${ignoredFiles === 1 ? 'file' : 'files'}.`)
     }
 
     setNewImagePreviews((prev) => [...prev, ...newPreviews])
@@ -82,7 +88,7 @@ export const PropertyForm: React.FC<PropertyFormProps> = ({ initialData, onSubmi
     // Process each image after selection
     for (let i = 0; i < newPreviews.length; i++) {
       const index = newImagePreviews.length + i
-      const { file, preview } = newPreviews[i]
+      const { file } = newPreviews[i]
 
       try {
         const processed = await processImage(file)
@@ -93,6 +99,7 @@ export const PropertyForm: React.FC<PropertyFormProps> = ({ initialData, onSubmi
       } catch (err) {
         console.error('Failed to process image:', err)
         setError(`Failed to process "${file.name}". Please try again.`)
+        URL.revokeObjectURL(newPreviews[i].preview)
         setNewImagePreviews((prev) => prev.filter((_, idx) => idx !== index))
       }
     }
@@ -293,6 +300,7 @@ export const PropertyForm: React.FC<PropertyFormProps> = ({ initialData, onSubmi
             {initialData ? 'Upload Additional Images' : 'Upload Images'}
           </label>
           <input
+            onClick={() => setError('')}
             type="file"
             id="newImages"
             name="newImages"
@@ -345,7 +353,7 @@ export const PropertyForm: React.FC<PropertyFormProps> = ({ initialData, onSubmi
             disabled={isSubmitting || isProcessing}
             onClick={() => setError(null)}
           >
-            {isSubmitting ? 'Saving...' : isProcessing ? 'Processing...' : 'Save Property'}
+            {isSubmitting ? 'Saving...' : isProcessing ? 'Processing...' : 'Save'}
           </Button>
         </div>
 

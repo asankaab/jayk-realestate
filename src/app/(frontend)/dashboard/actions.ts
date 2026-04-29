@@ -4,33 +4,7 @@ import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { payloadClient } from '@/app/lib/payloadClient'
 import { auth } from '@clerk/nextjs/server'
-
-const JAYK_LOGO_URL = 'https://jayk-realestate.vercel.app/watermark.png'
-
-// Upload image to temp file service and return the URL
-async function uploadToTempService(file: File): Promise<string> {
-  const formData = new FormData()
-  formData.append('file', file)
-
-  const response = await fetch('https://tmpfiles.org/api/v1/upload', {
-    method: 'POST',
-    body: formData,
-  })
-
-  if (!response.ok) {
-    throw new Error('Failed to upload to temp service')
-  }
-
-  const { data } = (await response.json()) as { data: { url: string } }
-
-  // Convert upload URL to download URL: https://tmpfiles.org/dl/...
-
-  const url = await new URL(data.url)
-  const imgPath = await url.pathname
-  const urlString = `https://tmpfiles.org/dl${await imgPath}`
-
-  return urlString
-}
+import sharp from 'sharp'
 
 async function getPayloadUser(clerkId: string) {
   const userQuery = await payloadClient.find({
@@ -40,66 +14,143 @@ async function getPayloadUser(clerkId: string) {
   return userQuery.docs[0]
 }
 
-// Helper function to add watermark to an image
-async function addWatermarkToImage(imageUrl: string): Promise<Buffer> {
-  const watermarkUrl = new URL('https://quickchart.io/watermark')
-  watermarkUrl.searchParams.set('mainImageUrl', imageUrl)
-  watermarkUrl.searchParams.set('markImageUrl', JAYK_LOGO_URL)
-  watermarkUrl.searchParams.set('markRatio', '0.25')
-  watermarkUrl.searchParams.set('position', 'center')
+const WATERMARK_IMAGE = 'https://jayk-realestate.vercel.app/watermark.png'
+const OPTIMIZED_IMAGE_WIDTH = 1600
+const OPTIMIZED_IMAGE_HEIGHT = 1200
+const WATERMARK_WIDTH_RATIO = 0.35
 
-  const response = await fetch(watermarkUrl.toString())
+// Upload image to temp file service and return the URL
+async function uploadToTempService(file: Blob, filename = 'img.webp'): Promise<string> {
+  const formData = new FormData()
+  formData.append('file', file, filename)
 
-  if (response.status !== 200) {
-    throw new Error('Failed to create watermark')
+  const response = await fetch('https://tmpfiles.org/api/v1/upload', {
+    method: 'POST',
+    body: formData,
+  })
+
+  if (!response.ok) {
+    const errorBody = await response.text()
+    throw new Error(`Failed to upload to temp service: ${response.status} ${errorBody}`)
   }
 
-  const arrayBuffer = await response.arrayBuffer()
-  return Buffer.from(arrayBuffer)
+  const { data } = (await response.json()) as { data: { url: string } }
+
+  // Convert upload URL to download URL: https://tmpfiles.org/dl/...
+
+  const url = new URL(data.url)
+  const path = url.pathname.startsWith('/dl/') ? url.pathname : `/dl${url.pathname}`
+  const urlString = `https://${url.host}${path}`
+
+  return urlString
 }
 
-// Upload image with watermark
-async function uploadImageWithWatermark(
+async function createWatermarkedImage(
   file: File,
-  userId: number,
-  title?: string,
-): Promise<number> {
-  // First upload the image to temp service to get a URL
-  const tempUrl = await uploadToTempService(file)
+): Promise<{ buffer: Buffer; contentType: string }> {
+  const imageBuffer = Buffer.from(await file.arrayBuffer())
+  const optimizedImageBuffer = await sharp(imageBuffer)
+    .rotate()
+    .resize({
+      width: OPTIMIZED_IMAGE_WIDTH,
+      height: OPTIMIZED_IMAGE_HEIGHT,
+      fit: 'inside',
+      withoutEnlargement: true,
+    })
+    .toBuffer()
 
-  // Apply watermark using QuickChart API
-  const watermarkedBuffer = await addWatermarkToImage(tempUrl)
+  const metadata = await sharp(optimizedImageBuffer).metadata()
 
-  // Upload the watermarked image directly to Payload
-  const watermarkedMedia = await payloadClient.create({
-    collection: 'media',
-    data: {
-      alt: title || file.name,
-      user: userId,
-    },
-    file: {
-      data: watermarkedBuffer,
-      mimetype: file.type,
-      name: title || file.name,
-      size: watermarkedBuffer.length,
-    },
-  } as any)
+  if (!metadata.width) {
+    throw new Error('Failed to read image dimensions')
+  }
 
-  return watermarkedMedia.id as number
+  const watermarkResponse = await fetch(WATERMARK_IMAGE)
+  if (!watermarkResponse.ok) {
+    throw new Error('Failed to fetch watermark image')
+  }
+
+  const watermarkBuffer = Buffer.from(await watermarkResponse.arrayBuffer())
+  const resizedWatermark = await sharp(watermarkBuffer)
+    .resize({
+      width: Math.round(metadata.width * WATERMARK_WIDTH_RATIO),
+      withoutEnlargement: true,
+    })
+    .png()
+    .toBuffer()
+
+  const buffer = await sharp(optimizedImageBuffer)
+    .composite([
+      {
+        input: resizedWatermark,
+        gravity: 'center',
+      },
+    ])
+    .webp({ quality: 82 })
+    .toBuffer()
+
+  return {
+    buffer,
+    contentType: 'image/webp',
+  }
 }
 
-// Process a single image: upload to temp service and generate watermarked URL
+function getImageExtension(contentType: string) {
+  if (contentType.includes('webp')) return '.webp'
+  if (contentType.includes('png')) return '.png'
+
+  return '.jpg'
+}
+
+function isAllowedTempImageUrl(value: string) {
+  try {
+    const url = new URL(value.trim())
+    return (
+      (url.protocol === 'https:' || url.protocol === 'http:') &&
+      (url.hostname === 'tmpfiles.org' || url.hostname.endsWith('.tmpfiles.org')) &&
+      url.pathname.startsWith('/dl/')
+    )
+  } catch {
+    return false
+  }
+}
+
+async function uploadNewImageValue(img: FormDataEntryValue, title: string, userId: number) {
+  if (typeof img !== 'string') {
+    throw new Error('Unexpected image upload value')
+  }
+
+  const imageValue = img.trim()
+
+  if (isAllowedTempImageUrl(imageValue)) {
+    return uploadWatermarkedImageToPayload(imageValue, title, userId)
+  }
+
+  const parsedId = Number(imageValue)
+  if (!isNaN(parsedId)) {
+    return parsedId
+  }
+
+  throw new Error(`Invalid processed image URL: ${imageValue}`)
+}
+
+// Process a single image: add watermark first, then upload the result to temp service
 export async function processImage(
   file: File,
 ): Promise<{ tempUrl: string; watermarkedUrl: string }> {
-  // Upload to temp service
-  const tempUrl = await uploadToTempService(file)
+  if (!file.type.startsWith('image/')) {
+    throw new Error('Only image files can be processed')
+  }
 
-  // Generate watermarked URL using QuickChart API
-  const watermarkedUrl = `https://quickchart.io/watermark?mainImageUrl=${encodeURIComponent(tempUrl)}&markImageUrl=${encodeURIComponent(JAYK_LOGO_URL)}&markRatio=0.2&position=center`
+  const watermarkedImage = await createWatermarkedImage(file)
+
+  const watermarkedFile = new File([new Uint8Array(watermarkedImage.buffer)], 'img.webp', {
+    type: watermarkedImage.contentType,
+  })
+  const watermarkedUrl = await uploadToTempService(watermarkedFile)
 
   return {
-    tempUrl,
+    tempUrl: watermarkedUrl,
     watermarkedUrl,
   }
 }
@@ -119,9 +170,8 @@ async function uploadWatermarkedImageToPayload(
   const arrayBuffer = await response.arrayBuffer()
   const buffer = Buffer.from(arrayBuffer)
 
-  // Determine mime type from URL or default to jpeg
-  const contentType = response.headers.get('content-type') || 'image/jpeg'
-  const extension = contentType.includes('png') ? '.png' : '.jpg'
+  const contentType = 'image/webp'
+  const extension = getImageExtension(contentType)
   const fileName = `${alt.replace(/[^a-zA-Z0-9]/g, '_')}${extension}`
 
   // Upload to Payload
@@ -167,23 +217,8 @@ export async function createProperty(formData: FormData) {
   const imageIds: number[] = []
 
   for (const img of newImages) {
-    if (typeof img === 'string') {
-      // Check if it's a watermarked URL (starts with quickchart)
-      if (img.includes('quickchart.io/watermark')) {
-        const imageId = await uploadWatermarkedImageToPayload(img, title, user.id as number)
-        imageIds.push(imageId)
-      } else {
-        // It's a processed image ID
-        const parsedId = Number(img)
-        if (!isNaN(parsedId)) {
-          imageIds.push(parsedId)
-        }
-      }
-    } else if (img instanceof File && img.size > 0 && img.name) {
-      // Fallback: process File objects (shouldn't happen with new flow)
-      const imageId = await uploadImageWithWatermark(img, user.id as number, title)
-      imageIds.push(imageId)
-    }
+    const imageId = await uploadNewImageValue(img, title, user.id as number)
+    imageIds.push(imageId)
   }
 
   try {
@@ -242,20 +277,8 @@ export async function updateProperty(id: string, formData: FormData) {
   const uploadedImageIds: number[] = []
 
   for (const img of newImages) {
-    if (typeof img === 'string') {
-      if (img.includes('quickchart.io/watermark')) {
-        const imageId = await uploadWatermarkedImageToPayload(img, title, user.id as number)
-        uploadedImageIds.push(imageId)
-      } else {
-        const parsedId = Number(img)
-        if (!isNaN(parsedId)) {
-          uploadedImageIds.push(parsedId)
-        }
-      }
-    } else if (img instanceof File && img.size > 0 && img.name) {
-      const imageId = await uploadImageWithWatermark(img, user.id as number, title)
-      uploadedImageIds.push(imageId)
-    }
+    const imageId = await uploadNewImageValue(img, title, user.id as number)
+    uploadedImageIds.push(imageId)
   }
 
   const finalImages = [...existingImageIds, ...uploadedImageIds]
