@@ -1,7 +1,6 @@
 'use client'
 
 import React, { useState } from 'react'
-import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import { Heading3 } from '@/app/(frontend)/components/Text/Text'
 import styles from './PropertyForm.module.css'
@@ -25,6 +24,7 @@ type PropertyFormProps = {
   initialData?: {
     id: string
     title: string
+    description?: string | null
     status: 'For Sale' | 'For Rent' | 'Sold' | 'Leased'
     price: number
     location: string
@@ -37,20 +37,15 @@ type PropertyFormProps = {
   title: string
 }
 
+const isImageFile = (file: File) => file.type.startsWith('image/')
+
 export const PropertyForm: React.FC<PropertyFormProps> = ({ initialData, onSubmit, title }) => {
-  const router = useRouter()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [existingImages, setExistingImages] = useState<{ id: number; url: string }[]>(
     initialData?.images || [],
   )
-  const [newImagePreviews, setNewImagePreviews] = useState<
-    {
-      file: File
-      preview: string
-      processing?: boolean
-    }[]
-  >([])
+  const [newImagePreviews, setNewImagePreviews] = useState<NewImagePreview[]>([])
   const [processedImages, setProcessedImages] = useState<ProcessedImage[]>([])
 
   // Check if any images are still being processed
@@ -65,16 +60,28 @@ export const PropertyForm: React.FC<PropertyFormProps> = ({ initialData, onSubmi
     if (!files) return
 
     const MAX_FILE_SIZE = 2 * 1024 * 1024 // 2MB in bytes
-    const newPreviews: { file: File; preview: string; processing: boolean }[] = []
+    const newPreviews: NewImagePreview[] = []
+    let ignoredFiles = 0
 
     for (let i = 0; i < files.length; i++) {
       const file = files[i]
+
+      if (!isImageFile(file)) {
+        ignoredFiles += 1
+        continue
+      }
+
       if (file.size > MAX_FILE_SIZE) {
         setError(`"${file.name}" exceeds the 2MB size limit!`)
         continue
       }
+
       const preview = URL.createObjectURL(file)
       newPreviews.push({ file, preview, processing: true })
+    }
+
+    if (ignoredFiles > 0) {
+      setError(`Ignored ${ignoredFiles} non-image ${ignoredFiles === 1 ? 'file' : 'files'}.`)
     }
 
     setNewImagePreviews((prev) => [...prev, ...newPreviews])
@@ -82,17 +89,21 @@ export const PropertyForm: React.FC<PropertyFormProps> = ({ initialData, onSubmi
     // Process each image after selection
     for (let i = 0; i < newPreviews.length; i++) {
       const index = newImagePreviews.length + i
-      const { file, preview } = newPreviews[i]
+      const { file } = newPreviews[i]
 
       try {
         const processed = await processImage(file)
         setProcessedImages((prev) => [...prev, processed])
         setNewImagePreviews((prev) =>
-          prev.map((p, idx) => (idx === index ? { ...p, processing: false } : p)),
+          prev.map((p, idx) =>
+            idx === index ? { ...p, preview: processed.watermarkedUrl, processing: false } : p,
+          ),
         )
+        URL.revokeObjectURL(newPreviews[i].preview)
       } catch (err) {
         console.error('Failed to process image:', err)
         setError(`Failed to process "${file.name}". Please try again.`)
+        URL.revokeObjectURL(newPreviews[i].preview)
         setNewImagePreviews((prev) => prev.filter((_, idx) => idx !== index))
       }
     }
@@ -101,7 +112,9 @@ export const PropertyForm: React.FC<PropertyFormProps> = ({ initialData, onSubmi
   const handleRemoveNewImage = (index: number) => {
     setNewImagePreviews((prev) => {
       const updated = [...prev]
-      URL.revokeObjectURL(updated[index].preview)
+      if (updated[index].preview.startsWith('blob:')) {
+        URL.revokeObjectURL(updated[index].preview)
+      }
       updated.splice(index, 1)
       return updated
     })
@@ -192,18 +205,49 @@ export const PropertyForm: React.FC<PropertyFormProps> = ({ initialData, onSubmi
           </div>
         </div>
 
+        <div className={styles.formRow}>
+          <div className={styles.formGroup}>
+            <label htmlFor="location" className={styles.label}>
+              Location *
+            </label>
+            <input
+              type="text"
+              id="location"
+              name="location"
+              defaultValue={initialData?.location}
+              required
+              className={styles.input}
+              placeholder="e.g., 123 Main St, Anytown"
+            />
+          </div>
+
+          <div className={styles.formGroup}>
+            <label htmlFor="area" className={styles.label}>
+              Area (sq. ft.)
+            </label>
+            <input
+              type="number"
+              id="area"
+              name="area"
+              defaultValue={initialData?.area || ''}
+              min="0"
+              className={styles.input}
+              placeholder="e.g., 2000"
+            />
+          </div>
+        </div>
+
         <div className={styles.formGroup}>
-          <label htmlFor="location" className={styles.label}>
-            Location *
+          <label htmlFor="description" className={styles.label}>
+            Description
           </label>
-          <input
-            type="text"
-            id="location"
-            name="location"
-            defaultValue={initialData?.location}
-            required
-            className={styles.input}
-            placeholder="e.g., 123 Main St, Anytown"
+          <textarea
+            id="description"
+            name="description"
+            defaultValue={initialData?.description || ''}
+            className={styles.textarea}
+            placeholder="Describe the property, features, neighborhood, and highlights"
+            rows={6}
           />
         </div>
 
@@ -236,23 +280,6 @@ export const PropertyForm: React.FC<PropertyFormProps> = ({ initialData, onSubmi
               step="0.5"
               className={styles.input}
               placeholder="e.g., 2"
-            />
-          </div>
-        </div>
-
-        <div className={styles.formRow}>
-          <div className={styles.formGroup}>
-            <label htmlFor="area" className={styles.label}>
-              Area (sq. ft.)
-            </label>
-            <input
-              type="number"
-              id="area"
-              name="area"
-              defaultValue={initialData?.area || ''}
-              min="0"
-              className={styles.input}
-              placeholder="e.g., 2000"
             />
           </div>
         </div>
@@ -293,6 +320,7 @@ export const PropertyForm: React.FC<PropertyFormProps> = ({ initialData, onSubmi
             {initialData ? 'Upload Additional Images' : 'Upload Images'}
           </label>
           <input
+            onClick={() => setError('')}
             type="file"
             id="newImages"
             name="newImages"
@@ -313,12 +341,10 @@ export const PropertyForm: React.FC<PropertyFormProps> = ({ initialData, onSubmi
                       </span>
                     </div>
                   ) : (
-                    <Image
+                    <img
                       src={img.preview}
                       alt={`New Image ${index + 1}`}
-                      fill
-                      style={{ objectFit: 'cover' }}
-                      sizes="100px"
+                      className={styles.previewImage}
                     />
                   )}
                   <button
@@ -345,7 +371,7 @@ export const PropertyForm: React.FC<PropertyFormProps> = ({ initialData, onSubmi
             disabled={isSubmitting || isProcessing}
             onClick={() => setError(null)}
           >
-            {isSubmitting ? 'Saving...' : isProcessing ? 'Processing...' : 'Save Property'}
+            {isSubmitting ? 'Saving...' : isProcessing ? 'Processing...' : 'Save'}
           </Button>
         </div>
 

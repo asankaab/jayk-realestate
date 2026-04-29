@@ -4,6 +4,17 @@ import { updateProperty } from '../../actions'
 import { PropertyForm } from '../../PropertyForm'
 import { auth } from '@clerk/nextjs/server'
 
+function getPlainTextFromRichText(node: any): string {
+  if (!node) return ''
+  if (typeof node.text === 'string') return node.text
+  if (!Array.isArray(node.children)) return ''
+
+  return node.children
+    .map((child: any) => getPlainTextFromRichText(child))
+    .filter(Boolean)
+    .join('\n\n')
+}
+
 export default async function EditPropertyPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
   const { userId } = await auth()
@@ -46,6 +57,7 @@ export default async function EditPropertyPage({ params }: { params: Promise<{ i
         initialData={{
           id: String(property.id),
           title: property.title,
+          description: getPlainTextFromRichText(property.description?.root),
           status: property.status,
           price: property.price,
           location: property.location,
