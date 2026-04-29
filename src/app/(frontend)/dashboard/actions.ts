@@ -4,6 +4,7 @@ import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { payloadClient } from '@/app/lib/payloadClient'
 import { auth } from '@clerk/nextjs/server'
+import type { Property } from '@/payload-types'
 import sharp from 'sharp'
 
 async function getPayloadUser(clerkId: string) {
@@ -18,6 +19,45 @@ const WATERMARK_IMAGE = 'https://jayk-realestate.vercel.app/watermark.png'
 const OPTIMIZED_IMAGE_WIDTH = 1600
 const OPTIMIZED_IMAGE_HEIGHT = 1200
 const WATERMARK_WIDTH_RATIO = 0.35
+
+function descriptionToRichText(description: string): Property['description'] {
+  const paragraphs = description
+    .split(/\n{2,}/)
+    .map((paragraph) => paragraph.trim())
+    .filter(Boolean)
+
+  if (paragraphs.length === 0) return null
+
+  return {
+    root: {
+      type: 'root',
+      children: paragraphs.map((paragraph) => ({
+        type: 'paragraph',
+        children: [
+          {
+            type: 'text',
+            text: paragraph,
+            detail: 0,
+            format: 0,
+            mode: 'normal',
+            style: '',
+            version: 1,
+          },
+        ],
+        direction: 'ltr' as const,
+        format: '' as const,
+        indent: 0,
+        textFormat: 0,
+        textStyle: '',
+        version: 1,
+      })),
+      direction: 'ltr' as const,
+      format: '' as const,
+      indent: 0,
+      version: 1,
+    },
+  }
+}
 
 // Upload image to temp file service and return the URL
 async function uploadToTempService(file: Blob, filename = 'img.webp'): Promise<string> {
@@ -207,6 +247,7 @@ export async function createProperty(formData: FormData) {
 
   const title = formData.get('title') as string
   const status = formData.get('status') as 'For Sale' | 'For Rent' | 'Sold' | 'Leased'
+  const description = descriptionToRichText((formData.get('description') as string) || '')
   const price = Number(formData.get('price'))
   const location = formData.get('location') as string
   const bedrooms = formData.get('bedrooms') ? Number(formData.get('bedrooms')) : undefined
@@ -227,6 +268,7 @@ export async function createProperty(formData: FormData) {
       data: {
         title,
         status,
+        description,
         price,
         location,
         bedrooms,
@@ -266,6 +308,7 @@ export async function updateProperty(id: string, formData: FormData) {
 
   const title = formData.get('title') as string
   const status = formData.get('status') as 'For Sale' | 'For Rent' | 'Sold' | 'Leased'
+  const description = descriptionToRichText((formData.get('description') as string) || '')
   const price = Number(formData.get('price'))
   const location = formData.get('location') as string
   const bedrooms = formData.get('bedrooms') ? Number(formData.get('bedrooms')) : undefined
@@ -290,6 +333,7 @@ export async function updateProperty(id: string, formData: FormData) {
       data: {
         title,
         status,
+        description,
         price,
         location,
         bedrooms,

@@ -24,6 +24,7 @@ type PropertyFormProps = {
   initialData?: {
     id: string
     title: string
+    description?: string | null
     status: 'For Sale' | 'For Rent' | 'Sold' | 'Leased'
     price: number
     location: string
@@ -234,6 +235,20 @@ export const PropertyForm: React.FC<PropertyFormProps> = ({ initialData, onSubmi
               placeholder="e.g., 2000"
             />
           </div>
+        </div>
+
+        <div className={styles.formGroup}>
+          <label htmlFor="description" className={styles.label}>
+            Description
+          </label>
+          <textarea
+            id="description"
+            name="description"
+            defaultValue={initialData?.description || ''}
+            className={styles.textarea}
+            placeholder="Describe the property, features, neighborhood, and highlights"
+            rows={6}
+          />
         </div>
 
         <div className={styles.formRow}>
