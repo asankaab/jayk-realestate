@@ -64,13 +64,13 @@ export const PropertyForm: React.FC<PropertyFormProps> = ({ initialData, onSubmi
     const files = e.target.files
     if (!files) return
 
-    const MAX_FILE_SIZE = 1 * 1024 * 1024 // 1MB in bytes
+    const MAX_FILE_SIZE = 2 * 1024 * 1024 // 2MB in bytes
     const newPreviews: { file: File; preview: string; processing: boolean }[] = []
 
     for (let i = 0; i < files.length; i++) {
       const file = files[i]
       if (file.size > MAX_FILE_SIZE) {
-        setError(`File "${file.name}" exceeds the 1MB size limit!`)
+        setError(`"${file.name}" exceeds the 2MB size limit!`)
         continue
       }
       const preview = URL.createObjectURL(file)
