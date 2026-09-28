@@ -1,0 +1,7 @@
+allowBuilds:
+  '@clerk/shared': false
+  bufferutil: false
+  esbuild: false
+  sharp: false
+  unrs-resolver: false
+  utf-8-validate: false
