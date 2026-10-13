@@ -43,6 +43,23 @@ export async function getWatchlist() {
   return properties.docs.sort((a, b) => ids.indexOf(a.id) - ids.indexOf(b.id))
 }
 
+export async function getPropertySaveCount(propertyId: number) {
+  if (!Number.isSafeInteger(propertyId) || propertyId <= 0) {
+    throw new Error('Invalid property request.')
+  }
+
+  // Return only the aggregate count; watchlist records remain owner-scoped.
+  const result = await payloadClient.find({
+    collection: 'watchlist',
+    where: { property: { equals: propertyId } },
+    depth: 0,
+    limit: 1,
+    overrideAccess: true,
+  })
+
+  return result.totalDocs
+}
+
 export async function setPropertySaved(propertyId: number, saved: boolean) {
   if (!Number.isSafeInteger(propertyId) || propertyId <= 0 || typeof saved !== 'boolean') {
     throw new Error('Invalid watchlist request.')

@@ -27,6 +27,13 @@
   opacity: 0.5;
   cursor: wait;
 }
+.count {
+  min-width: 1.25rem;
+  align-self: center;
+  color: var(--grey);
+  font-size: 0.875rem;
+  text-align: center;
+}
 .error {
   position: absolute;
   right: 0;
