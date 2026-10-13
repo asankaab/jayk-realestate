@@ -10,6 +10,7 @@ import { Users } from '@/collections/Users'
 import { Media } from '@/collections/Media'
 import { Properties } from '@/collections/Properties'
 import { Blog } from '@/collections/Blog'
+import { Watchlist } from '@/collections/Watchlist'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -35,7 +36,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Properties, Blog],
+  collections: [Users, Media, Properties, Blog, Watchlist],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

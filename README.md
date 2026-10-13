@@ -65,3 +65,11 @@ That's it! The Docker instance will help you get up and running quickly while al
 ## Questions
 
 If you have any issues or questions, reach out to us on [Discord](https://discord.com/invite/payload) or start a [GitHub discussion](https://github.com/payloadcms/payload/discussions).
+
+## Property watchlist
+
+Signed-in users can save or remove properties using the heart on cards and property details. The account menu links to /watchlist. Saves are private to the account and duplicate saves are prevented by a unique database index. Clerk accounts must have synced to the users collection through the existing webhook.
+
+For an existing production PostgreSQL database, run `pnpm payload migrate` before deploying this feature. The additive watchlist migration assumes the existing users and properties tables are present; it is not a full initial schema migration. Development uses Payload schema push as before. Do not apply the migration to a database where schema push has already created the watchlist table. Back up production before migrating; rolling back this migration deletes saved watchlist entries.
+
+Validation: `pnpm exec vitest run tests/int/watchlist.int.spec.ts` and `pnpm exec tsc --noEmit`.

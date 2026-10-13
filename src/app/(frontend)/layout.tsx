@@ -1,5 +1,6 @@
 import React from 'react'
 import Navbar from './components/Navbar'
+import { WatchlistProvider } from './components/WatchlistProvider'
 import './styles/main.css'
 import { Albert_Sans } from 'next/font/google'
 import RouteFooter from './components/RouteFooter'
@@ -34,9 +35,11 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
     >
       <html lang="en">
         <body className={albertSans.className}>
-          <Navbar />
-          <main>{children}</main>
-          <RouteFooter />
+          <WatchlistProvider>
+            <Navbar />
+            <main>{children}</main>
+            <RouteFooter />
+          </WatchlistProvider>
         </body>
       </html>
     </ClerkProvider>

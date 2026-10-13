@@ -3,7 +3,7 @@ import { PropertyForm } from '../PropertyForm'
 
 export default function AddPropertyPage() {
   return (
-    <div className="wrapper" style={{ paddingTop: '4rem', paddingBottom: '4rem' }}>
+    <div>
       <PropertyForm onSubmit={createProperty} title="Add New Property" />
     </div>
   )

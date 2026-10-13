@@ -71,6 +71,7 @@ export interface Config {
     media: Media;
     properties: Property;
     blog: Blog;
+    watchlist: Watchlist;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -82,6 +83,7 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     properties: PropertiesSelect<false> | PropertiesSelect<true>;
     blog: BlogSelect<false> | BlogSelect<true>;
+    watchlist: WatchlistSelect<false> | WatchlistSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -224,6 +226,18 @@ export interface Blog {
    * Brief summary of the blog post
    */
   excerpt: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "watchlist".
+ */
+export interface Watchlist {
+  id: number;
+  owner: number | User;
+  property: number | Property;
+  saveKey: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -376,6 +390,17 @@ export interface BlogSelect<T extends boolean = true> {
   category?: T;
   content?: T;
   excerpt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "watchlist_select".
+ */
+export interface WatchlistSelect<T extends boolean = true> {
+  owner?: T;
+  property?: T;
+  saveKey?: T;
   updatedAt?: T;
   createdAt?: T;
 }

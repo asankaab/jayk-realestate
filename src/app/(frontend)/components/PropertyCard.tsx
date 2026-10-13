@@ -3,7 +3,8 @@ import Link from 'next/link'
 import type { Media, Property } from '@/payload-types'
 import styles from './PropertyCard.module.css'
 import Button from './Button'
-import { Heart, Share2 } from 'lucide-react'
+import { Share2 } from 'lucide-react'
+import { WatchlistButton } from '@/app/(frontend)/components/WatchlistButton'
 import { Body, Heading3, Small } from './Text/Text'
 import Image from 'next/image'
 
@@ -62,9 +63,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
               View Details
             </Button>
             <div className={styles.actionContainer}>
-              <button className={styles.actionButton}>
-                <Heart /> 21
-              </button>
+              <WatchlistButton propertyId={property.id} />
               <button className={styles.actionButton}>
                 <Share2 size={16} />
               </button>

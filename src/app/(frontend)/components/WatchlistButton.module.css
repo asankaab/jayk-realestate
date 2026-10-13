@@ -1,0 +1,42 @@
+.container {
+  position: relative;
+  display: inline-flex;
+}
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  border: 0;
+  border-radius: 5px;
+  background: transparent;
+  color: var(--grey);
+  cursor: pointer;
+}
+.button:hover,
+.button[aria-pressed='true'] {
+  color: var(--primary-color);
+  background: var(--primary-shade);
+}
+.button:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+.button:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}
+.error {
+  position: absolute;
+  right: 0;
+  bottom: 100%;
+  width: 220px;
+  padding: 0.75rem;
+  background: var(--white-color);
+  color: #a31919;
+  border: 1px solid currentColor;
+  border-radius: 5px;
+  font-size: 0.875rem;
+  z-index: 5;
+}

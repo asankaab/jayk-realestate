@@ -35,7 +35,7 @@ export default async function DashboardPage() {
   }
 
   return (
-    <div className={`wrapper ${styles.dashboardContainer}`}>
+    <div>
       <div className={styles.header}>
         <Heading2>My Properties</Heading2>
         <Button href="/dashboard/add" color="accent">

@@ -1,0 +1,22 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+  gap: 2rem;
+}
+.empty {
+  text-align: center;
+  padding: 3rem 1rem;
+  background: var(--primary-shade);
+  border-radius: 12px;
+}
+.empty p {
+  margin-block: 1rem;
+}

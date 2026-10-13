@@ -5,7 +5,8 @@ import { ContactForm } from './ContactForm'
 import type { Media, Property } from '@/payload-types'
 import { payloadClient } from '@/app/lib/payloadClient'
 import { RichText } from '@/app/(frontend)/components/RichText/RichText'
-import { Heart, Share2 } from 'lucide-react'
+import { Share2 } from 'lucide-react'
+import { WatchlistButton } from '@/app/(frontend)/components/WatchlistButton'
 import { RevealEmail } from '@/app/(frontend)/components/RevealEmail'
 import styles from './ProductPage.module.css'
 import { PropertyListings } from '../../components/PropertyListings'
@@ -75,9 +76,7 @@ const PropertyDetailsPage = async ({ params }: { params: Promise<{ slug: string 
                   </div>
                 </div>
                 <div className={styles.actionsBar}>
-                  <button className={styles.actionButton}>
-                    <Heart size={20} />
-                  </button>
+                  <WatchlistButton propertyId={property.id} />
                   <button className={styles.actionButton}>
                     <Share2 size={20} />
                   </button>

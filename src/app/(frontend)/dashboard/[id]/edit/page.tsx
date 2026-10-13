@@ -50,7 +50,7 @@ export default async function EditPropertyPage({ params }: { params: Promise<{ i
   }
 
   return (
-    <div className="wrapper" style={{ paddingTop: '4rem', paddingBottom: '4rem' }}>
+    <div>
       <PropertyForm 
         onSubmit={updateProperty.bind(null, id)} 
         title="Edit Property" 

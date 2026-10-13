@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image'
+import { Heart } from 'lucide-react'
 import Link from 'next/link'
 import { useState, useEffect, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
@@ -98,6 +99,7 @@ const Navbar = () => {
                   ) : (
                     <UserButton>
                       <UserButton.MenuItems>
+                        <UserButton.Link label="Watchlist" href="/watchlist" labelIcon={<Heart size={16} />} />
                         <UserButton.Link
                           label="Dashboard"
                           href="/dashboard"
@@ -168,6 +170,7 @@ const Navbar = () => {
                   </div>
                 ) : (
                   <div className={styles.userProfileContainer}>
+                    <Button href="/watchlist" size="small" onClick={() => setIsOpen(false)}>My Watchlist</Button>
                     <Button
                       style={{ width: '100%', marginBottom: '0.5rem' }}
                       size="small"
