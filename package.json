@@ -57,17 +57,14 @@
     "vitest": "4.0.18"
   },
   "engines": {
-    "node": "^18.20.2 || >=20.9.0"
+    "node": "^18.20.2 || >=20.9.0",
+    "pnpm": "^9 || ^10"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
       "sharp",
       "esbuild",
       "unrs-resolver"
-    ],
-    "overrides": {
-      "@types/react": "19.2.14",
-      "@types/react-dom": "19.2.3"
-    }
+    ]
   }
 }
